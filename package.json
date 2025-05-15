@@ -1,7 +1,7 @@
 {
   "name": "school-of-happiness",
   "version": "0.1.0",
-  "homepage": "https://hiddenhopes.github.io/<your-repo-name>",
+  "homepage": "https://hiddenhopes.github.io/",
   "private": true,
   "dependencies": {
     "@react-three/drei": "^10.0.7",
