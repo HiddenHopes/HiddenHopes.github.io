@@ -33,17 +33,13 @@ function WavingFlag() {
         side={THREE.DoubleSide}
         transparent={false} />
     </mesh>
-      {/* Red circle on flag */}
-          {/* <mesh position={[0, 0, 0.001]}>
-            <circleGeometry args={[0.015, 32]} />
-            <meshStandardMaterial color="#f42a41" />
-          </mesh> */}
     </group>
-    
   )
 }
 
 function App() {
+  const moonTexture = useLoader(THREE.TextureLoader, '/moon-texture.jpg')
+
   return (
     <div
       style={{
@@ -53,7 +49,7 @@ function App() {
       }}
     >
       <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-        <fog attach="fog" args={['#090a0f', 10, 50]} />
+        <fog attach="fog" args={['#090a0f', 0, 15]} />
         <Stars
           radius={100}
           depth={50}
@@ -64,13 +60,18 @@ function App() {
           speed={1}
         />
         {/* Sun (light source) placed to the left */}
-        <pointLight position={[10, 0, 10]} intensity={500} color="#ddfbe6" />
+        <pointLight position={[2, 0, 13]} intensity={700} color="#ddfbe6" />
+
         {/* Optional: faint ambient light for soft shadows */}
         <ambientLight intensity={0.1} />
         {/* Moon: will show light on one side, shadow on the other */}
         <mesh position={[0, 0, 0]}>
           <sphereGeometry args={[1, 64, 64]} />
-          <meshStandardMaterial color="#cccccc" roughness={1} metalness={0.2} />
+          <meshStandardMaterial
+            map={moonTexture}
+            roughness={1}
+            metalness={0.2}
+          />
         </mesh>
         {/* Bangladesh flag on the moon */}
         <group position={[0.2, 1.01, 0]}>
