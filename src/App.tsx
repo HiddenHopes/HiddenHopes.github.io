@@ -82,7 +82,13 @@ function App() {
           {/* Flag */}
           <WavingFlag />
         </group>
-        <OrbitControls enableZoom={true} autoRotate autoRotateSpeed={0.1} />
+        <OrbitControls
+          enableZoom={true}
+          minDistance={2}
+          maxDistance={350}
+          autoRotate
+          autoRotateSpeed={0.1}
+        />
       </Canvas>
     </div>
   )
