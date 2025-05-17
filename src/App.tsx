@@ -1,45 +1,11 @@
 // src/App.tsx
-import React, { useRef } from 'react'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import React from 'react'
+import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls } from '@react-three/drei'
-import * as THREE from 'three'
-
-function WavingFlag() {
-  const mesh = useRef<THREE.Mesh>(null)
-  const texture = useLoader(THREE.TextureLoader, '/bangladesh-flag.png') // Place image in public/
-
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime()
-    if (mesh.current) {
-      const geometry = mesh.current.geometry as THREE.PlaneGeometry
-      const position = geometry.attributes.position
-      for (let i = 0; i < position.count; i+=1) {
-        const x = position.getX(i)
-        const y = position.getY(i)
-        // Waving effect: amplitude increases with y (top of flag waves more)
-        const wave = Math.sin(x * 30 + t * 4) * 0.01 * (y + 1)
-        position.setZ(i, wave)
-      }
-      position.needsUpdate = true
-      // geometry.computeVertexNormals()
-    }
-  })
-
-  return (
-    <group position={[0.045, 0.07, 0]}>
-      <mesh ref={mesh} position={[0, 0, 0]}>
-      <planeGeometry args={[0.08, 0.05, 16, 8]} />
-      <meshStandardMaterial map={texture}
-        side={THREE.DoubleSide}
-        transparent={false} />
-    </mesh>
-    </group>
-  )
-}
+import Moon from './components/Moon'
+import WavingFlag from './components/WavingFlag'
 
 function App() {
-  const moonTexture = useLoader(THREE.TextureLoader, '/moon-texture.jpg')
-
   return (
     <div
       style={{
@@ -59,30 +25,10 @@ function App() {
           fade
           speed={1}
         />
-        {/* Sun (light source) placed to the left */}
         <pointLight position={[2, 0, 13]} intensity={700} color="#ddfbe6" />
-
-        {/* Optional: faint ambient light for soft shadows */}
         <ambientLight intensity={0.1} />
-        {/* Moon: will show light on one side, shadow on the other */}
-        <mesh position={[0, 0, 0]}>
-          <sphereGeometry args={[1, 64, 64]} />
-          <meshStandardMaterial
-            map={moonTexture}
-            roughness={1}
-            metalness={0.2}
-          />
-        </mesh>
-        {/* Bangladesh flag on the moon */}
-        <group position={[0.2, 1.01, 0]}>
-          {/* Flag pole */}
-          <mesh>
-            <boxGeometry args={[0.01, 0.2, 0.01]} />
-            <meshStandardMaterial color="#888888" />
-          </mesh>
-          {/* Flag */}
-          <WavingFlag />
-        </group>
+        <Moon textureUrl="/moon-texture.jpg" />
+        <WavingFlag />
         <OrbitControls
           enableZoom={true}
           minDistance={2}
