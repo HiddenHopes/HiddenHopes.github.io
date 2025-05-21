@@ -6,6 +6,9 @@ import Moon from './components/Moon'
 import WavingFlag from './components/WavingFlag'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Parachute from './components/Parachute'
+import AirBalloon from './components/AirBalloon'
+import RealAirBalloon from './components/RealAirBalloon'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -84,12 +87,15 @@ function App() {
                 mieCoefficient={0.005}
                 mieDirectionalG={0.7}
               />
-              <ambientLight intensity={0.8} />
+              <ambientLight intensity={1.2} />
               <directionalLight
                 position={[5, 10, 5]}
-                intensity={1}
-                color="#ffffff"
+                intensity={1.5}
+                color="#fffbe6"
               />
+              {/* <Parachute /> */}
+              {/* <AirBalloon /> */}
+              <RealAirBalloon />
               {/* <Cloud position={[-6, 1.5, -5]} speed={0.2} opacity={0.8} />
               <Cloud position={[1, 2, -5]} speed={0.15} opacity={0.7} />
               <Cloud position={[14, 1, -4]} speed={0.18} opacity={0.75} /> */}
