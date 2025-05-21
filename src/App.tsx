@@ -1,8 +1,7 @@
 // src/App.tsx
 import React, { useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls, Sky, Cloud } from '@react-three/drei'
-import * as THREE from 'three'
 import Moon from './components/Moon'
 import WavingFlag from './components/WavingFlag'
 import Header from './components/Header'
@@ -13,8 +12,18 @@ function App() {
   const handleThemeToggle = () => setIsNight((prev) => !prev)
 
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
-      <Header />
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
+        background: isNight
+          ? 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)'
+          : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
+      }}
+    >
+      <Header isNight={isNight} />
       {/* Theme Toggle Button */}
       <button
         onClick={handleThemeToggle}
@@ -24,12 +33,14 @@ function App() {
           right: 30,
           zIndex: 20,
           padding: '0.5rem 1rem',
-          background: isNight ? '#222' : '#eee',
+          background: isNight ? '#222' : '#fff',
           color: isNight ? '#fff' : '#222',
-          border: 'none',
+          border: '1px solid #ddd',
           borderRadius: 8,
           cursor: 'pointer',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+          boxShadow: isNight
+            ? '0 2px 8px rgba(0,0,0,0.15)'
+            : '0 2px 8px rgba(0,0,0,0.05)'
         }}
       >
         Switch to {isNight ? 'Day' : 'Night'} Mode
@@ -38,13 +49,10 @@ function App() {
         style={{
           width: '100vw',
           height: '100vh',
-          background: isNight
-            ? 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)'
-            : '#87CEEB' // sky blue for day
+          background: 'transparent'
         }}
       >
-        <Canvas camera={{ position: [0, 0, 5], fov: 75  }} gl={{ alpha: true }} style={{ background: 'transparent' }} >
-          {/* Night: stars, moon, flag */}
+        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
           {isNight ? (
             <>
               <fog attach="fog" args={['#090a0f', 0, 15]} />
@@ -67,18 +75,14 @@ function App() {
               <WavingFlag />
             </>
           ) : (
-            // Day: realistic sky and clouds
             <>
-            <color attach="background" args={["#87CEEB"]} />
               <Sky
                 sunPosition={[10, 5, 10]}  // Increased sun position for brighter sky
                 distance={1000}  // Increased distance
                 turbidity={2}     // Lower values make the sky clearer
                 rayleigh={0.3}      // Higher values make the sky bluer
-                mieCoefficient={0.003}
+                mieCoefficient={0.005}
                 mieDirectionalG={0.7}
-                inclination={0.5} // Sun position
-                azimuth={0.25}     // Sun position
               />
               <ambientLight intensity={0.8} />
               <directionalLight
@@ -86,9 +90,9 @@ function App() {
                 intensity={1}
                 color="#ffffff"
               />
-              <Cloud position={[-6, 1.5, -5]} speed={0.2} opacity={0.8} />
+              {/* <Cloud position={[-6, 1.5, -5]} speed={0.2} opacity={0.8} />
               <Cloud position={[1, 2, -5]} speed={0.15} opacity={0.7} />
-              <Cloud position={[14, 1, -4]} speed={0.18} opacity={0.75} />
+              <Cloud position={[14, 1, -4]} speed={0.18} opacity={0.75} /> */}
             </>
           )}
           <OrbitControls
@@ -100,7 +104,7 @@ function App() {
           />
         </Canvas>
       </div>
-      <Footer />
+      <Footer isNight={isNight} />
     </div>
   )
 }
