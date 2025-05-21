@@ -3,11 +3,15 @@ import { useFrame, useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three'
 
-// List of air balloon GLB files in your public folder
 const BALLOON_MODELS = [
   '/balloon1.glb',
   '/balloon2.glb'
 ]
+
+// Standard R3F way to preload:
+BALLOON_MODELS.forEach((model) => {
+  useLoader.preload(GLTFLoader, model)
+})
 
 function getRandomFromArray<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
