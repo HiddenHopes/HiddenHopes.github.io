@@ -12,10 +12,12 @@ import RealAirBalloon from './components/RealAirBalloon'
 import Satellite from './components/Satellite'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { FaGamepad } from 'react-icons/fa'
+import TicTacToe3D from './components/TicTacToe3D'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
   const [showGameMenu, setShowGameMenu] = useState(false)
+  const [showTicTacToe, setShowTicTacToe] = useState(false)
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
 
@@ -88,7 +90,10 @@ function App() {
             }}
           >
             <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
-              onClick={() => alert('TicTacToe coming soon!')}
+              onClick={() => {
+                setShowTicTacToe(!showTicTacToe)
+                setShowGameMenu(false)
+              }}
               onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
               onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
             >
@@ -198,9 +203,17 @@ function App() {
                 color="#ddfbe6"
               />
               <ambientLight intensity={0.1} />
-              <Moon textureUrl="/moon-texture.jpg" />
-              <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
-              <WavingFlag />
+              {/* Show 3D TicTacToe board in the world */}
+              {showTicTacToe ? (
+                <group position={[0, 0, 0]}>
+                  <TicTacToe3D />
+                </group>
+              ) : (
+                <><Moon textureUrl="/moon-texture.jpg" />
+                  <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
+                  <WavingFlag /></>
+              )
+              }
             </>
           ) : (
             <>

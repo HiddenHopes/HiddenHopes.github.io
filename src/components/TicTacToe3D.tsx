@@ -1,0 +1,186 @@
+import React, { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
+import { Html } from '@react-three/drei'
+
+const BOARD_SIZE = 3
+
+function checkWinner(board: string[][]) {
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    if (board[i][0] && board[i][0] === board[i][1] && board[i][1] === board[i][2])
+      return board[i][0]
+    if (board[0][i] && board[0][i] === board[1][i] && board[1][i] === board[2][i])
+      return board[0][i]
+  }
+  if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2])
+    return board[0][0]
+  if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0])
+    return board[0][2]
+  return null
+}
+
+function getEmptyCells(board: string[][]) {
+  const cells: [number, number][] = []
+  for (let i = 0; i < BOARD_SIZE; i++)
+    for (let j = 0; j < BOARD_SIZE; j++)
+      if (!board[i][j]) cells.push([i, j])
+  return cells
+}
+
+function computerMove(board: string[][]) {
+  const empty = getEmptyCells(board)
+  if (empty.length === 0) return board
+  const [i, j] = empty[Math.floor(Math.random() * empty.length)]
+  const newBoard = board.map(row => [...row])
+  newBoard[i][j] = 'O'
+  return newBoard
+}
+
+// 3D Cross
+function Cross3D() {
+  return (
+    <group>
+      <mesh>
+        <boxGeometry args={[0.6, 0.12, 0.12]} />
+        <meshStandardMaterial
+          color="#51ff8b"
+          emissive="#51ff8b"
+          emissiveIntensity={0.3}
+        />
+      </mesh>
+      <mesh rotation={[0, 0, Math.PI / 2]}>
+        <boxGeometry args={[0.6, 0.12, 0.12]} />
+        <meshStandardMaterial
+          color="#51ff8b"
+          emissive="#51ff8b"
+          emissiveIntensity={0.3}
+        />
+      </mesh>
+    </group>
+  )
+}
+
+// 3D Ring (O)
+function Ring3D() {
+  return (
+    <mesh>
+      <torusGeometry args={[0.28, 0.09, 24, 64]} />
+      <meshStandardMaterial
+        color="#ffa751"
+        emissive="#ffa751"
+        emissiveIntensity={0.3}
+      />
+    </mesh>
+  )
+}
+
+// 3D Board
+function Board3D() {
+  return (
+    <mesh receiveShadow position={[0, 0, -0.18]}>
+      <boxGeometry args={[3.1, 3.1, 0.3]} />
+      <meshStandardMaterial
+        color="#232946"
+        metalness={0.2}
+        roughness={0.7}
+      />
+    </mesh>
+  )
+}
+
+// 3D Grid lines
+function GridLines3D() {
+  const lines = []
+  for (let i = 1; i < BOARD_SIZE; i++) {
+    // Vertical
+    lines.push(
+      <mesh key={`v${i}`} position={[-1.5 + i, 0, 0.01]}>
+        <boxGeometry args={[0.06, 3, 0.04]} />
+        <meshStandardMaterial color="#b3e0ff" />
+      </mesh>
+    )
+    // Horizontal
+    lines.push(
+      <mesh key={`h${i}`} position={[0, -1.5 + i, 0.01]}>
+        <boxGeometry args={[3, 0.06, 0.04]} />
+        <meshStandardMaterial color="#b3e0ff" />
+      </mesh>
+    )
+  }
+  return <group>{lines}</group>
+}
+
+const TicTacToe3D: React.FC = () => {
+  const [board, setBoard] = useState<string[][]>(
+    Array(BOARD_SIZE)
+      .fill(null)
+      .map(() => Array(BOARD_SIZE).fill(''))
+  )
+  const [turn, setTurn] = useState<'X' | 'O'>('X')
+  const winner = checkWinner(board)
+  const isDraw = !winner && getEmptyCells(board).length === 0
+
+  // Computer move
+  React.useEffect(() => {
+    if (turn === 'O' && !winner && !isDraw) {
+      setTimeout(() => {
+        setBoard(b => computerMove(b))
+        setTurn('X')
+      }, 600)
+    }
+  }, [turn, winner, isDraw])
+
+  function handleCellClick(i: number, j: number) {
+    if (board[i][j] || winner || turn !== 'X') return
+    const newBoard = board.map(row => [...row])
+    newBoard[i][j] = 'X'
+    setBoard(newBoard)
+    setTurn('O')
+  }
+
+  return (
+    <group position={[0, 0, 0]}>
+      <Board3D />
+      <GridLines3D />
+      {/* Cells */}
+      {[0, 1, 2].map(i =>
+        [0, 1, 2].map(j => (
+          <group key={i + '-' + j} position={[j - 1, 1 - i, 0]}>
+            {/* Clickable area */}
+            <mesh
+              onClick={() => handleCellClick(i, j)}
+              position={[0, 0, 0.16]}
+              visible={!board[i][j] && !winner}
+            >
+              <boxGeometry args={[0.92, 0.92, 0.1]} />
+              <meshStandardMaterial
+                color="#e3f6ff"
+                opacity={0.15}
+                transparent
+              />
+            </mesh>
+            {/* X or O */}
+            {board[i][j] === 'X' && <Cross3D />}
+            {board[i][j] === 'O' && <Ring3D />}
+          </group>
+        ))
+        )}  
+      {/* Floating status text above the board */}
+      <mesh position={[0, 2.2, 0.3]}>
+        <planeGeometry args={[2.8, 0.5]} />
+        <meshBasicMaterial color="black" transparent opacity={0.6} />
+      </mesh>
+      <Html position={[0, 2.2, 0.31]} center style={{ color: '#fff', fontSize: 22, fontWeight: 600, textAlign: 'center' }}>
+        {winner
+          ? winner === 'X'
+            ? 'You Win! 🎉'
+            : 'Computer Wins! 🤖'
+          : isDraw
+          ? 'Draw!'
+          : 'Your Turn'}
+      </Html>
+    </group>
+  )
+}
+
+export default TicTacToe3D
