@@ -28,16 +28,18 @@ function App() {
       }}
     >
       <Header isNight={isNight} />
-      {/* Theme Toggle Button with Icon and Tooltip */}
+      {/* Animated Theme Toggle Button */}
       <button
         onClick={handleThemeToggle}
         title={`Switch to ${isNight ? 'Day' : 'Night'} mode`}
+        className={`theme-toggle-btn ${isNight ? 'night' : 'day'}`}
         style={{
           position: 'fixed',
           top: 80,
           right: 30,
           zIndex: 20,
-          padding: '0.6rem 1rem',
+          width: 56,
+          height: 56,
           background: isNight
             ? 'linear-gradient(135deg, #232946 0%, #1b2735 100%)'
             : 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)',
@@ -45,18 +47,40 @@ function App() {
           border: 'none',
           borderRadius: '50%',
           cursor: 'pointer',
-          boxShadow: isNight
-            ? '0 2px 12px rgba(35,41,70,0.25)'
-            : '0 2px 12px rgba(255,226,89,0.15)',
+
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '1.5rem',
-          transition: 'background 0.3s, color 0.3s'
+          fontSize: '2rem',
+          transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
+          animation: isNight
+            ? 'nightGlow 2s infinite alternate'
+            : 'dayGlow 2s infinite alternate'
         }}
       >
-        {isNight ? <FaSun /> : <FaMoon />}
+        <span
+          style={{
+            transition: 'transform 0.5s',
+            transform: isNight ? 'rotate(0deg)' : 'rotate(180deg)',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          {isNight ? <FaMoon /> : <FaSun />}
+        </span>
       </button>
+      <style>
+        {`
+          .theme-toggle-btn.night:hover {
+            box-shadow: 0 0 32px 8px #ffe259cc, 0 4px 24px #b3e0ff88;
+          }
+          .theme-toggle-btn.day:hover {
+
+            box-shadow: 0 0 32px 8px #ffe259cc, 0 4px 24px #b3e0ff88;
+          }
+
+        `}
+      </style>
       <div
         style={{
           width: '100vw',
@@ -89,10 +113,10 @@ function App() {
           ) : (
             <>
               <Sky
-                sunPosition={[10, 5, 10]}  // Increased sun position for brighter sky
-                distance={1000}  // Increased distance
-                turbidity={2}     // Lower values make the sky clearer
-                rayleigh={0.3}      // Higher values make the sky bluer
+                sunPosition={[10, 5, 10]}
+                distance={1000}
+                turbidity={2}
+                rayleigh={0.3}
                 mieCoefficient={0.005}
                 mieDirectionalG={0.7}
               />
@@ -102,12 +126,7 @@ function App() {
                 intensity={1.5}
                 color="#fffbe6"
               />
-              {/* <Parachute /> */}
-              {/* <AirBalloon /> */}
               <RealAirBalloon />
-              {/* <Cloud position={[-6, 1.5, -5]} speed={0.2} opacity={0.8} />
-              <Cloud position={[1, 2, -5]} speed={0.15} opacity={0.7} />
-              <Cloud position={[14, 1, -4]} speed={0.18} opacity={0.75} /> */}
             </>
           )}
           <OrbitControls

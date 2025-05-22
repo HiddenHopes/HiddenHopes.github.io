@@ -16,11 +16,13 @@ const Header: React.FC<HeaderProps> = ({ isNight }) => (
       background: isNight
         ? 'linear-gradient(90deg,rgb(28, 89, 158) 0%,rgb(1, 3, 37) 100%)'
         : 'linear-gradient(90deg,rgb(247, 248, 248) 0%,rgb(140, 203, 245) 100%)',
-      color: isNight ? '#fff' : '#222',
+      color: isNight ? '#fff' : '#232946',
       boxShadow: isNight
         ? '0 2px 8px rgba(0,0,0,0.15)'
         : '0 2px 8px rgba(0,0,0,0.05)',
-      transition: 'background 0.3s, color 0.3s'
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
+      transition: 'background 0.5s, color 0.5s, box-shadow 0.5s'
     }}
   >
     <Navbar isNight={isNight} />
