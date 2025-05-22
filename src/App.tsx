@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import Parachute from './components/Parachute'
 import AirBalloon from './components/AirBalloon'
 import RealAirBalloon from './components/RealAirBalloon'
+import { FaMoon, FaSun } from 'react-icons/fa'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -22,31 +23,39 @@ function App() {
         position: 'relative',
         overflow: 'hidden',
         background: isNight
-          ? 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)'
+          ? 'radial-gradient(ellipse at 50% 80%,rgb(24, 55, 133) 0%, #090a0f 100%)'
           : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
       }}
     >
       <Header isNight={isNight} />
-      {/* Theme Toggle Button */}
+      {/* Theme Toggle Button with Icon and Tooltip */}
       <button
         onClick={handleThemeToggle}
+        title={`Switch to ${isNight ? 'Day' : 'Night'} mode`}
         style={{
           position: 'fixed',
           top: 80,
           right: 30,
           zIndex: 20,
-          padding: '0.5rem 1rem',
-          background: isNight ? '#222' : '#fff',
-          color: isNight ? '#fff' : '#222',
-          border: '1px solid #ddd',
-          borderRadius: 8,
+          padding: '0.6rem 1rem',
+          background: isNight
+            ? 'linear-gradient(135deg, #232946 0%, #1b2735 100%)'
+            : 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)',
+          color: isNight ? '#ffe259' : '#232946',
+          border: 'none',
+          borderRadius: '50%',
           cursor: 'pointer',
           boxShadow: isNight
-            ? '0 2px 8px rgba(0,0,0,0.15)'
-            : '0 2px 8px rgba(0,0,0,0.05)'
+            ? '0 2px 12px rgba(35,41,70,0.25)'
+            : '0 2px 12px rgba(255,226,89,0.15)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          transition: 'background 0.3s, color 0.3s'
         }}
       >
-        Switch to {isNight ? 'Day' : 'Night'} Mode
+        {isNight ? <FaSun /> : <FaMoon />}
       </button>
       <div
         style={{

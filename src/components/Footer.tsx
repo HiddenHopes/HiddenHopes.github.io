@@ -8,7 +8,9 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => (
   <footer
     style={{
       width: '100%',
-      background: isNight ? 'rgba(20,30,40,0.95)' : 'rgba(255,255,255,0.95)',
+      background: isNight
+        ? 'linear-gradient(90deg,rgb(28, 89, 158) 0%,rgb(1, 3, 37) 100%)'
+        : 'linear-gradient(90deg,rgb(247, 248, 248) 0%,rgb(140, 203, 245) 100%)',
       color: isNight ? '#fff' : '#222',
       textAlign: 'center',
       padding: '1rem 0',
@@ -18,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => (
       zIndex: 10,
       fontSize: '0.95rem',
       boxShadow: isNight
-        ? '0 -2px 8px rgba(0,0,0,0.1)'
+        ? '0 -2px 8px rgba(0,0,0,0.15)'
         : '0 -2px 8px rgba(0,0,0,0.05)',
       transition: 'background 0.3s, color 0.3s'
     }}
