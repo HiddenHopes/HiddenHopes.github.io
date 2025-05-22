@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import Parachute from './components/Parachute'
 import AirBalloon from './components/AirBalloon'
 import RealAirBalloon from './components/RealAirBalloon'
+import Satellite from './components/Satellite'
 import { FaMoon, FaSun } from 'react-icons/fa'
 
 function App() {
@@ -108,6 +109,7 @@ function App() {
               />
               <ambientLight intensity={0.1} />
               <Moon textureUrl="/moon-texture.jpg" />
+              <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
               <WavingFlag />
             </>
           ) : (
