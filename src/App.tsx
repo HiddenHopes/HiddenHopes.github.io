@@ -15,6 +15,7 @@ import { FaGamepad } from 'react-icons/fa'
 import TicTacToe3D from './components/TicTacToe3D'
 import Aurora from './components/Aurora'
 import Nebula from './components/Nebula'
+import { ShootingStarsField } from './components/ShootingStar'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -215,6 +216,8 @@ function App() {
                   {/* Nebulae */}
                   <Nebula position={[-3, 2, -10]} color1="#8ef6e4" color2="#a084ee" />
                   {/* <Nebula position={[3, 1.5, -12]} color1="#fcb1b1" color2="#f7d060" opacity={0.35} scale={[6,2.5,1]} /> */}
+                  {/* Shooting Stars */}
+                  {/* <ShootingStarsField count={2} /> */}
                 </>
               )}
             </>

@@ -20,6 +20,12 @@ const Satellite: React.FC<SatelliteProps> = ({
 }) => {
   const group = useRef<THREE.Group>(null)
   const gltf = useLoader(GLTFLoader, modelPath)
+  const [blink, setBlink] = React.useState(true)
+
+  React.useEffect(() => {
+    const interval = setInterval(() => setBlink(b => !b), 500)
+    return () => clearInterval(interval)
+  }, [])
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * speed
@@ -35,6 +41,12 @@ const Satellite: React.FC<SatelliteProps> = ({
   return (
     <group ref={group}>
       <primitive object={gltf.scene} scale={0.05} />
+      {blink && (
+        <mesh position={[0.06, 0.14, 0.04]}>
+          <sphereGeometry args={[0.007, 12, 12]} />
+          <meshBasicMaterial color="#ff3b3b" />
+        </mesh>
+      )}
     </group>
   )
 }
