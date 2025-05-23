@@ -1,7 +1,7 @@
 // src/App.tsx
 import React, { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Stars, OrbitControls, Sky, Cloud } from '@react-three/drei'
+import { Stars, OrbitControls, Sky, Cloud, Sparkles } from '@react-three/drei'
 import Moon from './components/Moon'
 import WavingFlag from './components/WavingFlag'
 import Header from './components/Header'
@@ -209,6 +209,7 @@ function App() {
                   <Moon textureUrl="/moon-texture.jpg" />
                   <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
                   <WavingFlag />
+                  <Sparkles count={30} scale={10} size={2} color="#fffbe6" speed={0.5} />
                 </>
               }
             </>
