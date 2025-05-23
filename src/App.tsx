@@ -204,15 +204,12 @@ function App() {
               />
               <ambientLight intensity={0.1} />
               {/* Show 3D TicTacToe board in the world */}
-              {showTicTacToe ? (
-                <group position={[0, 0, 0]}>
-                  <TicTacToe3D />
-                </group>
-              ) : (
-                <><Moon textureUrl="/moon-texture.jpg" />
+              {!showTicTacToe &&
+                <>
+                  <Moon textureUrl="/moon-texture.jpg" />
                   <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
-                  <WavingFlag /></>
-              )
+                  <WavingFlag />
+                </>
               }
             </>
           ) : (
@@ -231,9 +228,17 @@ function App() {
                 intensity={1.5}
                 color="#fffbe6"
               />
-              <RealAirBalloon />
+              {!showTicTacToe &&
+                <RealAirBalloon />
+              }
             </>
           )}
+          {
+            showTicTacToe &&
+            <group position={[0, 0, 0]}>
+              <TicTacToe3D onClose={() => setShowTicTacToe(false)} />
+            </group>
+          }
           <OrbitControls
             enableZoom={true}
             minDistance={2}

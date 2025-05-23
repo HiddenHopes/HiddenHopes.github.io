@@ -110,7 +110,12 @@ function GridLines3D() {
   return <group>{lines}</group>
 }
 
-const TicTacToe3D: React.FC = () => {
+// Add prop type for extensibility
+interface TicTacToe3DProps {
+  onClose?: () => void;
+}
+
+const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
   const [board, setBoard] = useState<string[][]>(
     Array(BOARD_SIZE)
       .fill(null)
@@ -140,6 +145,33 @@ const TicTacToe3D: React.FC = () => {
 
   return (
     <group position={[0, 0, 0]}>
+      {/* Close Button */}
+      {onClose && (
+        <Html position={[1.7, 2.5, 0.35]} center style={{ pointerEvents: 'auto' }}>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'rgba(30,30,30,0.85)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '50%',
+              width: 36,
+              height: 36,
+              fontSize: 22,
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10
+            }}
+            aria-label="Close game"
+          >
+            ×
+          </button>
+        </Html>
+      )}
       <Board3D />
       <GridLines3D />
       {/* Cells */}
