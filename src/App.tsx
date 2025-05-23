@@ -13,6 +13,8 @@ import Satellite from './components/Satellite'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { FaGamepad } from 'react-icons/fa'
 import TicTacToe3D from './components/TicTacToe3D'
+import Aurora from './components/Aurora'
+import Nebula from './components/Nebula'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -204,14 +206,17 @@ function App() {
               />
               <ambientLight intensity={0.1} />
               {/* Show 3D TicTacToe board in the world */}
-              {!showTicTacToe &&
+              {!showTicTacToe && (
                 <>
                   <Moon textureUrl="/moon-texture.jpg" />
                   <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
                   <WavingFlag />
                   <Sparkles count={30} scale={10} size={2} color="#fffbe6" speed={0.5} />
+                  {/* Nebulae */}
+                  <Nebula position={[-3, 2, -10]} color1="#8ef6e4" color2="#a084ee" />
+                  {/* <Nebula position={[3, 1.5, -12]} color1="#fcb1b1" color2="#f7d060" opacity={0.35} scale={[6,2.5,1]} /> */}
                 </>
-              }
+              )}
             </>
           ) : (
             <>
