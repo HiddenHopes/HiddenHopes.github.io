@@ -10,6 +10,7 @@ function App() {
   const [showGameMenu, setShowGameMenu] = useState(false)
   const [showTicTacToe, setShowTicTacToe] = useState(false)
   const [showDrawing, setShowDrawing] = useState(false)
+  const [showFootball, setShowFootball] = useState(false)
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
 
@@ -34,11 +35,19 @@ function App() {
           setShowTicTacToe(!showTicTacToe)
           setShowGameMenu(false)
           setShowDrawing(false)
+          setShowFootball(false)
         }}
         onDrawingClick={() => {
           setShowDrawing(true)
           setShowGameMenu(false)
           setShowTicTacToe(false)
+          setShowFootball(false)
+        }}
+        onFootballClick={() => {
+          setShowFootball(true)
+          setShowGameMenu(false)
+          setShowTicTacToe(false)
+          setShowDrawing(false)
         }}
       />
       {/* Main 3D/Canvas body */}
@@ -48,6 +57,8 @@ function App() {
         setShowTicTacToe={setShowTicTacToe}
         showDrawing={showDrawing}
         setShowDrawing={setShowDrawing}
+        showFootball={showFootball}
+        setShowFootball={setShowFootball}
       />
       <Footer isNight={isNight} />
     </div>

@@ -7,6 +7,7 @@ interface GameComponentProps {
   onGameMenuToggle: () => void
   onTicTacToeClick: () => void
   onDrawingClick?: () => void // add prop for drawing
+  onFootballClick?: () => void // add prop for football
 }
 
 const GameComponent: React.FC<GameComponentProps> = ({
@@ -14,7 +15,8 @@ const GameComponent: React.FC<GameComponentProps> = ({
   showGameMenu,
   onGameMenuToggle,
   onTicTacToeClick,
-  onDrawingClick
+  onDrawingClick,
+  onFootballClick
 }) => (
   <div style={{ position: 'fixed', top: 80, left: 30, zIndex: 30 }}>
     <button
@@ -92,7 +94,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
           🏏 Cricket
         </div>
         <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
-          onClick={() => alert('Football coming soon!')}
+          onClick={onFootballClick}
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >

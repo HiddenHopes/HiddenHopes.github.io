@@ -12,6 +12,7 @@ import Aurora from './Aurora'
 import Nebula from './Nebula'
 import { ShootingStarsField } from './ShootingStar'
 import Drawing from './Drawing'
+import FootballPenalty3D from './FootballPenalty3D'
 
 interface MainBodyProps {
   isNight: boolean
@@ -19,9 +20,11 @@ interface MainBodyProps {
   setShowTicTacToe: (show: boolean) => void
   showDrawing?: boolean
   setShowDrawing?: (show: boolean) => void
+  showFootball?: boolean
+  setShowFootball?: (show: boolean) => void
 }
 
-const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicTacToe, showDrawing, setShowDrawing }) => {
+const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicTacToe, showDrawing, setShowDrawing, showFootball, setShowFootball }) => {
   // If showDrawing/setShowDrawing are not provided, fallback to local state (for backward compatibility)
   const [internalShowDrawing, internalSetShowDrawing] = React.useState(false)
   const drawingOpen = showDrawing !== undefined ? showDrawing : internalShowDrawing
@@ -30,6 +33,11 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
   // Expose setShowDrawing to window for quick test (remove in prod)
   // @ts-ignore
   window.setShowDrawing = setShowDrawing
+
+  const [internalShowFootball, internalSetShowFootball] = React.useState(false)
+  const footballOpen = showFootball !== undefined ? showFootball : internalShowFootball
+  const setFootballOpen = setShowFootball || internalSetShowFootball
+  React.useEffect(() => { if (showTicTacToe || drawingOpen) setFootballOpen(false) }, [showTicTacToe, drawingOpen])
 
   return (
     <div
@@ -59,7 +67,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
             />
             <ambientLight intensity={0.2} />
             {/* Show 3D TicTacToe board in the world */}
-            {!showTicTacToe && (
+            {!showTicTacToe && !showFootball && (
               <>
                 <Moon textureUrl="/moon-texture.jpg" />
                 <Satellite moonPosition={[0, 0, 0]} modelPath="/satellite.glb" />
@@ -98,6 +106,12 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
           showTicTacToe &&
           <group position={[0, 0, 0]}>
             <TicTacToe3D onClose={() => setShowTicTacToe(false)} />
+          </group>
+        }
+        {
+          footballOpen &&
+          <group position={[0, 0, 0]}>
+            <FootballPenalty3D onClose={() => setFootballOpen(false)} />
           </group>
         }
         <OrbitControls
