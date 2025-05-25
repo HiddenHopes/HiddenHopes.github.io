@@ -27,10 +27,41 @@ function getEmptyCells(board: string[][]) {
   return cells
 }
 
+// Minimax with depth limit for adjustable difficulty
 function computerMove(board: string[][]) {
-  const empty = getEmptyCells(board)
-  if (empty.length === 0) return board
-  const [i, j] = empty[Math.floor(Math.random() * empty.length)]
+  const MAX_DEPTH = 2; // Increase for harder, decrease for easier (2-3 is medium, 4+ is hard)
+  // Minimax AI for TicTacToe (hard to beat)
+  function minimax(board: string[][], isMaximizing: boolean, depth: number): { score: number, move?: [number, number] } {
+    const winner = checkWinner(board)
+    if (winner === 'O') return { score: 1 }
+    if (winner === 'X') return { score: -1 }
+    if (getEmptyCells(board).length === 0) return { score: 0 }
+    if (depth >= MAX_DEPTH) return { score: 0 } // Stop search at depth
+
+    let bestScore = isMaximizing ? -Infinity : Infinity
+    let bestMove: [number, number] | undefined = undefined
+    for (const [i, j] of getEmptyCells(board)) {
+      const newBoard = board.map(row => [...row])
+      newBoard[i][j] = isMaximizing ? 'O' : 'X'
+      const { score } = minimax(newBoard, !isMaximizing, depth + 1)
+      if (isMaximizing) {
+        if (score > bestScore) {
+          bestScore = score
+          bestMove = [i, j]
+        }
+      } else {
+        if (score < bestScore) {
+          bestScore = score
+          bestMove = [i, j]
+        }
+      }
+    }
+    return { score: bestScore, move: bestMove }
+  }
+
+  const result = minimax(board, true, 0)
+  if (!result.move) return board
+  const [i, j] = result.move
   const newBoard = board.map(row => [...row])
   newBoard[i][j] = 'O'
   return newBoard
@@ -125,6 +156,12 @@ const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
   const winner = checkWinner(board)
   const isDraw = !winner && getEmptyCells(board).length === 0
 
+  // Restart handler
+  function handleRestart() {
+    setBoard(Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill('')))
+    setTurn('X')
+  }
+
   // Computer move
   React.useEffect(() => {
     if (turn === 'O' && !winner && !isDraw) {
@@ -145,9 +182,9 @@ const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* Close Button */}
-      {onClose && (
-        <Html position={[1.7, 2.5, 0.35]} center style={{ pointerEvents: 'auto' }}>
+      {/* Close and Restart Buttons */}
+      <Html position={[1.7, 2.5, 0.35]} center style={{ pointerEvents: 'auto', display: 'flex', gap: 8 }}>
+        {onClose && (
           <button
             onClick={onClose}
             style={{
@@ -170,8 +207,31 @@ const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
           >
             ×
           </button>
-        </Html>
-      )}
+        )}
+        <button
+          onClick={handleRestart}
+          style={{
+            background: 'rgba(30,30,30,0.85)',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '50%',
+            width: 36,
+            height: 36,
+            fontSize: 18,
+            fontWeight: 700,
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10
+          }}
+          aria-label="Restart game"
+          title="Restart"
+        >
+          ↻
+        </button>
+      </Html>
       <Board3D />
       <GridLines3D />
       {/* Cells */}
