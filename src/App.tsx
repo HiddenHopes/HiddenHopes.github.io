@@ -36,7 +36,7 @@ function App() {
           : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
       }}
     >
-      <Header isNight={isNight} />
+      <Header isNight={isNight} onThemeToggle={handleThemeToggle} />
       {/* Game Button */}
       <div style={{ position: 'fixed', top: 80, left: 30, zIndex: 30 }}>
         <button
@@ -127,59 +127,7 @@ function App() {
           `}
         </style>
       </div>
-      {/* Animated Theme Toggle Button */}
-      <button
-        onClick={handleThemeToggle}
-        title={`Switch to ${isNight ? 'Day' : 'Night'} mode`}
-        className={`theme-toggle-btn ${isNight ? 'night' : 'day'}`}
-        style={{
-          position: 'fixed',
-          top: 80,
-          right: 30,
-          zIndex: 20,
-          width: 56,
-          height: 56,
-          background: isNight
-            ? 'linear-gradient(135deg, #232946 0%, #1b2735 100%)'
-            : 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)',
-          color: isNight ? '#ffe259' : '#232946',
-          border: 'none',
-          borderRadius: '50%',
-          cursor: 'pointer',
-
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '2rem',
-          transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
-          animation: isNight
-            ? 'nightGlow 2s infinite alternate'
-            : 'dayGlow 2s infinite alternate'
-        }}
-      >
-        <span
-          style={{
-            transition: 'transform 0.5s',
-            transform: isNight ? 'rotate(0deg)' : 'rotate(180deg)',
-            display: 'flex',
-            alignItems: 'center'
-          }}
-        >
-          {isNight ? <FaMoon /> : <FaSun />}
-        </span>
-      </button>
-      <style>
-        {`
-          .theme-toggle-btn.night:hover {
-            box-shadow: 0 0 32px 8px #ffe259cc, 0 4px 24px #b3e0ff88;
-          }
-          .theme-toggle-btn.day:hover {
-
-            box-shadow: 0 0 32px 8px #ffe259cc, 0 4px 24px #b3e0ff88;
-          }
-
-        `}
-      </style>
+      {/* Main 3D/Canvas body */}
       <div
         style={{
           width: '100vw',
