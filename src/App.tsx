@@ -9,6 +9,7 @@ function App() {
   const [isNight, setIsNight] = useState(true)
   const [showGameMenu, setShowGameMenu] = useState(false)
   const [showTicTacToe, setShowTicTacToe] = useState(false)
+  const [showDrawing, setShowDrawing] = useState(false)
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
 
@@ -32,10 +33,22 @@ function App() {
         onTicTacToeClick={() => {
           setShowTicTacToe(!showTicTacToe)
           setShowGameMenu(false)
+          setShowDrawing(false)
+        }}
+        onDrawingClick={() => {
+          setShowDrawing(true)
+          setShowGameMenu(false)
+          setShowTicTacToe(false)
         }}
       />
       {/* Main 3D/Canvas body */}
-      <MainBody isNight={isNight} showTicTacToe={showTicTacToe} setShowTicTacToe={setShowTicTacToe} />
+      <MainBody
+        isNight={isNight}
+        showTicTacToe={showTicTacToe}
+        setShowTicTacToe={setShowTicTacToe}
+        showDrawing={showDrawing}
+        setShowDrawing={setShowDrawing}
+      />
       <Footer isNight={isNight} />
     </div>
   )

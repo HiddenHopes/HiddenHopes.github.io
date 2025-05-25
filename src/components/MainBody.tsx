@@ -11,14 +11,26 @@ import TicTacToe3D from './TicTacToe3D'
 import Aurora from './Aurora'
 import Nebula from './Nebula'
 import { ShootingStarsField } from './ShootingStar'
+import Drawing from './Drawing'
 
 interface MainBodyProps {
   isNight: boolean
   showTicTacToe: boolean
   setShowTicTacToe: (show: boolean) => void
+  showDrawing?: boolean
+  setShowDrawing?: (show: boolean) => void
 }
 
-const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicTacToe }) => {
+const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicTacToe, showDrawing, setShowDrawing }) => {
+  // If showDrawing/setShowDrawing are not provided, fallback to local state (for backward compatibility)
+  const [internalShowDrawing, internalSetShowDrawing] = React.useState(false)
+  const drawingOpen = showDrawing !== undefined ? showDrawing : internalShowDrawing
+  const setDrawingOpen = setShowDrawing || internalSetShowDrawing
+  React.useEffect(() => { if (showTicTacToe) setDrawingOpen(false) }, [showTicTacToe])
+  // Expose setShowDrawing to window for quick test (remove in prod)
+  // @ts-ignore
+  window.setShowDrawing = setShowDrawing
+
   return (
     <div
       style={{
@@ -45,7 +57,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
               intensity={700}
               color="#ddfbe6"
             />
-            <ambientLight intensity={0.1} />
+            <ambientLight intensity={0.2} />
             {/* Show 3D TicTacToe board in the world */}
             {!showTicTacToe && (
               <>
@@ -78,7 +90,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
               color="#fffbe6"
             />
             {!showTicTacToe &&
-              <RealAirBalloon />
+                <RealAirBalloon />
             }
           </>
         )}
@@ -96,6 +108,22 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
           autoRotateSpeed={0.1}
         />
       </Canvas>
+      {/* Drawing overlay window, shown if drawingOpen is true */}
+      {drawingOpen && (
+        <div style={{ position: 'fixed', top: 120, right: 440, zIndex: 100 }}>
+          <Drawing width={840} height={520} />
+          <button
+            onClick={() => setDrawingOpen(false)}
+            style={{
+              position: 'absolute', top: 0, right: 0, zIndex: 101,
+              background: '#232946', color: '#fff', border: 'none', borderRadius: 16,
+              width: 32, height: 32, fontSize: 20, fontWeight: 700, cursor: 'pointer',
+              boxShadow: '0 2px 8px #0004'
+            }}
+            aria-label="Close drawing window"
+          >×</button>
+        </div>
+      )}
     </div>
   )
 }

@@ -6,13 +6,15 @@ interface GameComponentProps {
   showGameMenu: boolean
   onGameMenuToggle: () => void
   onTicTacToeClick: () => void
+  onDrawingClick?: () => void // add prop for drawing
 }
 
 const GameComponent: React.FC<GameComponentProps> = ({
   isNight,
   showGameMenu,
   onGameMenuToggle,
-  onTicTacToeClick
+  onTicTacToeClick,
+  onDrawingClick
 }) => (
   <div style={{ position: 'fixed', top: 80, left: 30, zIndex: 30 }}>
     <button
@@ -74,6 +76,13 @@ const GameComponent: React.FC<GameComponentProps> = ({
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >
           🎮 TicTacToe
+        </div>
+        <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
+          onClick={onDrawingClick}
+          onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
+          onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
+        >
+          🖊️ Drawing
         </div>
         <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
           onClick={() => alert('Cricket coming soon!')}
