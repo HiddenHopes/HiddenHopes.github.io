@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useRef, useEffect } from 'react';
-import { FaCloudSun, FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaWaveSquare } from 'react-icons/fa';
+import { FaCloudSun, FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaWaveSquare, FaRegCalendarAlt, FaRegClock } from 'react-icons/fa';
 
 // Colorful icons for all weather types
 const weatherIcons: Record<string, ReactElement> = {
