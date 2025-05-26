@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useRef, useEffect } from 'react';
-import { FaCloudSun, FaCloudRain, FaCloudShowersHeavy, FaSnowflake } from 'react-icons/fa';
+import { FaCloudSun, FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaWaveSquare } from 'react-icons/fa';
 
 // Colorful icons for all weather types
 const weatherIcons: Record<string, ReactElement> = {
@@ -27,6 +27,33 @@ const WeatherUpdate: React.FC = () => {
   const [searching, setSearching] = useState(false);
   const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
+  // Earthquake state
+  const [earthquakes, setEarthquakes] = useState<Array<any>>([]);
+  const [quakeLoading, setQuakeLoading] = useState(false);
+  const [quakeError, setQuakeError] = useState('');
+
+  // Helper to fetch earthquakes near a lat/lon
+  async function fetchEarthquakes(lat: number, lon: number) {
+    setQuakeLoading(true);
+    setQuakeError('');
+    setEarthquakes([]);
+    try {
+      // USGS API: earthquakes in last 7 days, within 300km
+      const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=${lat}&longitude=${lon}&maxradiuskm=300&starttime=${new Date(Date.now() - 7*24*60*60*1000).toISOString().slice(0,10)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.features && data.features.length > 0) {
+        setEarthquakes(data.features);
+      } else {
+        setEarthquakes([]);
+      }
+    } catch {
+      setQuakeError('Failed to fetch earthquake data');
+    }
+    setQuakeLoading(false);
+  }
+
+  // Fetch weather and earthquakes when location is determined
   const fetchWeather = async () => {
     setLoading(true);
     setError('');
@@ -71,6 +98,8 @@ const WeatherUpdate: React.FC = () => {
         } else {
           setForecast([]);
         }
+        // Fetch recent earthquakes near the location
+        fetchEarthquakes(latitude, longitude);
         setLoading(false);
       }, () => {
         setError('Location permission denied');
@@ -143,6 +172,7 @@ const WeatherUpdate: React.FC = () => {
     setSearchQuery('');
     setLoading(true);
     setError('');
+    fetchEarthquakes(Number(lat), Number(lon));
     try {
       // Use Open-Meteo API for current and 7-day forecast, with hourly weathercode
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&hourly=weathercode&timezone=auto`;
@@ -180,6 +210,8 @@ const WeatherUpdate: React.FC = () => {
       } else {
         setForecast([]);
       }
+      // Fetch recent earthquakes near the selected location
+      fetchEarthquakes(parseFloat(lat), parseFloat(lon));
       setLoading(false);
     } catch {
       setError('Failed to fetch weather');
@@ -460,6 +492,45 @@ const WeatherUpdate: React.FC = () => {
                     </div>
                   </div>
                 )}
+                {/* Earthquake forecast section */}
+                <div style={{ marginTop: 18, width: '100%' }}>
+                  <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2, display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ position: 'relative', display: 'inline-block', width: 28, height: 22 }}>
+                      {/* Vibrating red circles */}
+                      <span style={{
+                        position: 'absolute', left: 6, top: 2, width: 17, height: 17, borderRadius: '50%', background: 'rgba(215, 38, 62, 0.94)', zIndex: 0, boxShadow: '0 0 8px 2px #d7263d44', animation: 'quakePulse1 1.2s infinite alternate' }} />
+                      <span style={{
+                        position: 'absolute', left: 3, top: -1, width: 23, height: 23, borderRadius: '50%', background: 'rgba(215, 38, 62, 0.66)', zIndex: 0, boxShadow: '0 0 12px 4px #d7263d33', animation: 'quakePulse2 1.2s infinite alternate' }} />
+                      <span style={{
+                        position: 'absolute', left: 0, top: 0, width: 28, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+                        <FaWaveSquare style={{ fontSize: 18, color: '#d7263d', verticalAlign: 'middle', position: 'relative', zIndex: 2 }} />
+                      </span>
+                      <style>{`
+                        @keyframes quakePulse1 { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0.2; transform: scale(1.25); } }
+                        @keyframes quakePulse2 { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0.1; transform: scale(1.4); } }
+                      `}</style>
+                    </span>
+                    Recent Earthquakes (300km radius, 7 days):
+                  </div>
+                  {quakeLoading ? (
+                    <div style={{ fontSize: 13, color: '#888' }}>Loading earthquakes...</div>
+                  ) : quakeError ? (
+                    <div style={{ color: '#d7263d', fontSize: 13 }}>{quakeError}</div>
+                  ) : earthquakes.length === 0 ? (
+                    <div style={{ fontSize: 13, color: '#888' }}>No significant earthquakes nearby.</div>
+                  ) : (
+                    <div style={{ maxHeight: 120, overflowY: 'auto', fontSize: 13 }}>
+                      {earthquakes.slice(0, 5).map((q: any) => (
+                        <div key={q.id} style={{ marginBottom: 6, padding: 6, borderRadius: 6, background: '#f7f7f7', border: '1px solid #e3f6ff', display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <FaWaveSquare style={{ fontSize: 16, color: '#d7263d', verticalAlign: 'middle' }} />
+                          <span style={{ fontWeight: 600, color: q.properties.mag >= 5 ? '#d7263d' : '#1976d2' }}>M{q.properties.mag}</span>
+                          {q.properties.place && <span> — {q.properties.place}</span>}
+                          <span style={{ color: '#888', marginLeft: 6 }}>{new Date(q.properties.time).toLocaleString()}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
