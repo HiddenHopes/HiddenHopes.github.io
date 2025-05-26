@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { FaMoon, FaSun } from 'react-icons/fa'
+import WeatherUpdate from './WeatherUpdate'
 
 interface HeaderProps {
   isNight: boolean
@@ -28,6 +29,10 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => (
     }}
   >
     <Navbar isNight={isNight} />
+    {/* Weather Update Button */}
+    <div style={{ position: 'absolute', top: 16, right: 90, zIndex: 21 }}>
+      <WeatherUpdate />
+    </div>
     {/* Theme Toggle Button */}
     <button
       onClick={onThemeToggle}

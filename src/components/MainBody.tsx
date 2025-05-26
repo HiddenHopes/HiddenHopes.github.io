@@ -110,7 +110,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
         }
         {
           footballOpen &&
-          <group position={[0, 0, 0]}>
+          <group position={[0, -1.2, 0]}>
             <FootballPenalty3D onClose={() => setFootballOpen(false)} />
           </group>
         }
