@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import { FaMoon, FaSun, FaRegCalendarAlt, FaRegClock } from 'react-icons/fa'
 import WeatherUpdate from './WeatherUpdate'
 import DateTimePopup from './DateTimePopup'
+import FootballResults from './FootballResults'
 
 interface HeaderProps {
   isNight: boolean
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => {
   const [showDateTime, setShowDateTime] = React.useState(false);
+  const [showFootball, setShowFootball] = React.useState(false);
   // Local date/time state
   const [now, setNow] = React.useState(new Date());
   React.useEffect(() => {
@@ -63,8 +65,34 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => {
             </span>
           </span>
         </div>
+        {/* Football Results Button BESIDE date-time, not above */}
+        <button
+          onClick={() => setShowFootball(true)}
+          title="Show Football Results"
+          style={{
+            width: 46,
+            height: 46,
+            background: 'linear-gradient(135deg, #b3e0ff 0%, #51ff8b 100%)',
+            color: '#232946',
+            border: 'none',
+            borderRadius: '50%',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.3rem',
+            boxShadow: '0 2px 8px #b3e0ff88',
+          }}
+        >
+          <span role="img" aria-label="football">⚽</span>
+        </button>
+        {showFootball && (
+          <FootballResults onClose={() => setShowFootball(false)} />
+        )}
         <WeatherUpdate />
         {showDateTime && <DateTimePopup onClose={() => setShowDateTime(false)} />}
+      </div>
+      <div style={{ position: 'absolute', top: 10, right: 210, zIndex: 22 }}>
       </div>
       {/* Theme Toggle Button */}
       <button
