@@ -10,6 +10,9 @@ const weatherIcons: Record<string, ReactElement> = {
   Clouds: <FaCloudSun style={{ color: '#90a4ae', filter: 'drop-shadow(0 0 2px #90a4ae)' }} />,
 };
 
+const LOCAL_STORAGE_KEY = 'weather_location';
+const SAVED_LOCATIONS_KEY = 'weather_saved_locations';
+
 const WeatherUpdate: React.FC = () => {
   const [weather, setWeather] = useState<string>('');
   const [temp, setTemp] = useState<number | null>(null);
@@ -25,12 +28,98 @@ const WeatherUpdate: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Array<{ display_name: string; lat: string; lon: string }>>([]);
   const [searching, setSearching] = useState(false);
+  const [savedLocations, setSavedLocations] = useState<Array<{ display_name: string; lat: string; lon: string }>>([]);
   const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Earthquake state
   const [earthquakes, setEarthquakes] = useState<Array<any>>([]);
   const [quakeLoading, setQuakeLoading] = useState(false);
   const [quakeError, setQuakeError] = useState('');
+
+  // Add state for lat/lon
+  const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(null);
+
+  // On mount, check localStorage for saved location
+  useEffect(() => {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed.lat === 'number' && typeof parsed.lon === 'number') {
+          setCoords({ lat: parsed.lat, lon: parsed.lon });
+          setPlace(parsed.place || '');
+          // Only fetch weather data, do not open the popup
+          fetchWeatherForCoords(parsed.lat, parsed.lon, parsed.place || '');
+        }
+      } catch {}
+    }
+    // Load saved locations
+    const locs = localStorage.getItem(SAVED_LOCATIONS_KEY);
+    if (locs) {
+      try {
+        setSavedLocations(JSON.parse(locs));
+      } catch {}
+    }
+    // Ensure popup is closed on mount
+    setShow(false);
+  }, []);
+
+  // Helper to fetch weather for given coords
+  async function fetchWeatherForCoords(lat: number, lon: number, placeName?: string) {
+    setLoading(true);
+    setError('');
+    // setShow(true); // Remove this line
+    try {
+      // Place name
+      if (!placeName) {
+        try {
+          const placeRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+          const placeData = await placeRes.json();
+          placeName = placeData.address?.city || placeData.address?.town || placeData.address?.village || placeData.address?.state || '';
+        } catch {
+          placeName = '';
+        }
+      }
+      setPlace(placeName || '');
+      // Save to localStorage
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ lat, lon, place: placeName }));
+      // Weather
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.current_weather) {
+        setTemp(data.current_weather.temperature);
+        setWeather(data.current_weather.weathercode);
+        setDesc('');
+        setWind(data.current_weather.windspeed ?? null);
+        setHumidity(data.current_weather.relativehumidity ?? null);
+        setLastUpdated(new Date());
+      } else {
+        setError('Weather unavailable');
+        setWind(null);
+        setHumidity(null);
+        setLastUpdated(null);
+      }
+      // 7-day forecast
+      if (data.daily && data.daily.time && data.daily.temperature_2m_min && data.daily.temperature_2m_max && data.daily.weathercode) {
+        const forecastArr = data.daily.time.map((date: string, i: number) => ({
+          date,
+          min: data.daily.temperature_2m_min[i],
+          max: data.daily.temperature_2m_max[i],
+          code: data.daily.weathercode[i],
+        }));
+        setForecast(forecastArr);
+      } else {
+        setForecast([]);
+      }
+      // Fetch recent earthquakes near the location
+      fetchEarthquakes(lat, lon);
+      setLoading(false);
+    } catch (e) {
+      setError('Failed to fetch weather');
+      setLoading(false);
+    }
+  }
 
   // Helper to fetch earthquakes near a lat/lon
   async function fetchEarthquakes(lat: number, lon: number) {
@@ -55,52 +144,19 @@ const WeatherUpdate: React.FC = () => {
 
   // Fetch weather and earthquakes when location is determined
   const fetchWeather = async () => {
+    if (coords) {
+      setShow(true); // Only open popup on user action
+      fetchWeatherForCoords(coords.lat, coords.lon, place);
+      return;
+    }
     setLoading(true);
     setError('');
     setShow(true);
     try {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude, longitude } = pos.coords;
-        // Fetch place name using reverse geocoding (Nominatim OpenStreetMap)
-        try {
-          const placeRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-          const placeData = await placeRes.json();
-          setPlace(placeData.address?.city || placeData.address?.town || placeData.address?.village || placeData.address?.state || '');
-        } catch {
-          setPlace('');
-        }
-        // Use Open-Meteo API for current and 7-day forecast
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.current_weather) {
-          setTemp(data.current_weather.temperature);
-          setWeather(data.current_weather.weathercode);
-          setDesc('');
-          setWind(data.current_weather.windspeed ?? null);
-          setHumidity(data.current_weather.relativehumidity ?? null);
-          setLastUpdated(new Date());
-        } else {
-          setError('Weather unavailable');
-          setWind(null);
-          setHumidity(null);
-          setLastUpdated(null);
-        }
-        // 7-day forecast
-        if (data.daily && data.daily.time && data.daily.temperature_2m_min && data.daily.temperature_2m_max && data.daily.weathercode) {
-          const forecastArr = data.daily.time.map((date: string, i: number) => ({
-            date,
-            min: data.daily.temperature_2m_min[i],
-            max: data.daily.temperature_2m_max[i],
-            code: data.daily.weathercode[i],
-          }));
-          setForecast(forecastArr);
-        } else {
-          setForecast([]);
-        }
-        // Fetch recent earthquakes near the location
-        fetchEarthquakes(latitude, longitude);
-        setLoading(false);
+        setCoords({ lat: latitude, lon: longitude });
+        fetchWeatherForCoords(latitude, longitude);
       }, () => {
         setError('Location permission denied');
         setLoading(false);
@@ -150,6 +206,17 @@ const WeatherUpdate: React.FC = () => {
 
   const weatherInfo = getWeatherIconAndDesc(weather);
 
+  // Save location to savedLocations and localStorage
+  function saveLocationToHistory(location: { display_name: string; lat: string; lon: string }) {
+    setSavedLocations(prev => {
+      const exists = prev.some(l => l.lat === location.lat && l.lon === location.lon);
+      if (exists) return prev;
+      const updated = [location, ...prev].slice(0, 10); // keep max 10
+      localStorage.setItem(SAVED_LOCATIONS_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }
+
   async function handleSearchLocation(e: React.FormEvent) {
     e.preventDefault();
     if (!searchQuery.trim()) return;
@@ -172,6 +239,10 @@ const WeatherUpdate: React.FC = () => {
     setSearchQuery('');
     setLoading(true);
     setError('');
+    setCoords({ lat: Number(lat), lon: Number(lon) });
+    // Save to localStorage
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ lat: Number(lat), lon: Number(lon), place: displayName }));
+    saveLocationToHistory({ display_name: displayName, lat, lon });
     fetchEarthquakes(Number(lat), Number(lon));
     try {
       // Use Open-Meteo API for current and 7-day forecast, with hourly weathercode
@@ -250,20 +321,31 @@ const WeatherUpdate: React.FC = () => {
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchQuery(value);
-    setSearchResults([]);
     if (searchTimeout.current) clearTimeout(searchTimeout.current);
-    if (!value.trim()) return;
+    if (!value.trim()) {
+      setSearchResults([]);
+      setSearching(false);
+      return;
+    }
     setSearching(true);
+    // Match saved locations first (max 5)
+    const matchedSaved = savedLocations.filter(loc => loc.display_name.toLowerCase().includes(value.toLowerCase())).slice(0, 5);
+    setSearchResults(matchedSaved);
     searchTimeout.current = setTimeout(async () => {
       try {
         const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}&limit=5`);
         const data = await res.json();
-        setSearchResults(data);
+        // Merge with matchedSaved, dedup by lat/lon, max 5
+        const merged = [...matchedSaved];
+        data.forEach((loc: any) => {
+          if (!merged.some(l => l.lat === loc.lat && l.lon === loc.lon) && merged.length < 5) merged.push(loc);
+        });
+        setSearchResults(merged.slice(0, 5));
       } catch {
-        setSearchResults([]);
+        setSearchResults(matchedSaved);
       }
       setSearching(false);
-    }, 400); // debounce 400ms
+    }, 400);
   };
 
   // Graph component for 7-day temperature trend
@@ -382,7 +464,8 @@ const WeatherUpdate: React.FC = () => {
           boxShadow: '0 2px 8px #b3e0ff88',
         }}
       >
-        <FaCloudSun />
+        {/* Show today's weather icon if available, else default to sun */}
+        {weatherInfo.icon || <FaCloudSun />}
       </button>
       {show && (
         <>
@@ -413,6 +496,11 @@ const WeatherUpdate: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={handleSearchInput}
+                onFocus={() => {
+                  if (!searchQuery.trim() && savedLocations.length > 0) {
+                    setSearchResults(savedLocations.slice(0, 5)); // Show max 5 on focus
+                  }
+                }}
                 placeholder="Search location..."
                 style={{ flex: 1, padding: '4px 8px', borderRadius: 6, border: '1px solid #b3e0ff', fontSize: 13 }}
                 autoComplete="off"
