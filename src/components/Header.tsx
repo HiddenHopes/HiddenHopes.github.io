@@ -8,9 +8,12 @@ import FootballResults from './FootballResults'
 interface HeaderProps {
   isNight: boolean
   onThemeToggle: () => void
+  onAboutClick?: () => void
+  onContactClick?: () => void
+  onCoursesClick?: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => {
+const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick }) => {
   const [showDateTime, setShowDateTime] = React.useState(false);
   const [showFootball, setShowFootball] = React.useState(false);
   // Local date/time state for the button, matching DateTimePopup logic
@@ -40,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => {
         transition: 'background 0.5s, color 0.5s, box-shadow 0.5s'
       }}
     >
-      <Navbar isNight={isNight} />
+      <Navbar isNight={isNight} onAboutClick={onAboutClick} onContactClick={onContactClick} onCoursesClick={onCoursesClick} />
       {/* Weather Update Button */}
       <div style={{ position: 'absolute', top: 10, right: 90, zIndex: 21, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 12 }}>
         {/* Date/Time Button as one unit, stacked */}

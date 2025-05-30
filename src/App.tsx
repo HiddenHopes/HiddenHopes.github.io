@@ -4,6 +4,9 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import GameComponent from './components/GameComponent'
 import MainBody from './components/MainBody'
+import AboutPage from './components/AboutPage'
+import ContactPage from './components/ContactPage'
+import CoursesPage from './components/CoursesPage'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -11,8 +14,26 @@ function App() {
   const [showTicTacToe, setShowTicTacToe] = useState(false)
   const [showDrawing, setShowDrawing] = useState(false)
   const [showFootball, setShowFootball] = useState(false)
+  const [showAbout, setShowAbout] = useState(false)
+  const [showContact, setShowContact] = useState(false)
+  const [showCourses, setShowCourses] = useState(false)
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
+  const handleShowAbout = () => {
+    setShowAbout(true)
+    setShowContact(false)
+    setShowCourses(false)
+  }
+  const handleShowContact = () => {
+    setShowContact(true)
+    setShowAbout(false)
+    setShowCourses(false)
+  }
+  const handleShowCourses = () => {
+    setShowCourses(true)
+    setShowAbout(false)
+    setShowContact(false)
+  }
 
   return (
     <div
@@ -26,40 +47,60 @@ function App() {
           : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
       }}
     >
-      <Header isNight={isNight} onThemeToggle={handleThemeToggle} />
-      <GameComponent
+      <Header
         isNight={isNight}
-        showGameMenu={showGameMenu}
-        onGameMenuToggle={handleGameMenuToggle}
-        onTicTacToeClick={() => {
-          setShowTicTacToe(!showTicTacToe)
-          setShowGameMenu(false)
-          setShowDrawing(false)
-          setShowFootball(false)
-        }}
-        onDrawingClick={() => {
-          setShowDrawing(true)
-          setShowGameMenu(false)
-          setShowTicTacToe(false)
-          setShowFootball(false)
-        }}
-        onFootballClick={() => {
-          setShowFootball(true)
-          setShowGameMenu(false)
-          setShowTicTacToe(false)
-          setShowDrawing(false)
-        }}
+        onThemeToggle={handleThemeToggle}
+        onAboutClick={handleShowAbout}
+        onContactClick={handleShowContact}
+        onCoursesClick={handleShowCourses}
       />
-      {/* Main 3D/Canvas body */}
-      <MainBody
-        isNight={isNight}
-        showTicTacToe={showTicTacToe}
-        setShowTicTacToe={setShowTicTacToe}
-        showDrawing={showDrawing}
-        setShowDrawing={setShowDrawing}
-        showFootball={showFootball}
-        setShowFootball={setShowFootball}
-      />
+      {/* Show overlay pages if active */}
+      {showAbout && (
+        <AboutPage isNight={isNight} onClose={() => setShowAbout(false)} />
+      )}
+      {showContact && (
+        <ContactPage isNight={isNight} onClose={() => setShowContact(false)} />
+      )}
+      {showCourses && (
+        <CoursesPage isNight={isNight} onClose={() => setShowCourses(false)} />
+      )}
+      {/* Main content only if no overlay */}
+      {!showAbout && !showContact && !showCourses && (
+        <>
+          <GameComponent
+            isNight={isNight}
+            showGameMenu={showGameMenu}
+            onGameMenuToggle={handleGameMenuToggle}
+            onTicTacToeClick={() => {
+              setShowTicTacToe(!showTicTacToe)
+              setShowGameMenu(false)
+              setShowDrawing(false)
+              setShowFootball(false)
+            }}
+            onDrawingClick={() => {
+              setShowDrawing(true)
+              setShowGameMenu(false)
+              setShowTicTacToe(false)
+              setShowFootball(false)
+            }}
+            onFootballClick={() => {
+              setShowFootball(true)
+              setShowGameMenu(false)
+              setShowTicTacToe(false)
+              setShowDrawing(false)
+            }}
+          />
+          <MainBody
+            isNight={isNight}
+            showTicTacToe={showTicTacToe}
+            setShowTicTacToe={setShowTicTacToe}
+            showDrawing={showDrawing}
+            setShowDrawing={setShowDrawing}
+            showFootball={showFootball}
+            setShowFootball={setShowFootball}
+          />
+        </>
+      )}
       <Footer isNight={isNight} />
     </div>
   )

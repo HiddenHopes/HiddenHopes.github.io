@@ -1,10 +1,13 @@
 import React from 'react'
 
 interface NavbarProps {
-  isNight: boolean
+  isNight: boolean;
+  onAboutClick?: () => void;
+  onContactClick?: () => void;
+  onCoursesClick?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isNight }) => (
+const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, onCoursesClick }) => (
   <nav
     style={{
       display: 'flex',
@@ -41,10 +44,33 @@ const Navbar: React.FC<NavbarProps> = ({ isNight }) => (
         marginRight: '1.5rem',
         textDecoration: 'none',
         position: 'relative',
-        transition: 'color 0.3s'
+        transition: 'color 0.3s',
+        cursor: 'pointer'
+      }}
+      onClick={e => {
+        e.preventDefault();
+        if (onAboutClick) onAboutClick();
       }}
     >
       About
+    </a>
+    <a
+      href="#courses"
+      className={`nav-link ${isNight ? 'night' : 'day'}`}
+      style={{
+        color: isNight ? '#fff' : '#222',
+        marginRight: '1.5rem',
+        textDecoration: 'none',
+        position: 'relative',
+        transition: 'color 0.3s',
+        cursor: 'pointer'
+      }}
+      onClick={e => {
+        e.preventDefault();
+        if (onCoursesClick) onCoursesClick();
+      }}
+    >
+      Courses
     </a>
     <a
       href="#contact"
@@ -53,7 +79,12 @@ const Navbar: React.FC<NavbarProps> = ({ isNight }) => (
         color: isNight ? '#fff' : '#222',
         textDecoration: 'none',
         position: 'relative',
-        transition: 'color 0.3s'
+        transition: 'color 0.3s',
+        cursor: 'pointer'
+      }}
+      onClick={e => {
+        e.preventDefault();
+        if (onContactClick) onContactClick();
       }}
     >
       Contact
