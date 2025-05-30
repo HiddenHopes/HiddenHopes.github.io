@@ -13,7 +13,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => {
   const [showDateTime, setShowDateTime] = React.useState(false);
   const [showFootball, setShowFootball] = React.useState(false);
-  // Local date/time state
+  // Local date/time state for the button, matching DateTimePopup logic
   const [now, setNow] = React.useState(new Date());
   React.useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
@@ -58,10 +58,7 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle }) => {
           <span style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2, width: '106px' }}>
             <FaRegClock style={{ color: '#1976d2', fontSize: 16 }} />
             <span style={{ fontFamily: 'monospace', minWidth: 80, display: 'inline-block', textAlign: 'center' }}>
-              {now.getHours().toString().padStart(2, '0')}
-              :{now.getMinutes().toString().padStart(2, '0')}
-              {/* :{now.getSeconds().toString().padStart(2, '0')} */}
-              {now.toLocaleTimeString().replace(/.*(AM|PM)$/i, ' $1')}
+              {now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
             </span>
           </span>
         </div>

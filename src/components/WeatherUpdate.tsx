@@ -16,6 +16,8 @@ const SAVED_LOCATIONS_KEY = 'weather_saved_locations';
 const WeatherUpdate: React.FC = () => {
   const [weather, setWeather] = useState<string>('');
   const [temp, setTemp] = useState<number | null>(null);
+  const [utcOffset, setUtcOffset] = useState<number>(0);
+  const [zonedTime, setZonedTime] = useState<number>(0);
   const [desc, setDesc] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -64,8 +66,23 @@ const WeatherUpdate: React.FC = () => {
     setShow(false);
   }, []);
 
+  // Update zonedTime every minute and when utcOffset changes
+  useEffect(() => {
+    if (!utcOffset) return;
+    const updateZonedTime = () => {
+      const now = new Date();
+      const utcTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+      const localTime = new Date(utcTime.getTime() + utcOffset * 1000);
+      setZonedTime(localTime.getTime());
+    };
+    updateZonedTime();
+    const timer = setInterval(updateZonedTime, 1000 * 10); // update every 10 seconds for accuracy
+    return () => clearInterval(timer);
+  }, [utcOffset]);
+
   // Helper to fetch weather for given coords
   async function fetchWeatherForCoords(lat: number, lon: number, placeName?: string) {
+    console.log('aaaaaaaaaaFetching weather for coords:', lat, lon, 'Place:', placeName);
     setLoading(true);
     setError('');
     // setShow(true); // Remove this line
@@ -94,6 +111,11 @@ const WeatherUpdate: React.FC = () => {
         setWind(data.current_weather.windspeed ?? null);
         setHumidity(data.current_weather.relativehumidity ?? null);
         setLastUpdated(new Date());
+        setUtcOffset(data.utc_offset_seconds ?? 0);
+        const now = new Date();
+        const utcTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+        const localTime = new Date(utcTime.getTime() + (data.utc_offset_seconds ?? 0) * 1000);
+        setZonedTime(localTime.getTime()); 
       } else {
         setError('Weather unavailable');
         setWind(null);
@@ -256,6 +278,11 @@ const WeatherUpdate: React.FC = () => {
         setWind(data.current_weather.windspeed ?? null);
         setHumidity(data.current_weather.relativehumidity ?? null);
         setLastUpdated(new Date());
+        setUtcOffset(data.utc_offset_seconds ?? 0);
+        const now = new Date();
+        const utcTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+        const localTime = new Date(utcTime.getTime() + (data.utc_offset_seconds ?? 0) * 1000);
+        setZonedTime(localTime.getTime()); 
       } else {
         setError('Weather unavailable');
         setWind(null);
@@ -288,17 +315,6 @@ const WeatherUpdate: React.FC = () => {
       setError('Failed to fetch weather');
       setLoading(false);
     }
-  }
-
-  // New function to get icons and descriptions for an array of weather codes
-  function getWeatherIconsAndDescs(codes: number[]): { icon: ReactElement; desc: string }[] {
-    // Map all codes to icons/descs, deduplicate by type
-    const types: { [k: string]: { icon: ReactElement; desc: string } } = {};
-    codes.forEach(code => {
-      const info = getWeatherIconAndDesc(code);
-      types[info.desc] = info;
-    });
-    return Object.values(types);
   }
 
   function getMainWeatherDesc(codes: number[]): string {
@@ -549,7 +565,17 @@ const WeatherUpdate: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span style={{ fontSize: 22 }}>{weatherInfo.icon}</span>
                   <span>{weatherInfo.desc}</span>
-                  {temp !== null && <span style={{ marginLeft: 8 }}>{temp}°C</span>}
+                  {temp !== null && (
+                    <span style={{ marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontWeight: 600, fontSize: 18, color: '#232946' }}>{temp}°C</span>
+                      {zonedTime ? (
+                        <span style={{ display: 'flex', alignItems: 'center', background: '#f7f7fa', borderRadius: 6, padding: '2px 10px', fontSize: 13, color: '#1976d2', boxShadow: '0 1px 4px #b3e0ff22', fontWeight: 500 }}>
+                          <FaRegClock style={{ marginRight: 4, verticalAlign: 'middle', color: '#1976d2' }} />
+                          {new Date(zonedTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      ) : null}
+                    </span>
+                  )}
                 </div>
                 {place && <div style={{ fontSize: 13, color: '#888', marginTop: 2 }}>📍 {place}</div>}
                 {wind !== null && <div style={{ fontSize: 13, color: '#888' }}>💨 Wind: {wind} km/h</div>}
