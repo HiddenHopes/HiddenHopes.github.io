@@ -49,16 +49,16 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, o
         {/* Date/Time Button as one unit, stacked */}
         <div
           style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center', fontWeight: 600, fontSize: 14, color: '#232946', background: '#fff', borderRadius: 8, padding: '6px 16px', boxShadow: '0 2px 8px #b3e0ff22', cursor: 'pointer', minWidth: 120
+            display: 'flex', flexDirection: 'column', alignItems: 'center', fontWeight: 600, fontSize: 14, color: '#232946', background: '#fff', borderRadius: 8, padding: '2px 2px', boxShadow: '0 2px 8px #b3e0ff22', cursor: 'pointer', minWidth: 120
           }}
           onClick={() => setShowDateTime(true)}
           title="Show Date & Time"
         >
-          <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 6 ,width: '106px'}}>
             <FaRegCalendarAlt style={{ color: '#ffa751', fontSize: 16 }} />
             {now.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2, width: '106px' }}>
+          <span style={{ display: 'flex', gap: 0, marginTop: 2, width: '106px' }}>
             <FaRegClock style={{ color: '#1976d2', fontSize: 16 }} />
             <span style={{ fontFamily: 'monospace', minWidth: 80, display: 'inline-block', textAlign: 'center' }}>
               {now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
