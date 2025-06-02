@@ -7,6 +7,7 @@ import MainBody from './components/MainBody'
 import AboutPage from './components/AboutPage'
 import ContactPage from './components/ContactPage'
 import CoursesPage from './components/CoursesPage'
+import CircularHeader from './components/CircularHeader'
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -47,7 +48,7 @@ function App() {
           : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
       }}
     >
-      <Header
+      <CircularHeader
         isNight={isNight}
         onThemeToggle={handleThemeToggle}
         onAboutClick={handleShowAbout}

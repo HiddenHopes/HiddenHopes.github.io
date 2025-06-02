@@ -18,7 +18,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
   onDrawingClick,
   onFootballClick
 }) => (
-  <div style={{ position: 'fixed', top: 80, left: 30, zIndex: 30 }}>
+  <div style={{ position: 'fixed', bottom: 120, left: 30, zIndex: 30 }}>
     <button
       onClick={onGameMenuToggle}
       title="Games"
@@ -58,7 +58,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
       <div
         style={{
           position: 'absolute',
-          top: 64,
+          bottom: 64,
           left: 0,
           minWidth: 180,
           background: isNight
@@ -105,7 +105,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
     <style>
       {`
         @keyframes fadeInMenu {
-          from { opacity: 0; transform: translateY(-10px);}
+          from { opacity: 0; transform: translateY(10px);}
           to { opacity: 1; transform: translateY(0);}
         }
       `}
