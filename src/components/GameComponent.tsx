@@ -18,7 +18,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
   onDrawingClick,
   onFootballClick
 }) => (
-  <div style={{ position: 'fixed', bottom: 80, left: 30, zIndex: 30 }}>
+  <div style={{ position: 'fixed', bottom: 130, left: 30, zIndex: 30 }}>
     <button
       onClick={onGameMenuToggle}
       title="Games"

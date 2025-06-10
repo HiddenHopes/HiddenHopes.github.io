@@ -48,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         <span className="navbar-hamburger-bar" style={{ width: 26, height: 3, background: isNight ? '#fff' : '#232946', margin: '3px 0', borderRadius: 2, transition: 'background 0.3s' }} />
         <span className="navbar-hamburger-bar" style={{ width: 26, height: 3, background: isNight ? '#fff' : '#232946', margin: '3px 0', borderRadius: 2, transition: 'background 0.3s' }} />
       </button>
-      <span style={{ marginRight: '2rem', fontWeight: 700 }}>School of Happiness</span>
+      <span className="school-of-happiness" style={{ marginRight: '2rem', fontWeight: 700 }}>School of Happiness</span>
       {/* Nav links (desktop) */}
       <div className="navbar-links" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
         <a
@@ -148,6 +148,9 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
           }
           .navbar-dropdown {
             display: flex !important;
+          }
+          .school-of-happiness {
+            display: none !important;
           }
         }
         @media (min-width: 701px) {
