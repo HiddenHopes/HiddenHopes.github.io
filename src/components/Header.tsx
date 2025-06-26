@@ -1,9 +1,9 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { FaMoon, FaSun, FaRegCalendarAlt, FaRegClock } from 'react-icons/fa'
-import WeatherUpdate from './WeatherUpdate'
 import DateTimePopup from './DateTimePopup'
 import FootballResults from './FootballResults'
+import WeatherUpdate from './WeatherUpdate'
 
 interface HeaderProps {
   isNight: boolean
@@ -89,8 +89,9 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, o
         {showFootball && (
           <FootballResults onClose={() => setShowFootball(false)} />
         )}
-        <WeatherUpdate />
         {showDateTime && <DateTimePopup onClose={() => setShowDateTime(false)} />}
+        {/* WeatherUpdate is now a self-contained popup, keep onClose prop as required by its signature */}
+        <WeatherUpdate onClose={() => {}} />
       </div>
       <div style={{ position: 'absolute', top: 10, right: 210, zIndex: 22 }}>
       </div>

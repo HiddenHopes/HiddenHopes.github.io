@@ -13,7 +13,7 @@ const weatherIcons: Record<string, ReactElement> = {
 const LOCAL_STORAGE_KEY = 'weather_location';
 const SAVED_LOCATIONS_KEY = 'weather_saved_locations';
 
-const WeatherUpdate: React.FC = () => {
+const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [weather, setWeather] = useState<string>('');
   const [temp, setTemp] = useState<number | null>(null);
   const [utcOffset, setUtcOffset] = useState<number>(0);
@@ -460,30 +460,9 @@ const WeatherUpdate: React.FC = () => {
   }
 
   return (
-    <div style={{ display: 'inline-block', position: 'relative' }}>
-      <button
-        onClick={fetchWeather}
-        title="Show Weather Update"
-        style={{
-          width: 46,
-          height: 46,
-          marginRight: 8,
-          background: 'linear-gradient(135deg, #b3e0ff 0%, #ffe259 100%)',
-          color: '#232946',
-          border: 'none',
-          borderRadius: '50%',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '1.3rem',
-          boxShadow: '0 2px 8px #b3e0ff88',
-        }}
-      >
-        {/* Show today's weather icon if available, else default to sun */}
-        {weatherInfo.icon || <FaCloudSun />}
-      </button>
-      {show && (
+    <div style={{ width: '100%', position: 'relative' }}>
+      {/* Weather content only, no button */}
+    
         <>
           <div
             onClick={() => setShow(false)}
@@ -495,161 +474,177 @@ const WeatherUpdate: React.FC = () => {
             }}
           />
           <div style={{
-            position: 'absolute',
-            top: 54,
-            right: 0,
-            minWidth: 260,
-            background: '#fff',
-            color: '#232946',
-            borderRadius: 10,
-            boxShadow: '0 4px 16px #0002',
-            padding: '10px 16px',
-            zIndex: 100,
+            position: 'fixed',
+            top: 90,
+            left: 0,
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+            zIndex: 9999,
+            pointerEvents: 'none',
           }}>
-            {/* Location Search */}
-            <form onSubmit={handleSearchLocation} style={{ marginBottom: 8, display: 'flex', gap: 4 }}>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={handleSearchInput}
-                onFocus={() => {
-                  if (!searchQuery.trim() && savedLocations.length > 0) {
-                    setSearchResults(savedLocations.slice(0, 5)); // Show max 5 on focus
-                  }
-                }}
-                placeholder="Search location..."
-                style={{ flex: 1, padding: '4px 8px', borderRadius: 6, border: '1px solid #b3e0ff', fontSize: 13 }}
-                autoComplete="off"
-              />
-              <button type="submit" style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#51ff8b', color: '#232946', fontWeight: 600, cursor: 'pointer', fontSize: 13 }}>Search</button>
-            </form>
-            {searching && <div style={{ fontSize: 13, color: '#888', marginBottom: 6 }}>Searching...</div>}
-            {searchResults.length > 0 && (
-              <div style={{ maxHeight: 120, overflowY: 'auto', marginBottom: 8, border: '1px solid #b3e0ff', borderRadius: 6, background: '#fff' }}>
-                {searchResults.slice(0, 5).map(res => (
-                  <div
-                    key={res.lat + res.lon}
-                    onClick={() => handleSelectLocation(res.lat, res.lon, res.display_name)}
-                    style={{ padding: '6px 8px', cursor: 'pointer', borderRadius: 6, background: '#f7f7f7', marginBottom: 2, fontSize: 13 }}
-                  >
-                    {res.display_name}
+            
+            <div style={{ position: 'relative', maxWidth: 400, width: '95vw', pointerEvents: 'auto' }}>
+              {/* ...existing weather popup content... */}
+              <div style={{
+                position: 'absolute',
+                top: 54,
+                right: 0,
+                minWidth: 260,
+                background: '#fff',
+                color: '#232946',
+                borderRadius: 10,
+                boxShadow: '0 4px 16px #0002',
+                padding: '10px 16px',
+                zIndex: 100,
+              }}>
+                <button onClick={onClose} style={{ position: 'absolute', top: 0, right: 0, background: 'none', border: 'none', fontSize: 22, color: '#232946', cursor: 'pointer' }}>×</button>
+                {/* Location Search */}
+                <form onSubmit={handleSearchLocation} style={{ marginBottom: 8, display: 'flex', gap: 4 , maxWidth:'300px'}}>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearchInput}
+                    onFocus={() => {
+                      if (!searchQuery.trim() && savedLocations.length > 0) {
+                        setSearchResults(savedLocations.slice(0, 5)); // Show max 5 on focus
+                      }
+                    }}
+                    placeholder="Search location..."
+                    style={{ flex: 1, padding: '4px 8px', borderRadius: 6, border: '1px solid #b3e0ff', fontSize: 13 }}
+                    autoComplete="off"
+                  />
+                  <button type="submit" style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#51ff8b', color: '#232946', fontWeight: 600, cursor: 'pointer', fontSize: 13 }}>Search</button>
+                </form>
+                {searching && <div style={{ fontSize: 13, color: '#888', marginBottom: 6 }}>Searching...</div>}
+                {searchResults.length > 0 && (
+                  <div style={{ maxHeight: 120, overflowY: 'auto', marginBottom: 8, border: '1px solid #b3e0ff', borderRadius: 6, background: '#fff' }}>
+                    {searchResults.slice(0, 5).map(res => (
+                      <div
+                        key={res.lat + res.lon}
+                        onClick={() => handleSelectLocation(res.lat, res.lon, res.display_name)}
+                        style={{ padding: '6px 8px', cursor: 'pointer', borderRadius: 6, background: '#f7f7f7', marginBottom: 2, fontSize: 13 }}
+                      >
+                        {res.display_name}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
-            {loading ? (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 60, width: '100%' }}>
-                <span style={{
-                  display: 'inline-block',
-                  width: 32,
-                  height: 32,
-                  border: '4px solid #b3e0ff',
-                  borderTop: '4px solid #51ff8b',
-                  borderRight: '4px solid #ffe259',
-                  borderRadius: '50%',
-                  animation: 'spinWeatherLoader 0.8s linear infinite',
-                  marginBottom: 6,
-                }} />
-                <span style={{ fontSize: 13, color: '#888' }}>Fetching weather...</span>
-                <style>{`
-                  @keyframes spinWeatherLoader {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                  }
-                `}</style>
-              </div>
-            ) : error ? (
-              <div style={{ color: '#d7263d' }}>{error}</div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 22 }}>{weatherInfo.icon}</span>
-                  <span>{weatherInfo.desc}</span>
-                  {temp !== null && (
-                    <span style={{ marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontWeight: 600, fontSize: 18, color: '#232946' }}>{temp}°C</span>
-                      {zonedTime ? (
-                        <span style={{ display: 'flex', alignItems: 'center', background: '#f7f7fa', borderRadius: 6, padding: '2px 10px', fontSize: 13, color: '#1976d2', boxShadow: '0 1px 4px #b3e0ff22', fontWeight: 500 }}>
-                          <FaRegClock style={{ marginRight: 4, verticalAlign: 'middle', color: '#1976d2' }} />
-                          {new Date(zonedTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
+                )}
+                {loading ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 60, width: '100%' }}>
+                    <span style={{
+                      display: 'inline-block',
+                      width: 32,
+                      height: 32,
+                      border: '4px solid #b3e0ff',
+                      borderTop: '4px solid #51ff8b',
+                      borderRight: '4px solid #ffe259',
+                      borderRadius: '50%',
+                      animation: 'spinWeatherLoader 0.8s linear infinite',
+                      marginBottom: 6,
+                    }} />
+                    <span style={{ fontSize: 13, color: '#888' }}>Fetching weather...</span>
+                    <style>{`
+                      @keyframes spinWeatherLoader {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                      }
+                    `}</style>
+                  </div>
+                ) : error ? (
+                  <div style={{ color: '#d7263d' }}>{error}</div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 22 }}>{weatherInfo.icon}</span>
+                      <span>{weatherInfo.desc}</span>
+                      {temp !== null && (
+                        <span style={{ marginLeft: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ fontWeight: 600, fontSize: 18, color: '#232946' }}>{temp}°C</span>
+                          {zonedTime ? (
+                            <span style={{ display: 'flex', alignItems: 'center', background: '#f7f7fa', borderRadius: 6, padding: '2px 10px', fontSize: 13, color: '#1976d2', boxShadow: '0 1px 4px #b3e0ff22', fontWeight: 500 }}>
+                              <FaRegClock style={{ marginRight: 4, verticalAlign: 'middle', color: '#1976d2' }} />
+                              {new Date(zonedTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          ) : null}
                         </span>
-                      ) : null}
-                    </span>
-                  )}
-                </div>
-                {place && <div style={{ fontSize: 13, color: '#888', marginTop: 2 }}>📍 {place}</div>}
-                {wind !== null && <div style={{ fontSize: 13, color: '#888' }}>💨 Wind: {wind} km/h</div>}
-                {humidity !== null && <div style={{ fontSize: 13, color: '#888' }}>💧 Humidity: {humidity}%</div>}
-                {lastUpdated && <div style={{ fontSize: 11, color: '#bbb', marginTop: 2 }}>Last updated: {lastUpdated.toLocaleTimeString()}</div>}
-                {forecast.length > 0 && (
-                  <div style={{ marginTop: 10, width: '100%' }}>
-                    <TemperatureGraph forecast={forecast.map(f => ({ min: f.min, max: f.max, date: f.date }))} />
-                    <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2 }}>Next 7 Days:</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                      {forecast.map((f, i) => {
-                        const dateObj = new Date(f.date);
-                        const day = dateObj.toLocaleDateString(undefined, { weekday: 'short' });
-                        const dateShort = dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-                        const dateDisplay = `${dateShort}, ${day}`;
-                        const codesArr = Array.isArray(f.code) ? f.code : [f.code];
-                        const icon = getCombinedWeatherIcon(codesArr);
-                        const mainDesc = getMainWeatherDesc(codesArr);
-                        return (
-                          <div key={f.date} style={{ display: 'flex', alignItems: 'center', fontSize: 13, color: '#444', gap: 8 }}>
-                            <span style={{ width: 80 }}>{dateDisplay}</span>
-                            <span style={{ fontSize: 18 }}>{icon}</span>
-                            <span>{mainDesc}</span>
-                            <span style={{ marginLeft: 'auto' }}>{f.min}°/{f.max}°C</span>
-                          </div>
-                        );
-                      })}
+                      )}
+                    </div>
+                    {place && <div style={{ fontSize: 13, color: '#888', marginTop: 2 }}>📍 {place}</div>}
+                    {wind !== null && <div style={{ fontSize: 13, color: '#888' }}>💨 Wind: {wind} km/h</div>}
+                    {humidity !== null && <div style={{ fontSize: 13, color: '#888' }}>💧 Humidity: {humidity}%</div>}
+                    {lastUpdated && <div style={{ fontSize: 11, color: '#bbb', marginTop: 2 }}>Last updated: {lastUpdated.toLocaleTimeString()}</div>}
+                    {forecast.length > 0 && (
+                      <div style={{ marginTop: 10, width: '100%' }}>
+                        <TemperatureGraph forecast={forecast.map(f => ({ min: f.min, max: f.max, date: f.date }))} />
+                        <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2 }}>Next 7 Days:</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                          {forecast.map((f, i) => {
+                            const dateObj = new Date(f.date);
+                            const day = dateObj.toLocaleDateString(undefined, { weekday: 'short' });
+                            const dateShort = dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                            const dateDisplay = `${dateShort}, ${day}`;
+                            const codesArr = Array.isArray(f.code) ? f.code : [f.code];
+                            const icon = getCombinedWeatherIcon(codesArr);
+                            const mainDesc = getMainWeatherDesc(codesArr);
+                            return (
+                              <div key={f.date} style={{ display: 'flex', alignItems: 'center', fontSize: 13, color: '#444', gap: 8 }}>
+                                <span style={{ width: 80 }}>{dateDisplay}</span>
+                                <span style={{ fontSize: 18 }}>{icon}</span>
+                                <span>{mainDesc}</span>
+                                <span style={{ marginLeft: 'auto' }}>{f.min}°/{f.max}°C</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                    {/* Earthquake forecast section */}
+                    <div style={{ marginTop: 18, width: '100%' }}>
+                      <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ position: 'relative', display: 'inline-block', width: 28, height: 22 }}>
+                          {/* Vibrating red circles */}
+                          <span style={{
+                            position: 'absolute', left: 6, top: 2, width: 17, height: 17, borderRadius: '50%', background: 'rgba(215, 38, 62, 0.94)', zIndex: 0, boxShadow: '0 0 8px 2px #d7263d44', animation: 'quakePulse1 1.2s infinite alternate' }} />
+                          <span style={{
+                            position: 'absolute', left: 3, top: -1, width: 23, height: 23, borderRadius: '50%', background: 'rgba(215, 38, 62, 0.66)', zIndex: 0, boxShadow: '0 0 12px 4px #d7263d33', animation: 'quakePulse2 1.2s infinite alternate' }} />
+                          <span style={{
+                            position: 'absolute', left: 0, top: 0, width: 28, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+                            <FaWaveSquare style={{ fontSize: 18, color: '#d7263d', verticalAlign: 'middle', position: 'relative', zIndex: 2 }} />
+                          </span>
+                          <style>{`
+                            @keyframes quakePulse1 { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0.2; transform: scale(1.25); } }
+                            @keyframes quakePulse2 { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0.1; transform: scale(1.4); } }
+                          `}</style>
+                        </span>
+                        Recent Earthquakes (300km radius, 7 days):
+                      </div>
+                      {quakeLoading ? (
+                        <div style={{ fontSize: 13, color: '#888' }}>Loading earthquakes...</div>
+                      ) : quakeError ? (
+                        <div style={{ color: '#d7263d', fontSize: 13 }}>{quakeError}</div>
+                      ) : earthquakes.length === 0 ? (
+                        <div style={{ fontSize: 13, color: '#888' }}>No significant earthquakes nearby.</div>
+                      ) : (
+                        <div style={{ maxHeight: 120, overflowY: 'auto', fontSize: 13 }}>
+                          {earthquakes.slice(0, 5).map((q: any) => (
+                            <div key={q.id} style={{ marginBottom: 6, padding: 6, borderRadius: 6, background: '#f7f7f7', border: '1px solid #e3f6ff', display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <FaWaveSquare style={{ fontSize: 16, color: '#d7263d', verticalAlign: 'middle' }} />
+                              <span style={{ fontWeight: 600, color: q.properties.mag >= 5 ? '#d7263d' : '#1976d2' }}>M{q.properties.mag}</span>
+                              {q.properties.place && <span> — {q.properties.place}</span>}
+                              <span style={{ color: '#888', marginLeft: 6 }}>{new Date(q.properties.time).toLocaleString()}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
-                {/* Earthquake forecast section */}
-                <div style={{ marginTop: 18, width: '100%' }}>
-                  <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2, display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ position: 'relative', display: 'inline-block', width: 28, height: 22 }}>
-                      {/* Vibrating red circles */}
-                      <span style={{
-                        position: 'absolute', left: 6, top: 2, width: 17, height: 17, borderRadius: '50%', background: 'rgba(215, 38, 62, 0.94)', zIndex: 0, boxShadow: '0 0 8px 2px #d7263d44', animation: 'quakePulse1 1.2s infinite alternate' }} />
-                      <span style={{
-                        position: 'absolute', left: 3, top: -1, width: 23, height: 23, borderRadius: '50%', background: 'rgba(215, 38, 62, 0.66)', zIndex: 0, boxShadow: '0 0 12px 4px #d7263d33', animation: 'quakePulse2 1.2s infinite alternate' }} />
-                      <span style={{
-                        position: 'absolute', left: 0, top: 0, width: 28, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
-                        <FaWaveSquare style={{ fontSize: 18, color: '#d7263d', verticalAlign: 'middle', position: 'relative', zIndex: 2 }} />
-                      </span>
-                      <style>{`
-                        @keyframes quakePulse1 { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0.2; transform: scale(1.25); } }
-                        @keyframes quakePulse2 { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0.1; transform: scale(1.4); } }
-                      `}</style>
-                    </span>
-                    Recent Earthquakes (300km radius, 7 days):
-                  </div>
-                  {quakeLoading ? (
-                    <div style={{ fontSize: 13, color: '#888' }}>Loading earthquakes...</div>
-                  ) : quakeError ? (
-                    <div style={{ color: '#d7263d', fontSize: 13 }}>{quakeError}</div>
-                  ) : earthquakes.length === 0 ? (
-                    <div style={{ fontSize: 13, color: '#888' }}>No significant earthquakes nearby.</div>
-                  ) : (
-                    <div style={{ maxHeight: 120, overflowY: 'auto', fontSize: 13 }}>
-                      {earthquakes.slice(0, 5).map((q: any) => (
-                        <div key={q.id} style={{ marginBottom: 6, padding: 6, borderRadius: 6, background: '#f7f7f7', border: '1px solid #e3f6ff', display: 'flex', alignItems: 'center', gap: 6 }}>
-                          <FaWaveSquare style={{ fontSize: 16, color: '#d7263d', verticalAlign: 'middle' }} />
-                          <span style={{ fontWeight: 600, color: q.properties.mag >= 5 ? '#d7263d' : '#1976d2' }}>M{q.properties.mag}</span>
-                          {q.properties.place && <span> — {q.properties.place}</span>}
-                          <span style={{ color: '#888', marginLeft: 6 }}>{new Date(q.properties.time).toLocaleString()}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
               </div>
-            )}
+            </div>
           </div>
         </>
-      )}
+      
     </div>
   );
 };
