@@ -22,7 +22,7 @@ const DateTimePopup: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   return (
     <div style={{
-      position: 'absolute', top: 54, left: 0, minWidth: 260, background: '#fff', color: '#232946', borderRadius: 10,
+      position: 'absolute', top: 54, left: 0, right:0, minWidth: 260, background: '#fff', color: '#232946', borderRadius: 10,
       boxShadow: '0 4px 16px #0002', padding: '16px 20px', zIndex: 100, fontFamily: 'inherit',
     }}>
       <button onClick={onClose} style={{ position: 'absolute', top: 8, right: 12, background: 'none', border: 'none', fontSize: 22, color: '#232946', cursor: 'pointer' }}>×</button>

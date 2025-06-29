@@ -13,16 +13,16 @@ interface CircularHeaderProps {
 
 const BUTTONS = [
   {
+    key: 'home',
+    label: 'Home',
+    icon: <span role="img" aria-label="home">🏠</span>,
+    onClickProp: 'onHomeClick',
+  },
+  {
     key: 'courses',
     label: 'Courses',
     icon: <span role="img" aria-label="courses">📚</span>,
     onClickProp: 'onCoursesClick',
-  },
-  {
-    key: 'theme',
-    label: 'Theme',
-    icon: null, // handled below
-    onClickProp: null,
   },
   {
     key: 'weather',
@@ -71,21 +71,26 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
 
   // Button positions: fan out to the right in an arc (umbrella style)
   const buttonCount = BUTTONS.length;
-  const arcDegrees = 100; // umbrella arc
-  const radius = 120;
-  const startAngle = -10; // slight upward tilt
+  const arcDegrees = 90; // umbrella arc
+  const radius = 180;
+  const startAngle = 0; // slight upward tilt
 
   // Weather icon for nav button
   const weatherIcon = <FaCloudSun style={{ color: '#f7c948', filter: 'drop-shadow(0 0 2px #f7c948)' }} />;
 
   // Button click handlers
   const handleButtonClick = (btn: any) => {
-    if (btn.key === 'theme') onThemeToggle();
+    if (btn.key === 'home') {
+      window.location.replace('/');
+      setExpanded(false);
+      return;
+    }
     else if (btn.key === 'weather') setShowWeather(v => !v);
     else if (btn.key === 'calendar') setShowCalendar(v => !v);
     else if (btn.key === 'about' && onAboutClick) onAboutClick();
     else if (btn.key === 'contact' && onContactClick) onContactClick();
     else if (btn.key === 'courses' && onCoursesClick) onCoursesClick();
+    setExpanded(false);
   };
 
   return (
@@ -155,13 +160,17 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           {BUTTONS.map((btn, i) => {
             const angle = startAngle + (arcDegrees / (buttonCount - 1)) * i;
             const rad = (angle * Math.PI) / 180;
-            const buttonSpacing = 36;
+            const buttonSpacing = 20;
             // Calculate the final position relative to the mother button center
-            const x = Math.cos(rad) * (radius + i * buttonSpacing);
-            const y = Math.sin(rad) * (radius + i * buttonSpacing);
+            const x = Math.cos(rad) * radius;
+            const y = Math.sin(rad) * radius + i * buttonSpacing;
             let icon = btn.icon;
-            if (btn.key === 'theme') icon = isNight ? <FaMoon /> : <FaSun />;
             if (btn.key === 'weather') icon = weatherIcon;
+            const handleNavClick = (e: React.MouseEvent) => {
+              e.stopPropagation();
+              handleButtonClick(btn);
+              setExpanded(false);
+            };
             return (
               <React.Fragment key={btn.key}>
                 {/* Connector wire for each button */}
@@ -190,7 +199,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
                   />
                 </svg>
                 <button
-                  onClick={e => { e.stopPropagation(); handleButtonClick(btn); setExpanded(false); }}
+                  onClick={handleNavClick}
                   title={btn.label}
                   style={{
                     position: 'absolute',
@@ -267,6 +276,38 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           </div>
         </div>
       )}
+      {/* Theme toggle button (ensure not covered by pointerEvents: 'none') */}
+      <button
+        onClick={onThemeToggle}
+        title={`Switch to ${isNight ? 'Day' : 'Night'} mode`}
+        className={`theme-toggle-btn ${isNight ? 'night' : 'day'}`}
+        style={{
+          position: 'fixed',
+          top: 18,
+          right: 32,
+          zIndex: 300,
+          width: 46,
+          height: 46,
+          background: isNight
+            ? 'linear-gradient(135deg, #232946 0%, #1b2735 100%)'
+            : 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)',
+          color: isNight ? '#ffe259' : '#232946',
+          border: 'none',
+          borderRadius: '50%',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          transition: 'background 0.5s, color 0.5s, box-shadow 0.5s',
+          animation: isNight
+            ? 'nightGlow 2s infinite alternate'
+            : 'dayGlow 2s infinite alternate',
+          pointerEvents: 'auto', // <-- ensure button is clickable
+        }}
+      >
+        {isNight ? <FaMoon /> : <FaSun />}
+      </button>
       <style>
       {`
         @keyframes fadeInNav {
