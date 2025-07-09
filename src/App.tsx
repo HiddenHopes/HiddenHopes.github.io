@@ -1,13 +1,15 @@
 // src/App.tsx
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import GameComponent from './components/GameComponent'
-import MainBody from './components/MainBody'
 import AboutPage from './components/AboutPage'
 import ContactPage from './components/ContactPage'
 import CoursesPage from './components/CoursesPage'
 import CircularHeader from './components/CircularHeader'
+import Spinner from './components/Spinner'
+
+const MainBody = React.lazy(() => import('./components/MainBody'));
 
 function App() {
   const [isNight, setIsNight] = useState(true)
@@ -35,6 +37,11 @@ function App() {
     setShowAbout(false)
     setShowContact(false)
   }
+
+  React.useEffect(() => {
+    // Preload MainBody as soon as possible to avoid spinner blink after first mount
+    import('./components/MainBody');
+  }, []);
 
   return (
     <div
@@ -65,9 +72,9 @@ function App() {
       {showCourses && (
         <CoursesPage isNight={isNight} onClose={() => setShowCourses(false)} />
       )}
-      {/* Main content only if no overlay */}
-      {!showAbout && !showContact && !showCourses && (
-        <>
+      {/* MainBody is always mounted, but hidden when overlays are open */}
+      <Suspense fallback={null}> {/* add <Spinner /> instead of null to show loader spinner*/}
+        <div style={{ display: showAbout || showContact || showCourses ? 'none' : 'block' }}>
           <GameComponent
             isNight={isNight}
             showGameMenu={showGameMenu}
@@ -100,8 +107,8 @@ function App() {
             showFootball={showFootball}
             setShowFootball={setShowFootball}
           />
-        </>
-      )}
+        </div>
+      </Suspense>
       <Footer isNight={isNight} />
     </div>
   )
