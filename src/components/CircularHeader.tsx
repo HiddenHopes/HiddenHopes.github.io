@@ -73,7 +73,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
   const buttonCount = BUTTONS.length;
   const arcDegrees = 90; // umbrella arc
   const radius = 180;
-  const startAngle = -1; // slight upward tilt
+  const startAngle = -3; // slight upward tilt
 
   // Weather icon for nav button
   const weatherIcon = <FaCloudSun style={{ color: '#f7c948', filter: 'drop-shadow(0 0 2px #f7c948)' }} />;
@@ -159,7 +159,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
         >
           {BUTTONS.map((btn, i) => {
             const angle = startAngle + (arcDegrees / (buttonCount - 1)) * i;
-            const rad = (angle * Math.PI) / 165;
+            const rad = (angle * Math.PI) / 149;
             const buttonSpacing = 20;
             // Calculate the final position relative to the mother button center
             const x = Math.cos(rad) * radius;
@@ -187,8 +187,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
                   }}
                 >
                   <line
-                    x1={-x}
-                    y1={-y}
+                    x1={-x-i*i+5}
+                    y1={-y+5*i-6}
                     x2={30} // slight downward tilt
                     y2={10} // slight upward tilt
                     stroke="#51ff8b"
