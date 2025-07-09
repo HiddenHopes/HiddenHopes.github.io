@@ -73,7 +73,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
   const buttonCount = BUTTONS.length;
   const arcDegrees = 90; // umbrella arc
   const radius = 180;
-  const startAngle = 0; // slight upward tilt
+  const startAngle = -1; // slight upward tilt
 
   // Weather icon for nav button
   const weatherIcon = <FaCloudSun style={{ color: '#f7c948', filter: 'drop-shadow(0 0 2px #f7c948)' }} />;
@@ -98,8 +98,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
       id="circular-header-nav"
       style={{
         position: 'fixed',
-        top: 60,
-        left: 50,
+        top: 20,
+        left: 20,
         zIndex: 200,
         pointerEvents: 'none',
       }}
@@ -146,8 +146,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
         <div
           style={{
             position: 'absolute',
-            left: 70,
-            top: 50,
+            left: 65,
+            top: 55,
             height: 0,
             width: radius + 60,
             display: 'flex',
@@ -159,7 +159,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
         >
           {BUTTONS.map((btn, i) => {
             const angle = startAngle + (arcDegrees / (buttonCount - 1)) * i;
-            const rad = (angle * Math.PI) / 180;
+            const rad = (angle * Math.PI) / 165;
             const buttonSpacing = 20;
             // Calculate the final position relative to the mother button center
             const x = Math.cos(rad) * radius;
@@ -189,8 +189,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
                   <line
                     x1={-x}
                     y1={-y}
-                    x2={0}
-                    y2={0}
+                    x2={30} // slight downward tilt
+                    y2={10} // slight upward tilt
                     stroke="#51ff8b"
                     strokeWidth="4"
                     strokeDasharray="8 4"
@@ -283,8 +283,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
         className={`theme-toggle-btn ${isNight ? 'night' : 'day'}`}
         style={{
           position: 'fixed',
-          top: 18,
-          right: 32,
+          top: 10,
+          right: 10,
           zIndex: 300,
           width: 46,
           height: 46,

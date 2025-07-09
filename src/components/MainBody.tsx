@@ -39,6 +39,10 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
   const setFootballOpen = setShowFootball || internalSetShowFootball
   React.useEffect(() => { if (showTicTacToe || drawingOpen) setFootballOpen(false) }, [showTicTacToe, drawingOpen])
 
+  // Canvas key to force remount on theme change
+  const [canvasKey, setCanvasKey] = React.useState(0);
+  React.useEffect(() => { setCanvasKey(k => k + 1); }, [isNight]);
+
   return (
     <div
       style={{
@@ -47,7 +51,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
         background: 'transparent'
       }}
     >
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <Canvas key={canvasKey} camera={{ position: [0, 0, 5], fov: 75 }}>
         {isNight ? (
           <>
             <fog attach="fog" args={['#090a0f', 0, 15]} />
@@ -117,7 +121,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
         <OrbitControls
           enableZoom={true}
           minDistance={2}
-          maxDistance={350}
+          maxDistance={8}
           autoRotate
           autoRotateSpeed={0.1}
         />
