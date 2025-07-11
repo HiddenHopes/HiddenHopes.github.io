@@ -61,7 +61,7 @@ function App() {
             : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
         }}
       >
-        <AirplaneBanner href="#" onClick={() => setShowRegistrationModal(true)} />
+        {!(showAbout || showContact || showCourses) && <AirplaneBanner href="#" onClick={() => setShowRegistrationModal(true)} />}
         <Routes>
           <Route
             path="/"
