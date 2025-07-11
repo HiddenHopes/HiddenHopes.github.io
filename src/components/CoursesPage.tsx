@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import StudentListPage from './StudentListPage';
 
 interface CoursesPageProps {
   isNight: boolean;
@@ -6,6 +7,8 @@ interface CoursesPageProps {
 }
 
 const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
+  const [showStudentList, setShowStudentList] = useState(false);
+
   return (
     <div style={{
       width: '100vw',
@@ -97,6 +100,75 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
       >
         Close
       </button>
+      <button
+        onClick={() => setShowStudentList(true)}
+        style={{
+          display: 'inline-block',
+          margin: '18px auto 0 auto',
+          background: 'linear-gradient(90deg, #51ff8b 0%, #1976d2 100%)',
+          color: '#fff',
+          fontWeight: 700,
+          fontSize: 18,
+          borderRadius: 12,
+          padding: '10px 28px',
+          textDecoration: 'none',
+          boxShadow: '0 2px 12px #51ff8b44',
+          border: '2px solid #51ff8b',
+          transition: 'background 0.3s',
+          whiteSpace: 'nowrap',
+          cursor: 'pointer',
+        }}
+      >
+        📋 View Registered Students
+      </button>
+      {showStudentList && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.5)',
+          zIndex: 2000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <div style={{
+            background: isNight ? '#232946' : '#fff',
+            borderRadius: 16,
+            boxShadow: '0 4px 32px #0008',
+            padding: 32,
+            minWidth: 320,
+            maxWidth: 600,
+            width: '90%',
+            maxHeight: '80vh',
+            overflowY: 'auto',
+            position: 'relative',
+          }}>
+            <button
+              onClick={() => setShowStudentList(false)}
+              style={{
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                background: '#ff5252',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 8,
+                padding: '6px 16px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontSize: 16,
+                boxShadow: '0 2px 8px #ff525244',
+              }}
+            >
+              Close
+            </button>
+            <StudentListPage />
+          </div>
+        </div>
+      )}
       <style>{`
         @media (max-width: 900px) {
           .courses-cards-row {

@@ -11,6 +11,7 @@ import CircularHeader from './components/CircularHeader'
 import Spinner from './components/Spinner'
 import AirplaneBanner from './components/AirplaneBanner'
 import StudentRegistrationForm from './components/StudentRegistrationForm';
+import StudentListPage from './components/StudentListPage';
 
 const MainBody = React.lazy(() => import('./components/MainBody'));
 
@@ -164,6 +165,7 @@ function App() {
             }
           />
           <Route path="/register" element={null} />
+          <Route path="/students" element={<StudentListPage />} />
         </Routes>
       </div>
     </Router>

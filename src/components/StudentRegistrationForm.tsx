@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../supabase/supabaseClient';
 
 const COURSE_OPTIONS = [
   { value: '', label: 'Select Course' },
@@ -98,17 +99,22 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
     setSubmitting(true);
     setError('');
     try {
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, registrationDate: new Date().toISOString() }),
-      });
-      if (!res.ok) throw new Error('Failed to register');
-      setSuccess(true);
-      setForm(initialState);
-      if (onSuccess) onSuccess();
+      const { error } = await supabase
+        .from('registrations')
+        .insert([
+          { ...form, registration_date: new Date().toISOString() },
+        ]);
+      if (error) {
+        setError('Registration failed. ' + (error.message || 'Please try again.'));
+        setSuccess(false);
+      } else {
+        setSuccess(true);
+        setForm(initialState);
+        if (onSuccess) onSuccess();
+      }
     } catch (err) {
       setError('Registration failed. Please try again.');
+      setSuccess(false);
     } finally {
       setSubmitting(false);
     }
@@ -223,8 +229,8 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         rows={3}
         style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16, resize: 'vertical' }}
       />
-      {error && <div style={{ color: 'red', textAlign: 'center', fontWeight: 500 }}>{error}</div>}
       {success && <div style={{ color: 'green', textAlign: 'center', fontWeight: 500 }}>Registration successful!</div>}
+      {error && <div style={{ color: 'red', textAlign: 'center', fontWeight: 500 }}>{error}</div>}
       <button
         type="submit"
         disabled={!isValid || submitting}
