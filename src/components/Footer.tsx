@@ -1,10 +1,14 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface FooterProps {
   isNight: boolean
 }
 
-const Footer: React.FC<FooterProps> = ({ isNight }) => (
+const Footer: React.FC<FooterProps> = ({ isNight }) => {
+  const { t } = useTranslation();
+  
+  return (
   <footer
     style={{
       width: '100%',
@@ -29,7 +33,7 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => (
     }}
   >
     <div>
-      &copy; {new Date().getFullYear()} <b>School of Happiness</b>. All rights reserved.
+      &copy; {new Date().getFullYear()} <b>{t('footer.school_name')}</b>. {t('footer.rights_reserved')}
     </div>
     <div style={{ marginTop: 4 }}>
       <a
@@ -73,6 +77,7 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => (
       </a>
     </div>
   </footer>
-)
+  );
+};
 
 export default Footer

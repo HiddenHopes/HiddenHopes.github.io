@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { FaGamepad } from 'react-icons/fa'
 
 interface GameComponentProps {
@@ -17,11 +18,14 @@ const GameComponent: React.FC<GameComponentProps> = ({
   onTicTacToeClick,
   onDrawingClick,
   onFootballClick
-}) => (
+}) => {
+  const { t } = useTranslation();
+  
+  return (
   <div style={{ position: 'fixed', bottom: 120, left: 30, zIndex: 30 }}>
     <button
       onClick={onGameMenuToggle}
-      title="Games"
+      title={t('tooltips.games')}
       className="game-btn"
       style={{
         width: 56,
@@ -77,28 +81,28 @@ const GameComponent: React.FC<GameComponentProps> = ({
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >
-          🎮 TicTacToe
+          🎮 {t('games.tictactoe')}
         </div>
         <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
           onClick={onDrawingClick}
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >
-          🖊️ Drawing
+          🖊️ {t('games.drawing')}
         </div>
         <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
-          onClick={() => alert('Cricket coming soon!')}
+          onClick={() => alert(t('games.cricket_coming_soon'))}
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >
-          🏏 Cricket
+          🏏 {t('games.cricket')}
         </div>
         <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
           onClick={onFootballClick}
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >
-          ⚽ Football
+          ⚽ {t('games.football')}
         </div>
       </div>
     )}
@@ -111,6 +115,7 @@ const GameComponent: React.FC<GameComponentProps> = ({
       `}
     </style>
   </div>
-)
+  );
+};
 
 export default GameComponent

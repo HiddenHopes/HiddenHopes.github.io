@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls, Sky, Sparkles } from '@react-three/drei'
 import Moon from './Moon'
@@ -25,6 +26,7 @@ interface MainBodyProps {
 }
 
 const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicTacToe, showDrawing, setShowDrawing, showFootball, setShowFootball }) => {
+  const { t } = useTranslation();
   // If showDrawing/setShowDrawing are not provided, fallback to local state (for backward compatibility)
   const [internalShowDrawing, internalSetShowDrawing] = React.useState(false)
   const drawingOpen = showDrawing !== undefined ? showDrawing : internalShowDrawing
@@ -138,7 +140,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
               width: 32, height: 32, fontSize: 20, fontWeight: 700, cursor: 'pointer',
               boxShadow: '0 2px 8px #0004'
             }}
-            aria-label="Close drawing window"
+            aria-label={t('aria_labels.close_drawing')}
           >×</button>
         </div>
       )}

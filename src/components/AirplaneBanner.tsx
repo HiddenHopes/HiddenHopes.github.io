@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface AirplaneBannerProps {
   onClick?: () => void;
@@ -6,6 +7,8 @@ interface AirplaneBannerProps {
 }
 
 const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
+  const { t } = useTranslation();
+  
   return (
     <div style={{
       position: 'fixed',
@@ -60,7 +63,7 @@ const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
             cursor: 'pointer',
           }}
           tabIndex={0}
-          aria-label="Register for Course"
+          aria-label={t('aria_labels.register_course')}
         >
           🚩 Register for Course
         </a>

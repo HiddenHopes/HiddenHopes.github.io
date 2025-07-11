@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../supabase/supabaseClient';
 
 interface Student {
@@ -14,13 +15,15 @@ interface StudentListPageProps {
   isNight?: boolean;
 }
 
-const COURSE_TABS = [
-  { key: 'fullstack', label: 'Fullstack Developer' },
-  { key: '3d-development', label: '3D Web Development' },
-  { key: 'problem-solving', label: 'Problem Solving & Contest Programming' },
-];
-
 const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) => {
+  const { t } = useTranslation();
+  
+  const COURSE_TABS = [
+    { key: 'fullstack', label: t('courses.fullstack') },
+    { key: '3d-development', label: t('courses.3d') },
+    { key: 'problem-solving', label: t('courses.problem') },
+  ];
+  
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -65,7 +68,7 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
       minHeight: 320,
       color: isNight ? '#ffe259' : '#232946',
     }}>
-      <h2 style={{ textAlign: 'center', color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 18 }}>Registered Students</h2>
+      <h2 style={{ textAlign: 'center', color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 18 }}>{t('students.registered_students')}</h2>
       {/* Tabs for courses */}
       <div style={{
         display: 'flex',
@@ -111,10 +114,10 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
       {loading && <div style={{ textAlign: 'center', color: '#1976d2' }}>Loading...</div>}
       {error && <div style={{ color: 'red', textAlign: 'center', fontWeight: 500 }}>{error}</div>}
       {!loading && !error && enabledFields.length === 0 && (
-        <div style={{ textAlign: 'center', color: '#232946' }}>No fields are enabled in the configuration.</div>
+        <div style={{ textAlign: 'center', color: '#232946' }}>{t('No fields are enabled in the configuration.')}</div>
       )}
       {!loading && !error && enabledFields.length > 0 && filteredStudents.length === 0 && (
-        <div style={{ textAlign: 'center', color: '#232946' }}>No students registered for this course yet.</div>
+        <div style={{ textAlign: 'center', color: '#232946' }}>{t('students.no_students_course')}</div>
       )}
       {!loading && enabledFields.length > 0 && filteredStudents.length > 0 && (
         <>
@@ -138,11 +141,11 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
             <thead>
               <tr style={{ background: '#51ff8b22' }}>
                 <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}></th>
-                {STUDENT_LIST_FIELDS.name && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>Name</th>}
-                {STUDENT_LIST_FIELDS.course && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>Course</th>}
-                {STUDENT_LIST_FIELDS.university && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>University</th>}
-                {STUDENT_LIST_FIELDS.email && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>Email</th>}
-                {STUDENT_LIST_FIELDS.registration_date && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>Date</th>}
+                {STUDENT_LIST_FIELDS.name && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>{t('form.name')}</th>}
+                {STUDENT_LIST_FIELDS.course && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>{t('form.course')}</th>}
+                {STUDENT_LIST_FIELDS.university && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>{t('form.university')}</th>}
+                {STUDENT_LIST_FIELDS.email && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>{t('form.email')}</th>}
+                {STUDENT_LIST_FIELDS.registration_date && <th style={{ padding: '8px 4px', borderBottom: '2px solid #51ff8b', textAlign: 'left' }}>{t('Date')}</th>}
               </tr>
             </thead>
             <tbody>
@@ -214,23 +217,23 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
                 </div>
                 <div style={{ flex: 1 }}>
                   {STUDENT_LIST_FIELDS.name && <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '6px 0' }}>
-                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>Name</div>
+                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>{t('form.name')}</div>
                     <div style={{ flex: 1, color: isNight ? '#ffe259' : '#232946', fontSize: 15, marginLeft: 8 }}>{s.name}</div>
                   </div>}
                   {STUDENT_LIST_FIELDS.course && <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '6px 0' }}>
-                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>Course</div>
+                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>{t('form.course')}</div>
                     <div style={{ flex: 1, color: isNight ? '#ffe259' : '#232946', fontSize: 15, marginLeft: 8 }}>{s.course}</div>
                   </div>}
                   {STUDENT_LIST_FIELDS.university && <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '6px 0' }}>
-                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>University</div>
+                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>{t('form.university')}</div>
                     <div style={{ flex: 1, color: isNight ? '#ffe259' : '#232946', fontSize: 15, marginLeft: 8 }}>{s.university}</div>
                   </div>}
                   {STUDENT_LIST_FIELDS.email && <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '6px 0' }}>
-                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>Email</div>
+                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>{t('form.email')}</div>
                     <div style={{ flex: 1, color: isNight ? '#ffe259' : '#232946', fontSize: 15, marginLeft: 8 }}>{s.email}</div>
                   </div>}
                   {STUDENT_LIST_FIELDS.registration_date && <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '6px 0' }}>
-                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>Date</div>
+                    <div style={{ minWidth: 90, fontWeight: 700, color: isNight ? '#51ff8b' : '#1976d2', fontSize: 14 }}>{t('Date')}</div>
                     <div style={{ flex: 1, color: isNight ? '#ffe259' : '#232946', fontSize: 15, marginLeft: 8 }}>{s.registration_date ? new Date(s.registration_date).toLocaleString() : ''}</div>
                   </div>}
                 </div>

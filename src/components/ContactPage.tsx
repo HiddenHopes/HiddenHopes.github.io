@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ContactPageProps {
   isNight: boolean;
@@ -6,6 +7,8 @@ interface ContactPageProps {
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ isNight, onClose }) => {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       width: '100vw',
@@ -23,9 +26,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ isNight, onClose }) => {
       justifyContent: 'center',
       padding: 32
     }}>
-      <h1 style={{ fontSize: 32, marginBottom: 16 }}>Contact Us</h1>
+      <h1 style={{ fontSize: 32, marginBottom: 16 }}>{t('contact.title')}</h1>
       <p style={{ maxWidth: 500, fontSize: 18, marginBottom: 32, textAlign: 'center' }}>
-        We'd love to hear from you! For questions, feedback, or collaboration, please email us at <a href="mailto:info@schoolofhappiness.com" style={{ color: isNight ? '#ffe259' : '#1976d2', textDecoration: 'underline' }}>info@schoolofhappiness.com</a>.
+        {t('contact.description')} <a href="mailto:info@schoolofhappiness.com" style={{ color: isNight ? '#ffe259' : '#1976d2', textDecoration: 'underline' }}>info@schoolofhappiness.com</a>.
       </p>
       <button
         onClick={onClose}
@@ -41,7 +44,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ isNight, onClose }) => {
           boxShadow: isNight ? '0 2px 8px #23294688' : '0 2px 8px #b3e0ff88'
         }}
       >
-        Close
+        {t('common.close')}
       </button>
     </div>
   );

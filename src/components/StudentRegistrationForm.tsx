@@ -1,45 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../supabase/supabaseClient';
-
-const COURSE_OPTIONS = [
-  { value: '', label: 'Select Course' },
-  { value: 'fullstack', label: 'Fullstack Developer' },
-  { value: 'problem-solving', label: 'Problem Solving & Contest Programming' },
-  { value: '3d-development', label: '3D Web Development' },
-];
-
-const UNIVERSITY_OPTIONS = [
-  { value: '', label: 'Select University' },
-  { value: 'RU', label: 'Rajshahi University (RU)' },
-  { value: 'VU', label: 'Varendra University (VU)' },
-  { value: 'NSU', label: 'North South University (NSU)' },
-  { value: 'DU', label: 'Dhaka University (DU)' },
-  { value: 'CU', label: 'Chittagong University (CU)' },
-  // Add more as needed
-];
-
-const YEAR_OPTIONS = [
-  { value: '', label: 'Select Year' },
-  { value: '1st', label: '1st' },
-  { value: '2nd', label: '2nd' },
-  { value: '3rd', label: '3rd' },
-  { value: '4th', label: '4th' },
-];
-
-const SEMESTER_OPTIONS = [
-  { value: '', label: 'Select Semester' },
-  ...Array.from({ length: 8 }, (_, i) => ({ value: `${i+1}`, label: `${i+1}th` }))
-];
-
-const DEPT_OPTIONS = [
-  { value: '', label: 'Select Department' },
-  { value: 'cse', label: 'CSE' },
-  { value: 'eee', label: 'EEE' },
-  { value: 'ete', label: 'ETE' },
-  { value: 'civil', label: 'Civil' },
-  { value: 'me', label: 'ME' },
-  // Add more as needed
-];
 
 const initialState = {
   name: '',
@@ -72,6 +33,48 @@ interface StudentRegistrationFormProps {
 }
 
 const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess }) => {
+  const { t } = useTranslation();
+  
+  const COURSE_OPTIONS = [
+    { value: '', label: t('form.select_course') },
+    { value: 'fullstack', label: t('courses.fullstack') },
+    { value: 'problem-solving', label: t('courses.problem') },
+    { value: '3d-development', label: t('courses.3d') },
+  ];
+
+  const UNIVERSITY_OPTIONS = [
+    { value: '', label: t('form.select_university') },
+    { value: 'RU', label: 'Rajshahi University (RU)' },
+    { value: 'VU', label: 'Varendra University (VU)' },
+    { value: 'NSU', label: 'North South University (NSU)' },
+    { value: 'DU', label: 'Dhaka University (DU)' },
+    { value: 'CU', label: 'Chittagong University (CU)' },
+    // Add more as needed
+  ];
+
+  const YEAR_OPTIONS = [
+    { value: '', label: t('form.select_year') },
+    { value: '1st', label: '1st' },
+    { value: '2nd', label: '2nd' },
+    { value: '3rd', label: '3rd' },
+    { value: '4th', label: '4th' },
+  ];
+
+  const SEMESTER_OPTIONS = [
+    { value: '', label: t('form.select_semester') },
+    ...Array.from({ length: 8 }, (_, i) => ({ value: `${i+1}`, label: `${i+1}th` }))
+  ];
+
+  const DEPT_OPTIONS = [
+    { value: '', label: t('form.select_department') },
+    { value: 'cse', label: 'CSE' },
+    { value: 'eee', label: 'EEE' },
+    { value: 'ete', label: 'ETE' },
+    { value: 'civil', label: 'Civil' },
+    { value: 'me', label: 'ME' },
+    // Add more as needed
+  ];
+
   const [form, setForm] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -134,22 +137,22 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
       gap: 18,
       boxSizing: 'border-box',
     }}>
-      <h2 style={{ textAlign: 'center', color: '#1976d2', marginBottom: 8 }}>Student Registration</h2>
+      <h2 style={{ textAlign: 'center', color: '#1976d2', marginBottom: 8 }}>{t('form.student_registration')}</h2>
       <input
         name="name"
         value={form.name}
         onChange={handleChange}
-        placeholder="Full Name"
+        placeholder={t('form.full_name')}
         required
         pattern="[A-Za-z .-]+"
-        title="Only letters, hyphen, dot and spaces allowed"
+        title={t('tooltips.name_validation')}
         style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
       />
       <input
         name="email"
         value={form.email}
         onChange={handleChange}
-        placeholder="Email"
+        placeholder={t('form.email')}
         required
         type="email"
         style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
@@ -158,11 +161,11 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         name="mobile"
         value={form.mobile}
         onChange={handleChange}
-        placeholder="Mobile Number"
+        placeholder={t('form.mobile')}
         required
         inputMode="numeric"
         pattern="\d{10,15}"
-        title="Only numbers allowed"
+        title={t('tooltips.phone_validation')}
         style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
       />
       <select
@@ -205,11 +208,11 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         name="batch"
         value={form.batch}
         onChange={handleChange}
-        placeholder="Batch Number (1-999)"
+        placeholder={t('form.batch')}
         required
         inputMode="numeric"
         pattern="\d{1,3}"
-        title="Batch number 1-999"
+        title={t('tooltips.batch_validation')}
         style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
       />
       <select
@@ -225,11 +228,11 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         name="comments"
         value={form.comments}
         onChange={handleChange}
-        placeholder="Any comments, queries, or suggestions? (optional)"
+        placeholder={t('form.comments')}
         rows={3}
         style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16, resize: 'vertical' }}
       />
-      {success && <div style={{ color: 'green', textAlign: 'center', fontWeight: 500 }}>Registration successful!</div>}
+      {success && <div style={{ color: 'green', textAlign: 'center', fontWeight: 500 }}>{t('form.success')}</div>}
       {error && <div style={{ color: 'red', textAlign: 'center', fontWeight: 500 }}>{error}</div>}
       <button
         type="submit"
@@ -248,7 +251,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
           transition: 'background 0.2s',
         }}
       >
-        {submitting ? 'Submitting...' : 'Submit'}
+        {submitting ? t('form.submitting') : t('form.submit')}
       </button>
       <style>{`
         @media (max-width: 600px) {

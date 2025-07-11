@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface AboutPageProps {
   isNight: boolean;
@@ -6,6 +7,8 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ isNight, onClose }) => {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       width: '100vw',
@@ -23,9 +26,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ isNight, onClose }) => {
       justifyContent: 'center',
       padding: 32
     }}>
-      <h1 style={{ fontSize: 32, marginBottom: 16 }}>About School of Happiness</h1>
+      <h1 style={{ fontSize: 32, marginBottom: 16 }}>{t('about.title')}</h1>
       <p style={{ maxWidth: 500, fontSize: 18, marginBottom: 32, textAlign: 'center' }}>
-        Welcome to the School of Happiness! This project is a playful, interactive web app designed to bring joy, learning, and creativity together. Explore games, weather updates, and more—all in a beautiful, immersive environment.
+        {t('about.description')}
       </p>
       <button
         onClick={onClose}
@@ -41,7 +44,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ isNight, onClose }) => {
           boxShadow: isNight ? '0 2px 8px #23294688' : '0 2px 8px #b3e0ff88'
         }}
       >
-        Close
+        {t('common.close')}
       </button>
     </div>
   );

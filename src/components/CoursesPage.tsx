@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import StudentListPage from './StudentListPage';
 
 interface CoursesPageProps {
@@ -8,6 +9,7 @@ interface CoursesPageProps {
 
 const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
   const [showStudentList, setShowStudentList] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div style={{
@@ -30,9 +32,9 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
       boxSizing: 'border-box',
       zIndex: 1000
     }}>
-      <h1 style={{ fontSize: 32, marginBottom: 16, marginTop: 8, textAlign: 'center' }}>Our Courses</h1>
+      <h1 style={{ fontSize: 32, marginBottom: 16, marginTop: 8, textAlign: 'center' }}>{t('courses.title')}</h1>
       <p style={{ maxWidth: 600, fontSize: 18, marginBottom: 32, textAlign: 'center' }}>
-        Discover our unique courses designed for fullstack and 3D web development, as well as problem solving and contest programming:
+        {t('courses.description')}
       </p>
       <div className="courses-cards-row" style={{
         display: 'flex',
@@ -45,38 +47,38 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
       }}>
         {/* Fullstack Developer Course */}
         <div style={{ background: isNight ? '#232946' : '#fff', borderRadius: 16, boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44', padding: 24, minWidth: 260, maxWidth: 400, flex: 1, margin: '0 auto', boxSizing: 'border-box' }}>
-          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>Fullstack Developer</h2>
+          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.fullstack')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
-            <li><b>Java</b>: OOP, Collections, Streams, Exception Handling, Multithreading</li>
-            <li><b>Spring Boot</b>: REST APIs, Security, JPA, Testing</li>
-            <li><b>React JS</b>: Components, Hooks, State Management, Routing</li>
-            <li><b>HTML &amp; CSS</b>: Modern layouts, Flexbox, Grid, Responsive Design</li>
-            <li><b>JavaScript</b>: ES6+, Async, DOM, Fetch/AJAX</li>
-            <li><b>SQL</b>: Joins, Aggregations, Indexing, Transactions</li>
-            <li><b>Git</b>: Branching, Merging, Collaboration</li>
-            <li><b>AWS</b>: EC2, S3, RDS, Deployment basics</li>
+            <li><b>{t('coursesPage.java')}</b>: {t('coursesPage.javaDescription')}</li>
+            <li><b>{t('coursesPage.springBoot')}</b>: {t('coursesPage.springBootDescription')}</li>
+            <li><b>{t('coursesPage.reactJS')}</b>: {t('coursesPage.reactJSDescription')}</li>
+            <li><b>{t('coursesPage.htmlCss')}</b>: {t('coursesPage.htmlCssDescription')}</li>
+            <li><b>{t('coursesPage.javaScript')}</b>: {t('coursesPage.javaScriptDescription')}</li>
+            <li><b>{t('coursesPage.sql')}</b>: {t('coursesPage.sqlDescription')}</li>
+            <li><b>{t('coursesPage.git')}</b>: {t('coursesPage.gitDescription')}</li>
+            <li><b>{t('coursesPage.aws')}</b>: {t('coursesPage.awsDescription')}</li>
           </ul>
         </div>
         {/* 3D Web Development Course */}
         <div style={{ background: isNight ? '#232946' : '#fff', borderRadius: 16, boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44', padding: 24, minWidth: 260, maxWidth: 400, flex: 1, margin: '0 auto', boxSizing: 'border-box' }}>
-          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>3D Web Development</h2>
+          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.3d')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
-            <li><b>WebGL &amp; Three.js</b>: 3D graphics, models, animation</li>
-            <li><b>React Three Fiber</b>: 3D in React, scene management</li>
-            <li><b>GLTF/GLB</b>: 3D model formats, loading assets</li>
-            <li><b>Shaders</b>: Basics, custom effects</li>
-            <li><b>3D UI/UX</b>: Interaction, camera, controls</li>
+            <li><b>{t('coursesPage.webGLThreeJS')}</b>: {t('coursesPage.webGLThreeJSDescription')}</li>
+            <li><b>{t('coursesPage.reactThreeFiber')}</b>: {t('coursesPage.reactThreeFiberDescription')}</li>
+            <li><b>{t('coursesPage.gltfGlb')}</b>: {t('coursesPage.gltfGlbDescription')}</li>
+            <li><b>{t('coursesPage.shaders')}</b>: {t('coursesPage.shadersDescription')}</li>
+            <li><b>{t('coursesPage.uiUx')}</b>: {t('coursesPage.uiUxDescription')}</li>
           </ul>
         </div>
         {/* Problem Solving & Contest Programming */}
         <div style={{ background: isNight ? '#232946' : '#fff', borderRadius: 16, boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44', padding: 24, minWidth: 260, maxWidth: 400, flex: 1, margin: '0 auto', boxSizing: 'border-box' }}>
-          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>Problem Solving &amp; Contest Programming</h2>
+          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.problem')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
-            <li><b>Algorithms</b>: Sorting, Searching, Graphs, DP, Greedy</li>
-            <li><b>Data Structures</b>: Arrays, Trees, Hashing, Stacks, Queues</li>
-            <li><b>Competitive Coding</b>: Codeforces, LeetCode, AtCoder, ICPC</li>
-            <li><b>Math &amp; Logic</b>: Number theory, Combinatorics, Bit manipulation</li>
-            <li><b>Speed &amp; Accuracy</b>: Fast coding, debugging, test cases</li>
+            <li><b>{t('coursesPage.algorithms')}</b>: {t('coursesPage.algorithmsDescription')}</li>
+            <li><b>{t('coursesPage.dataStructures')}</b>: {t('coursesPage.dataStructuresDescription')}</li>
+            <li><b>{t('coursesPage.competitiveCoding')}</b>: {t('coursesPage.competitiveCodingDescription')}</li>
+            <li><b>{t('coursesPage.mathLogic')}</b>: {t('coursesPage.mathLogicDescription')}</li>
+            <li><b>{t('coursesPage.speedAccuracy')}</b>: {t('coursesPage.speedAccuracyDescription')}</li>
           </ul>
         </div>
       </div>
@@ -98,7 +100,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           maxWidth: 320
         }}
       >
-        Close
+        {t('common.close')}
       </button>
       <button
         onClick={() => setShowStudentList(true)}
@@ -119,7 +121,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           cursor: 'pointer',
         }}
       >
-        📋 View Registered Students
+        📋 {t('courses.view_students')}
       </button>
       {showStudentList && (
         <div style={{
@@ -163,7 +165,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
                 boxShadow: '0 2px 8px #ff525244',
               }}
             >
-              Close
+              {t('common.close')}
             </button>
             <StudentListPage />
           </div>

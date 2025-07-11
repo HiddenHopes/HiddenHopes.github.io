@@ -1,0 +1,181 @@
+{
+  "header": {
+    "title": "School of Happiness",
+    "toggle_en": "EN",
+    "toggle_bn": "BN"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "courses": "Courses",
+    "contact": "Contact",
+    "weather": "Weather",
+    "calendar": "Date & Time"
+  },
+  "about": {
+    "title": "About School of Happiness",
+    "description": "Welcome to the School of Happiness! This project is a playful, interactive web app designed to bring joy, learning, and creativity together. Explore games, weather updates, and more—all in a beautiful, immersive environment."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "We'd love to hear from you! For questions, feedback, or collaboration, please email us at"
+  },
+  "courses": {
+    "title": "Our Courses",
+    "description": "Discover our unique courses designed for fullstack and 3D web development, as well as problem solving and contest programming:",
+    "fullstack": "Fullstack Developer",
+    "3d": "3D Web Development",
+    "problem": "Problem Solving & Contest Programming",
+    "close": "Close",
+    "view_students": "View Students"
+  },
+  "coursesPage": {
+    "java": "Java",
+    "javaDescription": "OOP, Collections, Streams, Exception Handling, Multithreading",
+    "springBoot": "Spring Boot",
+    "springBootDescription": "REST APIs, Security, JPA, Testing",
+    "reactJS": "React JS",
+    "reactJSDescription": "Components, Hooks, State Management, Routing",
+    "htmlCss": "HTML & CSS",
+    "htmlCssDescription": "Modern layouts, Flexbox, Grid, Responsive Design",
+    "javaScript": "JavaScript",
+    "javaScriptDescription": "ES6+, Async, DOM, Fetch/AJAX",
+    "sql": "SQL",
+    "sqlDescription": "Joins, Aggregations, Indexing, Transactions",
+    "git": "Git",
+    "gitDescription": "Branching, Merging, Collaboration",
+    "aws": "AWS",
+    "awsDescription": "EC2, S3, RDS, Deployment basics",
+    "webGLThreeJS": "WebGL & Three.js",
+    "webGLThreeJSDescription": "3D graphics, models, animation",
+    "reactThreeFiber": "React Three Fiber",
+    "reactThreeFiberDescription": "3D in React, scene management",
+    "gltfGlb": "GLTF/GLB",
+    "gltfGlbDescription": "3D model formats, loading assets",
+    "shaders": "Shaders",
+    "shadersDescription": "Basics, custom effects",
+    "uiUx": "3D UI/UX",
+    "uiUxDescription": "Interaction, camera, controls",
+    "algorithms": "Algorithms",
+    "algorithmsDescription": "Sorting, Searching, Graphs, DP, Greedy",
+    "dataStructures": "Data Structures",
+    "dataStructuresDescription": "Arrays, Trees, Hashing, Stacks, Queues",
+    "competitiveCoding": "Competitive Coding",
+    "competitiveCodingDescription": "Codeforces, LeetCode, AtCoder, ICPC",
+    "mathLogic": "Math & Logic",
+    "mathLogicDescription": "Number theory, Combinatorics, Bit manipulation",
+    "speedAccuracy": "Speed & Accuracy",
+    "speedAccuracyDescription": "Fast coding, debugging, test cases"
+  },
+  "students": {
+    "registered_students": "Registered Students",
+    "no_students": "No students registered yet.",
+    "no_students_course": "No students registered for this course yet."
+  },
+  "form": {
+    "register": "Register for Course",
+    "student_registration": "Student Registration",
+    "name": "Name",
+    "full_name": "Full Name",
+    "course": "Course",
+    "university": "University",
+    "email": "Email",
+    "mobile": "Mobile Number",
+    "year": "Year",
+    "semester": "Semester",
+    "batch": "Batch Number (1-999)",
+    "department": "Department",
+    "comments": "Any comments, queries, or suggestions? (optional)",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "success": "Registration successful!",
+    "select_course": "Select Course",
+    "select_university": "Select University",
+    "select_year": "Select Year",
+    "select_semester": "Select Semester",
+    "select_department": "Select Department"
+  },
+  "common": {
+    "close": "Close"
+  },
+  "game": {
+    "penalty_shootout": "Penalty Shootout",
+    "left": "Left",
+    "center": "Center", 
+    "right": "Right",
+    "restart": "Restart",
+    "goal": "GOAL! ⚽️",
+    "saved": "Saved! 🧤"
+  },
+  "games": {
+    "tictactoe": "TicTacToe",
+    "drawing": "Drawing",
+    "cricket": "Cricket",
+    "football": "Football",
+    "cricket_coming_soon": "Cricket coming soon!"
+  },
+  "weather": {
+    "search_location": "Search location...",
+    "search": "Search"
+  },
+  "football": {
+    "live": "LIVE",
+    "team": "Team",
+    "p": "P",
+    "w": "W", 
+    "d": "D",
+    "l": "L",
+    "pts": "Pts"
+  },
+  "drawing": {
+    "clear": "Clear",
+    "pencil": "Pencil",
+    "eraser": "Eraser",
+    "width": "Width",
+    "color": "Color"
+  },
+  "datetime": {
+    "calendar": "Calendar",
+    "clock": "Clock",
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat"
+  },
+  "tictactoe": {
+    "you_win": "You Win! 🎉",
+    "computer_wins": "Computer Wins! 🤖",
+    "draw": "Draw!",
+    "your_turn": "Your Turn"
+  },
+  "footer": {
+    "school_name": "School of Happiness",
+    "rights_reserved": "All rights reserved."
+  },
+  "tooltips": {
+    "show_date_time": "Show Date & Time",
+    "show_football_results": "Show Football Results",
+    "switch_to_day_mode": "Switch to Day mode",
+    "switch_to_night_mode": "Switch to Night mode",
+    "show_menu": "Show Menu",
+    "games": "Games",
+    "register_for_course": "Register for Course",
+    "close_game": "Close game",
+    "restart_game": "Restart game",
+    "restart": "Restart",
+    "close_drawing": "Close drawing window",
+    "name_validation": "Only letters, hyphen, dot and spaces allowed",
+    "mobile_validation": "Only numbers allowed",
+    "batch_validation": "Batch number 1-999"
+  },
+  "aria_labels": {
+    "football": "football",
+    "home": "home",
+    "courses": "courses",
+    "about": "about",
+    "contact": "contact"
+  }
+}

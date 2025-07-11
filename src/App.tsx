@@ -1,6 +1,7 @@
 // src/App.tsx
 import React, { useState, Suspense, MouseEvent } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import GameComponent from './components/GameComponent'
@@ -12,6 +13,7 @@ import Spinner from './components/Spinner'
 import AirplaneBanner from './components/AirplaneBanner'
 import StudentRegistrationForm from './components/StudentRegistrationForm';
 import StudentListPage from './components/StudentListPage';
+import './i18n';
 
 const MainBody = React.lazy(() => import('./components/MainBody'));
 
@@ -25,6 +27,7 @@ function App() {
   const [showContact, setShowContact] = useState(false)
   const [showCourses, setShowCourses] = useState(false)
   const [showRegistrationModal, setShowRegistrationModal] = useState(false)
+  const { i18n, t } = useTranslation();
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
   const handleShowAbout = () => {
@@ -50,6 +53,31 @@ function App() {
 
   return (
     <Router>
+      {/* Language Toggle - always visible */}
+      <div style={{ position: 'fixed', top: 18, right: 18, zIndex: 5000 }}>
+        <button
+          onClick={() => {
+            i18n.changeLanguage(i18n.language === 'en' ? 'bn' : 'en');
+            localStorage.setItem('lang', i18n.language === 'en' ? 'bn' : 'en');
+          }}
+          style={{
+            padding: '6px 18px',
+            fontSize: 16,
+            fontWeight: 700,
+            borderRadius: 8,
+            border: '2px solid #51ff8b',
+            background: '#fff',
+            color: '#1976d2',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px #51ff8b44',
+            marginRight: 8,
+            transition: 'background 0.3s',
+          }}
+          aria-label={t('header.toggle_en') + '/' + t('header.toggle_bn')}
+        >
+          {i18n.language === 'en' ? t('header.toggle_bn') : t('header.toggle_en')}
+        </button>
+      </div>
       <div
         style={{
           width: '100vw',
