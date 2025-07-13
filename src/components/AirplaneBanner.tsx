@@ -12,7 +12,7 @@ const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
   return (
     <div style={{
       position: 'fixed',
-      top: 32,
+      top: 60,
       right: 0,
       width: '100vw',
       zIndex: 1200,

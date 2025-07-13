@@ -54,29 +54,69 @@ function App() {
   return (
     <Router>
       {/* Language Toggle - always visible */}
-      <div style={{ position: 'fixed', top: 18, right: 18, zIndex: 5000 }}>
-        <button
+      <div style={{ position: 'fixed', top: 15, right: 70, zIndex: 5000 }}>
+        <div
           onClick={() => {
             i18n.changeLanguage(i18n.language === 'en' ? 'bn' : 'en');
             localStorage.setItem('lang', i18n.language === 'en' ? 'bn' : 'en');
           }}
           style={{
-            padding: '6px 18px',
-            fontSize: 16,
-            fontWeight: 700,
-            borderRadius: 8,
-            border: '2px solid #51ff8b',
-            background: '#fff',
-            color: '#1976d2',
+            width: 80,
+            height: 36,
+            borderRadius: 18,
+            background: '#51ff8b',
+            position: 'relative',
             cursor: 'pointer',
             boxShadow: '0 2px 8px #51ff8b44',
-            marginRight: 8,
-            transition: 'background 0.3s',
+            transition: 'all 0.3s ease',
+            border: '2px solid #51ff8b',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 6px'
           }}
-          aria-label={t('header.toggle_en') + '/' + t('header.toggle_bn')}
+          // aria-label={t('header.toggle_en') + '/' + t('header.toggle_bn')}
         >
-          {i18n.language === 'en' ? t('header.toggle_bn') : t('header.toggle_en')}
-        </button>
+          {/* Language labels */}
+          <span style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: i18n.language === 'en' ? '#1976d2' : '#fff',
+            transition: 'color 0.3s ease',
+            zIndex: 2
+          }}>EN</span>
+          <span style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: i18n.language === 'bn' ? '#1976d2' : '#fff',
+            transition: 'color 0.3s ease',
+            zIndex: 2
+          }}>বাং</span>
+          
+          {/* Toggle slider */}
+          <div style={{
+            position: 'absolute',
+            top: 2,
+            left: i18n.language === 'en' ? 2 : 'calc(100% - 32px)',
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            background: '#fff',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+            transition: 'left 0.3s ease',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <span style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: '#1976d2'
+            }}>
+              {/* {i18n.language === 'en' ? 'EN' : 'বাং'} */}
+            </span>
+          </div>
+        </div>
       </div>
       <div
         style={{
