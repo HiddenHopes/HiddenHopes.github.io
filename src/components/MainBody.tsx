@@ -130,18 +130,31 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
       </Canvas>
       {/* Drawing overlay window, shown if drawingOpen is true */}
       {drawingOpen && (
-        <div style={{ position: 'fixed', top: 120, right: 440, zIndex: 100 }}>
-          <Drawing width={840} height={520} />
-          <button
-            onClick={() => setDrawingOpen(false)}
-            style={{
-              position: 'absolute', top: 0, right: 0, zIndex: 101,
-              background: '#232946', color: '#fff', border: 'none', borderRadius: 16,
-              width: 32, height: 32, fontSize: 20, fontWeight: 700, cursor: 'pointer',
-              boxShadow: '0 2px 8px #0004'
-            }}
-            aria-label={t('aria_labels.close_drawing')}
-          >×</button>
+        <div 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Prevent clicks outside drawing area
+          }}
+          style={{ 
+            position: 'fixed', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            zIndex: 9998,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)'
+          }}
+        >
+          <div style={{ 
+            position: 'relative',
+            zIndex: 9999
+          }}>
+            <Drawing width={840} height={520} onClose={() => setDrawingOpen(false)} />
+          </div>
         </div>
       )}
     </div>
