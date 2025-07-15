@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls, Sky, Sparkles } from '@react-three/drei'
+import { useRef } from 'react'
 import Moon from './Moon'
 import WavingFlag from './WavingFlag'
 import Parachute from './Parachute'
@@ -43,6 +44,24 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
 
   // Canvas key to force remount on theme change
   const [canvasKey, setCanvasKey] = React.useState(0);
+
+  // OrbitControls autoRotate logic
+  const orbitRef = useRef<any>(null);
+  const [autoRotate, setAutoRotate] = React.useState(true);
+
+  // When any game opens, stop autoRotate and reset camera
+  React.useEffect(() => {
+    if (showTicTacToe || footballOpen || drawingOpen) {
+      setAutoRotate(false);
+      // Reset camera position
+      if (orbitRef.current) {
+        orbitRef.current.reset();
+      }
+    } else {
+      setAutoRotate(true);
+    }
+  }, [showTicTacToe, footballOpen, drawingOpen]);
+
   React.useEffect(() => { setCanvasKey(k => k + 1); }, [isNight]);
 
   return (
@@ -121,10 +140,11 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
           </group>
         }
         <OrbitControls
+          ref={orbitRef}
           enableZoom={true}
           minDistance={2}
           maxDistance={8}
-          autoRotate
+          autoRotate={autoRotate}
           autoRotateSpeed={0.1}
         />
       </Canvas>
