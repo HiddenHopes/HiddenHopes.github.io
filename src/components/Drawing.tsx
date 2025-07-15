@@ -19,6 +19,9 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
   const [color, setColor] = useState('#222222')
   const [lineWidth, setLineWidth] = useState(4)
   const [tool, setTool] = useState<'pencil' | 'eraser' | 'bucket'>('pencil')
+  // Undo/Redo stacks
+  const [undoStack, setUndoStack] = useState<string[]>([])
+  const [redoStack, setRedoStack] = useState<string[]>([])
 
   // Responsive dimensions for mobile
   const [isMobile, setIsMobile] = useState(false)
@@ -98,6 +101,15 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
     return { x, y }
   }
 
+  // Helper to save current canvas state to undo stack
+  const saveState = (clearRedo = true) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dataUrl = canvas.toDataURL();
+    setUndoStack(prev => [...prev, dataUrl]);
+    if (clearRedo) setRedoStack([]);
+  };
+
   // Mouse/touch events
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     e.preventDefault()
@@ -105,6 +117,9 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    // Save state before drawing or filling
+    saveState(true);
 
     const coords = getCanvasCoordinates(e)
 
@@ -145,16 +160,17 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    
     // Restrict to single touch only
     if (e.touches.length > 1) {
       return
     }
-    
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    // Save state before drawing or filling
+    saveState(true);
 
     const coords = getCanvasCoordinates(e)
 
@@ -220,11 +236,46 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
   }
 
   const handleClear = () => {
+    saveState(true);
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
+  // Undo/Redo handlers
+  const handleUndo = () => {
+    if (undoStack.length === 0) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const last = undoStack[undoStack.length - 1];
+    setUndoStack(prev => prev.slice(0, prev.length - 1));
+    setRedoStack(prev => [...prev, canvas.toDataURL()]);
+    const img = new window.Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+    };
+    img.src = last;
+  };
+
+  const handleRedo = () => {
+    if (redoStack.length === 0) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const last = redoStack[redoStack.length - 1];
+    setRedoStack(prev => prev.slice(0, prev.length - 1));
+    setUndoStack(prev => [...prev, canvas.toDataURL()]);
+    const img = new window.Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+    };
+    img.src = last;
+  };
 
   // Flood fill algorithm for bucket tool
   const floodFill = (startX: number, startY: number, fillColor: string) => {
@@ -502,6 +553,34 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
             }}
           />
         ))}
+        <button
+          onClick={handleUndo}
+          disabled={undoStack.length === 0}
+          style={{
+            marginLeft: 16,
+            background: undoStack.length === 0 ? '#ccc' : '#1976d2',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6,
+            padding: '4px 12px',
+            fontWeight: 600,
+            cursor: undoStack.length === 0 ? 'not-allowed' : 'pointer'
+          }}
+        >↶</button>
+        <button
+          onClick={handleRedo}
+          disabled={redoStack.length === 0}
+          style={{
+            marginLeft: 4,
+            background: redoStack.length === 0 ? '#ccc' : '#1976d2',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6,
+            padding: '4px 12px',
+            fontWeight: 600,
+            cursor: redoStack.length === 0 ? 'not-allowed' : 'pointer'
+          }}
+        >↷</button>
         <button
           onClick={handleClear}
           style={{
