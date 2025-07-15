@@ -595,6 +595,26 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
           }}
         >{t('drawing.clear')}</button>
       </div>
+      <button
+          onClick={() => {
+            const canvas = canvasRef.current;
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = 'drawing.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+          }}
+          style={{
+            marginLeft: 8,
+            background: '#1976d2',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6,
+            padding: '4px 12px',
+            fontWeight: 600,
+            cursor: 'pointer'
+          }}
+        >💾</button>
       <canvas
         ref={canvasRef}
         width={canvasWidth}
