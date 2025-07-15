@@ -9,14 +9,14 @@ interface DrawingProps {
 }
 
 const DEFAULT_COLORS = [
-  '#222', '#1976d2', '#ff9800', '#51ff8b', '#ffa751', '#e91e63', '#fffbe6', '#b3e0ff', '#a084ee', '#232946'
+  '#222222', '#1976d2', '#ff9800', '#51ff8b', '#ffa751', '#e91e63', '#fffbe6', '#b3e0ff', '#a084ee', '#232946'
 ]
 
 const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onClose }) => {
   const { t } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [drawing, setDrawing] = useState(false)
-  const [color, setColor] = useState('#222')
+  const [color, setColor] = useState('#222222')
   const [lineWidth, setLineWidth] = useState(4)
   const [tool, setTool] = useState<'pencil' | 'eraser' | 'bucket'>('pencil')
 
@@ -430,7 +430,7 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
           onClick={() => setTool('pencil')}
           style={{
             background: tool === 'pencil' ? '#1976d2' : '#eee',
-            color: tool === 'pencil' ? '#fff' : '#222',
+            color: tool === 'pencil' ? '#ffffff' : '#22222',
             border: 'none',
             borderRadius: 6,
             padding: '4px 12px',
@@ -443,7 +443,7 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
           onClick={() => setTool('eraser')}
           style={{
             background: tool === 'eraser' ? '#1976d2' : '#eee',
-            color: tool === 'eraser' ? '#fff' : '#222',
+            color: tool === 'eraser' ? '#ffffff' : '#222222',
             border: 'none',
             borderRadius: 6,
             padding: '4px 12px',
@@ -456,7 +456,7 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
           onClick={() => setTool('bucket')}
           style={{
             background: tool === 'bucket' ? '#1976d2' : '#eee',
-            color: tool === 'bucket' ? '#fff' : '#222',
+            color: tool === 'bucket' ? '#ffffff' : '#222222',
             border: 'none',
             borderRadius: 6,
             padding: '4px 12px',
@@ -524,7 +524,11 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
           border: '2px solid #1976d2',
           borderRadius: 12,
           background: '#fff',
-          cursor: tool === 'eraser' ? 'cell' : tool === 'bucket' ? 'crosshair' : 'crosshair',
+          cursor: tool === 'eraser'
+            ? 'cell'
+            : tool === 'bucket'
+            ? 'url("/cursor-bucket.svg") 8 24, pointer'
+            : 'crosshair',
           touchAction: 'none',
           boxShadow: '0 2px 8px #1976d222',
           display: 'block',

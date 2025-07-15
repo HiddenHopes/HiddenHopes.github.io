@@ -18,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         alignItems: 'center',
         padding: '1rem 2rem',
         background: 'transparent',
-        color: isNight ? '#fff' : '#222',
+        color: isNight ? '#ffffff' : '#222222',
         fontWeight: 600,
         fontSize: '1.2rem',
         letterSpacing: '0.05em',
@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         href="/"
         className={`nav-link ${isNight ? 'night' : 'day'}`}
         style={{
-          color: isNight ? '#fff' : '#222',
+          color: isNight ? '#ffffff' : '#222222',
           marginRight: '1.5rem',
           textDecoration: 'none',
           position: 'relative',
@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         href="#about"
         className={`nav-link ${isNight ? 'night' : 'day'}`}
         style={{
-          color: isNight ? '#fff' : '#222',
+          color: isNight ? '#ffffff' : '#222222',
           marginRight: '1.5rem',
           textDecoration: 'none',
           position: 'relative',
@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         href="#courses"
         className={`nav-link ${isNight ? 'night' : 'day'}`}
         style={{
-          color: isNight ? '#fff' : '#222',
+          color: isNight ? '#ffffff' : '#222222',
           marginRight: '1.5rem',
           textDecoration: 'none',
           position: 'relative',
@@ -80,7 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         href="#contact"
         className={`nav-link ${isNight ? 'night' : 'day'}`}
         style={{
-          color: isNight ? '#fff' : '#222',
+          color: isNight ? '#ffffff' : '#222222',
           textDecoration: 'none',
           position: 'relative',
           transition: 'color 0.3s',
