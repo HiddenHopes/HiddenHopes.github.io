@@ -9,7 +9,7 @@ interface DrawingProps {
 }
 
 const DEFAULT_COLORS = [
-  '#222222', '#1976d2', '#ff9800', '#51ff8b', '#ffa751', '#e91e63', '#fffbe6', '#b3e0ff', '#a084ee', '#232946'
+  '#222222', '#1976d2', '#ff9800', '#51ff8b', '#ffa751', '#e91e63', '#ffffff', '#b3e0ff', '#a084ee', '#232946'
 ]
 
 const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onClose }) => {
@@ -622,7 +622,7 @@ const Drawing: React.FC<DrawingProps> = ({ width = 480, height = 320, style, onC
         style={{
           border: '2px solid #1976d2',
           borderRadius: 12,
-          background: '#fff',
+          background: `repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 0% 0%/24px 24px`,
           cursor: tool === 'eraser'
             ? 'cell'
             : tool === 'bucket'
