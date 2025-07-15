@@ -56,6 +56,21 @@ const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           fetchWeatherForCoords(parsed.lat, parsed.lon, parsed.place || '');
         }
       } catch {}
+    } else {
+      // No saved location, ask for current location
+      setLoading(true);
+      setError('');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          setCoords({ lat: latitude, lon: longitude });
+          fetchWeatherForCoords(latitude, longitude);
+        },
+        () => {
+          setError('Location permission denied');
+          setLoading(false);
+        }
+      );
     }
     // Load saved locations
     const locs = localStorage.getItem(SAVED_LOCATIONS_KEY);
@@ -165,31 +180,6 @@ const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
     setQuakeLoading(false);
   }
-
-  // Fetch weather and earthquakes when location is determined
-  const fetchWeather = async () => {
-    if (coords) {
-      setShow(true); // Only open popup on user action
-      fetchWeatherForCoords(coords.lat, coords.lon, place);
-      return;
-    }
-    setLoading(true);
-    setError('');
-    setShow(true);
-    try {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setCoords({ lat: latitude, lon: longitude });
-        fetchWeatherForCoords(latitude, longitude);
-      }, () => {
-        setError('Location permission denied');
-        setLoading(false);
-      });
-    } catch (e) {
-      setError('Failed to fetch weather');
-      setLoading(false);
-    }
-  };
 
   // Map Open-Meteo weathercode to icon/desc
   function getWeatherIconAndDesc(code: string | number) {
