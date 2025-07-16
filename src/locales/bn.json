@@ -1,0 +1,182 @@
+{
+  "header": {
+    "title": "হ্যাপিনেস স্কুল",
+    "toggle_en": "EN",
+    "toggle_bn": "BN"
+  },
+  "nav": {
+    "home": "হোম",
+    "about": "সম্পর্কে",
+    "courses": "কোর্স",
+    "contact": "যোগাযোগ",
+    "weather": "আবহাওয়া",
+    "calendar": "তারিখ ও সময়"
+  },
+  "about": {
+    "title": "হ্যাপিনেস স্কুল সম্পর্কে",
+    "description": "হ্যাপিনেস স্কুলে স্বাগতম! এই প্রজেক্টটি একটি আনন্দদায়ক, ইন্টারঅ্যাক্টিভ ওয়েব অ্যাপ যা আনন্দ, শিক্ষা এবং সৃজনশীলতাকে একসাথে নিয়ে আসার জন্য ডিজাইন করা হয়েছে। গেমস, আবহাওয়ার আপডেট এবং আরও অনেক কিছু অন্বেষণ করুন—সব একটি সুন্দর, নিমগ্ন পরিবেশে।"
+  },
+  "contact": {
+    "title": "আমাদের সাথে যোগাযোগ করুন",
+    "description": "আমরা আপনার কাছ থেকে শুনতে চাই! প্রশ্ন, মতামত বা সহযোগিতার জন্য, অনুগ্রহ করে আমাদের ইমেইল করুন"
+  },
+  "courses": {
+    "title": "আমাদের কোর্সগুলি",
+    "description": "ফুলস্ট্যাক এবং 3D ওয়েব ডেভেলপমেন্ট, সেইসাথে সমস্যা সমাধান এবং প্রতিযোগিতামূলক প্রোগ্রামিং এর জন্য আমাদের অনন্য কোর্সগুলি আবিষ্কার করুন:",
+    "fullstack": "ফুলস্ট্যাক ডেভেলপার",
+    "3d": "থ্রিডি ওয়েব ডেভেলপমেন্ট",
+    "problem": "সমস্যা সমাধান ও প্রতিযোগিতা প্রোগ্রামিং",
+    "close": "বন্ধ করুন",
+    "view_students": "শিক্ষার্থীদের দেখুন"
+  },
+  "coursesPage": {
+    "java": "জাভা",
+    "javaDescription": "OOP, Collections, Streams, Exception Handling, Multithreading",
+    "springBoot": "স্প্রিং বুট",
+    "springBootDescription": "REST APIs, Security, JPA, Testing",
+    "reactJS": "রিয়্যাক্ট JS",
+    "reactJSDescription": "Components, Hooks, State Management, Routing",
+    "htmlCss": "HTML ও CSS",
+    "htmlCssDescription": "Modern layouts, Flexbox, Grid, Responsive Design",
+    "javaScript": "জাভাস্ক্রিপ্ট",
+    "javaScriptDescription": "ES6+, Async, DOM, Fetch/AJAX",
+    "sql": "SQL",
+    "sqlDescription": "Joins, Aggregations, Indexing, Transactions",
+    "git": "গিট",
+    "gitDescription": "Branching, Merging, Collaboration",
+    "aws": "AWS",
+    "awsDescription": "EC2, S3, RDS, Deployment basics",
+    "webGLThreeJS": "WebGL ও Three.js",
+    "webGLThreeJSDescription": "3D graphics, models, animation",
+    "reactThreeFiber": "রিয়্যাক্ট থ্রি ফাইবার",
+    "reactThreeFiberDescription": "3D in React, scene management",
+    "gltfGlb": "GLTF/GLB",
+    "gltfGlbDescription": "3D model formats, loading assets",
+    "shaders": "শেডার",
+    "shadersDescription": "Basics, custom effects",
+    "uiUx": "3D UI/UX",
+    "uiUxDescription": "Interaction, camera, controls",
+    "algorithms": "অ্যালগরিদম",
+    "algorithmsDescription": "Sorting, Searching, Graphs, DP, Greedy",
+    "dataStructures": "ডেটা স্ট্রাকচার",
+    "dataStructuresDescription": "Arrays, Trees, Hashing, Stacks, Queues",
+    "competitiveCoding": "প্রতিযোগিতামূলক কোডিং",
+    "competitiveCodingDescription": "Codeforces, LeetCode, AtCoder, ICPC",
+    "mathLogic": "গণিত ও যুক্তি",
+    "mathLogicDescription": "Number theory, Combinatorics, Bit manipulation",
+    "speedAccuracy": "গতি ও নির্ভুলতা",
+    "speedAccuracyDescription": "Fast coding, debugging, test cases"
+  },
+  "students": {
+    "registered_students": "নিবন্ধিত শিক্ষার্থীরা",
+    "no_students": "কোনো শিক্ষার্থী নিবন্ধিত নেই।",
+    "no_students_course": "এই কোর্সে কোনো শিক্ষার্থী নিবন্ধিত নেই।"
+  },
+  "form": {
+    "register": "কোর্সে নিবন্ধন করুন",
+    "student_registration": "শিক্ষার্থী নিবন্ধন",
+    "name": "নাম",
+    "full_name": "পূর্ণ নাম",
+    "course": "কোর্স",
+    "university": "বিশ্ববিদ্যালয়",
+    "email": "ইমেইল",
+    "mobile": "মোবাইল নম্বর",
+    "year": "বছর",
+    "semester": "সেমিস্টার",
+    "batch": "ব্যাচ নম্বর (১-৯৯৯)",
+    "department": "বিভাগ",
+    "comments": "কোন মন্তব্য, প্রশ্ন বা পরামর্শ? (ঐচ্ছিক)",
+    "submit": "জমা দিন",
+    "submitting": "জমা দিচ্ছি...",
+    "success": "নিবন্ধন সফল!",
+    "select_course": "কোর্স নির্বাচন করুন",
+    "select_university": "বিশ্ববিদ্যালয় নির্বাচন করুন",
+    "select_year": "বছর নির্বাচন করুন",
+    "select_semester": "সেমিস্টার নির্বাচন করুন",
+    "select_department": "বিভাগ নির্বাচন করুন"
+  },
+  "common": {
+    "close": "বন্ধ করুন"
+  },
+  "game": {
+    "penalty_shootout": "পেনাল্টি শুটআউট",
+    "left": "বাম",
+    "center": "মাঝে", 
+    "right": "ডান",
+    "restart": "পুনরায় শুরু করুন",
+    "goal": "গোল! ⚽️",
+    "saved": "সেভ! 🧤"
+  },
+  "games": {
+    "tictactoe": "টিকট্যাকটো",
+    "drawing": "অঙ্কন",
+    "cricket": "ক্রিকেট",
+    "football": "ফুটবল",
+    "cricket_coming_soon": "ক্রিকেট শীঘ্রই আসছে!"
+  },
+  "weather": {
+    "search_location": "অবস্থান খুঁজুন...",
+    "search": "খুঁজুন"
+  },
+  "football": {
+    "live": "সরাসরি",
+    "team": "দল",
+    "p": "খ",
+    "w": "জি", 
+    "d": "ড্র",
+    "l": "হা",
+    "pts": "পয়েন্ট"
+  },
+  "drawing": {
+    "clear": "পরিষ্কার করুন",
+    "pencil": "পেন্সিল",
+    "eraser": "মুছে ফেলুন",
+    "bucket": "ভরাট",
+    "width": "প্রস্থ",
+    "color": "রঙ"
+  },
+  "datetime": {
+    "calendar": "ক্যালেন্ডার",
+    "clock": "ঘড়ি",
+    "sun": "রবি",
+    "mon": "সোম",
+    "tue": "মঙ্গল",
+    "wed": "বুধ",
+    "thu": "বৃহঃ",
+    "fri": "শুক্র",
+    "sat": "শনি"
+  },
+  "tictactoe": {
+    "you_win": "আপনি জিতেছেন! 🎉",
+    "computer_wins": "কম্পিউটার জিতেছে! 🤖",
+    "draw": "ড্র!",
+    "your_turn": "আপনার পালা"
+  },
+  "footer": {
+    "school_name": "স্কুল অফ হ্যাপিনেস",
+    "rights_reserved": "সকল অধিকার সংরক্ষিত।"
+  },
+  "tooltips": {
+    "show_date_time": "তারিখ ও সময় দেখুন",
+    "show_football_results": "ফুটবল ফলাফল দেখুন",
+    "switch_to_day_mode": "দিনের মোডে পরিবর্তন করুন",
+    "switch_to_night_mode": "রাতের মোডে পরিবর্তন করুন",
+    "show_menu": "মেনু দেখুন",
+    "games": "গেমস",
+    "register_for_course": "কোর্সে নিবন্ধন করুন",
+    "close_game": "গেম বন্ধ করুন",
+    "restart_game": "গেম পুনরায় শুরু করুন",
+    "restart": "পুনরায় শুরু করুন",
+    "close_drawing": "অঙ্কন উইন্ডো বন্ধ করুন",
+    "name_validation": "শুধুমাত্র অক্ষর, হাইফেন, ডট এবং স্পেস অনুমোদিত",
+    "mobile_validation": "শুধুমাত্র সংখ্যা অনুমোদিত",
+    "batch_validation": "ব্যাচ নম্বর ১-৯৯৯"
+  },
+  "aria_labels": {
+    "football": "ফুটবল",
+    "home": "হোম",
+    "courses": "কোর্স",
+    "about": "সম্পর্কে",
+    "contact": "যোগাযোগ"
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Html } from '@react-three/drei'
@@ -147,6 +148,7 @@ interface TicTacToe3DProps {
 }
 
 const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
+  const { t } = useTranslation();
   const [board, setBoard] = useState<string[][]>(
     Array(BOARD_SIZE)
       .fill(null)
@@ -203,7 +205,7 @@ const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
               justifyContent: 'center',
               zIndex: 10
             }}
-            aria-label="Close game"
+            aria-label={t('aria_labels.close')}
           >
             ×
           </button>
@@ -226,8 +228,8 @@ const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
             justifyContent: 'center',
             zIndex: 10
           }}
-          aria-label="Restart game"
-          title="Restart"
+          aria-label={t('aria_labels.restart_game')}
+          title={t('tooltips.restart')}
         >
           ↻
         </button>
@@ -265,11 +267,11 @@ const TicTacToe3D: React.FC<TicTacToe3DProps> = ({ onClose }) => {
       <Html position={[0, 2.2, 0.31]} center style={{ color: '#fff', fontSize: 22, fontWeight: 600, textAlign: 'center' }}>
         {winner
           ? winner === 'X'
-            ? 'You Win! 🎉'
-            : 'Computer Wins! 🤖'
+            ? t('tictactoe.you_win')
+            : t('tictactoe.computer_wins')
           : isDraw
-          ? 'Draw!'
-          : 'Your Turn'}
+          ? t('tictactoe.draw')
+          : t('tictactoe.your_turn')}
       </Html>
     </group>
   )

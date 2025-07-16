@@ -1,6 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls, Sky, Sparkles } from '@react-three/drei'
+import { useRef } from 'react'
 import Moon from './Moon'
 import WavingFlag from './WavingFlag'
 import Parachute from './Parachute'
@@ -25,6 +27,7 @@ interface MainBodyProps {
 }
 
 const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicTacToe, showDrawing, setShowDrawing, showFootball, setShowFootball }) => {
+  const { t } = useTranslation();
   // If showDrawing/setShowDrawing are not provided, fallback to local state (for backward compatibility)
   const [internalShowDrawing, internalSetShowDrawing] = React.useState(false)
   const drawingOpen = showDrawing !== undefined ? showDrawing : internalShowDrawing
@@ -39,6 +42,28 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
   const setFootballOpen = setShowFootball || internalSetShowFootball
   React.useEffect(() => { if (showTicTacToe || drawingOpen) setFootballOpen(false) }, [showTicTacToe, drawingOpen])
 
+  // Canvas key to force remount on theme change
+  const [canvasKey, setCanvasKey] = React.useState(0);
+
+  // OrbitControls autoRotate logic
+  const orbitRef = useRef<any>(null);
+  const [autoRotate, setAutoRotate] = React.useState(true);
+
+  // When any game opens, stop autoRotate and reset camera
+  React.useEffect(() => {
+    if (showTicTacToe || footballOpen || drawingOpen) {
+      setAutoRotate(false);
+      // Reset camera position
+      if (orbitRef.current) {
+        orbitRef.current.reset();
+      }
+    } else {
+      setAutoRotate(true);
+    }
+  }, [showTicTacToe, footballOpen, drawingOpen]);
+
+  React.useEffect(() => { setCanvasKey(k => k + 1); }, [isNight]);
+
   return (
     <div
       style={{
@@ -47,7 +72,7 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
         background: 'transparent'
       }}
     >
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <Canvas key={canvasKey} camera={{ position: [0, 0, 5], fov: 75 }}>
         {isNight ? (
           <>
             <fog attach="fog" args={['#090a0f', 0, 15]} />
@@ -115,27 +140,41 @@ const MainBody: React.FC<MainBodyProps> = ({ isNight, showTicTacToe, setShowTicT
           </group>
         }
         <OrbitControls
+          ref={orbitRef}
           enableZoom={true}
           minDistance={2}
-          maxDistance={350}
-          autoRotate
+          maxDistance={8}
+          autoRotate={autoRotate}
           autoRotateSpeed={0.1}
         />
       </Canvas>
       {/* Drawing overlay window, shown if drawingOpen is true */}
       {drawingOpen && (
-        <div style={{ position: 'fixed', top: 120, right: 440, zIndex: 100 }}>
-          <Drawing width={840} height={520} />
-          <button
-            onClick={() => setDrawingOpen(false)}
-            style={{
-              position: 'absolute', top: 0, right: 0, zIndex: 101,
-              background: '#232946', color: '#fff', border: 'none', borderRadius: 16,
-              width: 32, height: 32, fontSize: 20, fontWeight: 700, cursor: 'pointer',
-              boxShadow: '0 2px 8px #0004'
-            }}
-            aria-label="Close drawing window"
-          >×</button>
+        <div 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Prevent clicks outside drawing area
+          }}
+          style={{ 
+            position: 'fixed', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            zIndex: 9998,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)'
+          }}
+        >
+          <div style={{ 
+            position: 'relative',
+            zIndex: 9999
+          }}>
+            <Drawing width={840} height={520} onClose={() => setDrawingOpen(false)} />
+          </div>
         </div>
       )}
     </div>

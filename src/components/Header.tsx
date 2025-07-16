@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import Navbar from './Navbar'
 import { FaMoon, FaSun, FaRegCalendarAlt, FaRegClock } from 'react-icons/fa'
 import DateTimePopup from './DateTimePopup'
@@ -14,6 +15,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick }) => {
+  const { t } = useTranslation();
   const [showDateTime, setShowDateTime] = React.useState(false);
   const [showFootball, setShowFootball] = React.useState(false);
   // Local date/time state for the button, matching DateTimePopup logic
@@ -52,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, o
             display: 'flex', flexDirection: 'column', alignItems: 'center', fontWeight: 600, fontSize: 14, color: '#232946', background: '#fff', borderRadius: 8, padding: '2px 2px', boxShadow: '0 2px 8px #b3e0ff22', cursor: 'pointer', minWidth: 120
           }}
           onClick={() => setShowDateTime(true)}
-          title="Show Date & Time"
+          title={t('tooltips.show_date_time')}
         >
           <span style={{ display: 'flex', alignItems: 'center', gap: 6 ,width: '106px'}}>
             <FaRegCalendarAlt style={{ color: '#ffa751', fontSize: 16 }} />
@@ -68,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, o
         {/* Football Results Button BESIDE date-time, not above */}
         <button
           onClick={() => setShowFootball(true)}
-          title="Show Football Results"
+          title={t('tooltips.show_football_results')}
           style={{
             width: 46,
             height: 46,
@@ -84,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, o
             boxShadow: '0 2px 8px #b3e0ff88',
           }}
         >
-          <span role="img" aria-label="football">⚽</span>
+          <span role="img" aria-label={t('aria_labels.football')}>⚽</span>
         </button>
         {showFootball && (
           <FootballResults onClose={() => setShowFootball(false)} />
@@ -98,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ isNight, onThemeToggle, onAboutClick, o
       {/* Theme Toggle Button */}
       <button
         onClick={onThemeToggle}
-        title={`Switch to ${isNight ? 'Day' : 'Night'} mode`}
+        title={isNight ? t('tooltips.switch_to_day_mode') : t('tooltips.switch_to_night_mode')}
         className={`theme-toggle-btn ${isNight ? 'night' : 'day'}`}
         style={{
           position: 'absolute',

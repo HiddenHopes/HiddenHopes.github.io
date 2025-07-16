@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaMoon, FaSun, FaRegCalendarAlt, FaCloudSun } from 'react-icons/fa';
 import WeatherUpdate from './WeatherUpdate';
 import DateTimePopup from './DateTimePopup';
@@ -11,46 +12,47 @@ interface CircularHeaderProps {
   onCoursesClick?: () => void;
 }
 
-const BUTTONS = [
-  {
-    key: 'home',
-    label: 'Home',
-    icon: <span role="img" aria-label="home">🏠</span>,
-    onClickProp: 'onHomeClick',
-  },
-  {
-    key: 'courses',
-    label: 'Courses',
-    icon: <span role="img" aria-label="courses">📚</span>,
-    onClickProp: 'onCoursesClick',
-  },
-  {
-    key: 'weather',
-    label: 'Weather',
-    icon: null, // handled below
-    onClickProp: null,
-  },
-  {
-    key: 'calendar',
-    label: 'Date & Time',
-    icon: <FaRegCalendarAlt style={{ color: '#ffa751', fontSize: 22 }} />,
-    onClickProp: null,
-  },
-  {
-    key: 'about',
-    label: 'About',
-    icon: <span role="img" aria-label="about">ℹ️</span>,
-    onClickProp: 'onAboutClick',
-  },
-  {
-    key: 'contact',
-    label: 'Contact',
-    icon: <span role="img" aria-label="contact">✉️</span>,
-    onClickProp: 'onContactClick',
-  },
-];
-
 const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick }) => {
+  const { t } = useTranslation();
+  
+  const BUTTONS = [
+    {
+      key: 'home',
+      label: 'Home',
+      icon: <span role="img" aria-label={t('aria_labels.home')}>🏠</span>,
+      onClickProp: 'onHomeClick',
+    },
+    {
+      key: 'courses',
+      label: 'Courses',
+      icon: <span role="img" aria-label={t('aria_labels.courses')}>📚</span>,
+      onClickProp: 'onCoursesClick',
+    },
+    {
+      key: 'weather',
+      label: 'Weather',
+      icon: null, // handled below
+      onClickProp: null,
+    },
+    {
+      key: 'calendar',
+      label: 'Date & Time',
+      icon: <FaRegCalendarAlt style={{ color: '#ffa751', fontSize: 22 }} />,
+      onClickProp: null,
+    },
+    {
+      key: 'about',
+      label: 'About',
+      icon: <span role="img" aria-label={t('aria_labels.about')}>ℹ️</span>,
+      onClickProp: 'onAboutClick',
+    },
+    {
+      key: 'contact',
+      label: 'Contact',
+      icon: <span role="img" aria-label={t('aria_labels.contact')}>✉️</span>,
+      onClickProp: 'onContactClick',
+    },
+  ];
   const [expanded, setExpanded] = React.useState(false);
   const [showCalendar, setShowCalendar] = React.useState(false);
   const [showWeather, setShowWeather] = React.useState(false);
@@ -73,7 +75,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
   const buttonCount = BUTTONS.length;
   const arcDegrees = 90; // umbrella arc
   const radius = 180;
-  const startAngle = 0; // slight upward tilt
+  const startAngle = -3; // slight upward tilt
 
   // Weather icon for nav button
   const weatherIcon = <FaCloudSun style={{ color: '#f7c948', filter: 'drop-shadow(0 0 2px #f7c948)' }} />;
@@ -98,8 +100,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
       id="circular-header-nav"
       style={{
         position: 'fixed',
-        top: 60,
-        left: 50,
+        top: 20,
+        left: 20,
         zIndex: 200,
         pointerEvents: 'none',
       }}
@@ -125,7 +127,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           pointerEvents: 'auto',
         }}
         onClick={() => setExpanded(v => !v)}
-        title="Show Menu"
+        title={t('tooltips.show_menu')}
       >
         <span
           style={{
@@ -146,8 +148,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
         <div
           style={{
             position: 'absolute',
-            left: 70,
-            top: 50,
+            left: 65,
+            top: 55,
             height: 0,
             width: radius + 60,
             display: 'flex',
@@ -159,7 +161,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
         >
           {BUTTONS.map((btn, i) => {
             const angle = startAngle + (arcDegrees / (buttonCount - 1)) * i;
-            const rad = (angle * Math.PI) / 180;
+            const rad = (angle * Math.PI) / 149;
             const buttonSpacing = 20;
             // Calculate the final position relative to the mother button center
             const x = Math.cos(rad) * radius;
@@ -187,10 +189,10 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
                   }}
                 >
                   <line
-                    x1={-x}
-                    y1={-y}
-                    x2={0}
-                    y2={0}
+                    x1={-x-i*i+5}
+                    y1={-y+5*i-6}
+                    x2={30} // slight downward tilt
+                    y2={10} // slight upward tilt
                     stroke="#51ff8b"
                     strokeWidth="4"
                     strokeDasharray="8 4"
@@ -200,7 +202,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
                 </svg>
                 <button
                   onClick={handleNavClick}
-                  title={btn.label}
+                  title={t(`nav.${btn.key}`)}
                   style={{
                     position: 'absolute',
                     left: x,
@@ -279,12 +281,12 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
       {/* Theme toggle button (ensure not covered by pointerEvents: 'none') */}
       <button
         onClick={onThemeToggle}
-        title={`Switch to ${isNight ? 'Day' : 'Night'} mode`}
+        title={isNight ? t('tooltips.switch_to_day') : t('tooltips.switch_to_night')}
         className={`theme-toggle-btn ${isNight ? 'night' : 'day'}`}
         style={{
           position: 'fixed',
-          top: 18,
-          right: 32,
+          top: 10,
+          right: 10,
           zIndex: 300,
           width: 46,
           height: 46,

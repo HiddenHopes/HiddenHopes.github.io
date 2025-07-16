@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Match {
   id: string;
@@ -32,6 +33,7 @@ const leagues = [
 const API_BASE = 'https://api-football-standings.azharimm.dev/leagues';
 
 const FootballResults: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const { t } = useTranslation();
   const [selectedLeague, setSelectedLeague] = useState(leagues[0].code);
   const [matches, setMatches] = useState<Match[]>([]);
   const [table, setTable] = useState<TableEntry[]>([]);
@@ -102,7 +104,7 @@ const FootballResults: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               <div style={{ fontWeight: 600, color: '#1976d2', marginBottom: 2 }}>Live Matches:</div>
               {liveMatches.map(m => (
                 <div key={m.id} style={{ fontSize: 15, marginBottom: 2 }}>
-                  <b>{m.homeTeam}</b> {m.homeScore} - {m.awayScore} <b>{m.awayTeam}</b> <span style={{ color: '#d7263d', fontWeight: 600, marginLeft: 6 }}>LIVE</span>
+                  <b>{m.homeTeam}</b> {m.homeScore} - {m.awayScore} <b>{m.awayTeam}</b> <span style={{ color: '#d7263d', fontWeight: 600, marginLeft: 6 }}>{t('football.live')}</span>
                 </div>
               ))}
             </div>
@@ -122,8 +124,8 @@ const FootballResults: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <thead>
                   <tr style={{ background: '#f7f7f7' }}>
                     <th style={{ textAlign: 'left', padding: 4 }}>#</th>
-                    <th style={{ textAlign: 'left', padding: 4 }}>Team</th>
-                    <th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th>
+                    <th style={{ textAlign: 'left', padding: 4 }}>{t('football.team')}</th>
+                    <th>{t('football.p')}</th><th>{t('football.w')}</th><th>{t('football.d')}</th><th>{t('football.l')}</th><th>{t('football.pts')}</th>
                   </tr>
                 </thead>
                 <tbody>

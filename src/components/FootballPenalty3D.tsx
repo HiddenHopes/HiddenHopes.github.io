@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
@@ -15,6 +16,7 @@ function getRandomDirection(): Direction {
 }
 
 const FootballPenalty3D: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
+  const { t } = useTranslation();
   const ballRef = useRef<THREE.Mesh>(null)
   const keeperRef = useRef<THREE.Mesh>(null)
   const [shooting, setShooting] = useState(false)
@@ -122,21 +124,21 @@ const FootballPenalty3D: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
                 position: 'absolute', top: 8, right: 8, background: 'transparent', border: 'none',
                 color: '#fff', fontSize: 22, cursor: 'pointer', fontWeight: 700
               }}
-              aria-label="Close"
+              aria-label={t('aria_labels.close')}
             >×</button>
           )}
-          <h3 style={{ margin: '0 0 10px 0' }}>Penalty Shootout</h3>
+          <h3 style={{ margin: '0 0 10px 0' }}>{t('game.penalty_shootout')}</h3>
           <div>
-            <button onClick={() => handleShoot('left')} disabled={shooting} style={{ margin: 8, fontSize: 18, padding: '8px 18px', borderRadius: 8, cursor: 'pointer' }}>Left</button>
-            <button onClick={() => handleShoot('center')} disabled={shooting} style={{ margin: 8, fontSize: 18, padding: '8px 18px', borderRadius: 8, cursor: 'pointer' }}>Center</button>
-            <button onClick={() => handleShoot('right')} disabled={shooting} style={{ margin: 8, fontSize: 18, padding: '8px 18px', borderRadius: 8, cursor: 'pointer' }}>Right</button>
+            <button onClick={() => handleShoot('left')} disabled={shooting} style={{ margin: 8, fontSize: 18, padding: '8px 18px', borderRadius: 8, cursor: 'pointer' }}>{t('game.left')}</button>
+            <button onClick={() => handleShoot('center')} disabled={shooting} style={{ margin: 8, fontSize: 18, padding: '8px 18px', borderRadius: 8, cursor: 'pointer' }}>{t('game.center')}</button>
+            <button onClick={() => handleShoot('right')} disabled={shooting} style={{ margin: 8, fontSize: 18, padding: '8px 18px', borderRadius: 8, cursor: 'pointer' }}>{t('game.right')}</button>
           </div>
           {result && (
             <div style={{ fontSize: 22, marginTop: 10, fontWeight: 600 }}>
-              {result === 'goal' ? 'GOAL! ⚽️' : 'Saved! 🧤'}
+              {result === 'goal' ? t('game.goal') : t('game.saved')}
             </div>
           )}
-          <button onClick={handleRestart} style={{ marginTop: 14, fontSize: 16, padding: '6px 18px', borderRadius: 8, cursor: 'pointer' }}>Restart</button>
+          <button onClick={handleRestart} style={{ marginTop: 14, fontSize: 16, padding: '6px 18px', borderRadius: 8, cursor: 'pointer' }}>{t('game.restart')}</button>
         </div>
       </Html>
     </group>

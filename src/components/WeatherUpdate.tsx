@@ -1,4 +1,5 @@
 import React, { ReactElement, useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaCloudSun, FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaWaveSquare, FaRegCalendarAlt, FaRegClock } from 'react-icons/fa';
 
 // Colorful icons for all weather types
@@ -14,6 +15,7 @@ const LOCAL_STORAGE_KEY = 'weather_location';
 const SAVED_LOCATIONS_KEY = 'weather_saved_locations';
 
 const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const { t } = useTranslation();
   const [weather, setWeather] = useState<string>('');
   const [temp, setTemp] = useState<number | null>(null);
   const [utcOffset, setUtcOffset] = useState<number>(0);
@@ -54,6 +56,21 @@ const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           fetchWeatherForCoords(parsed.lat, parsed.lon, parsed.place || '');
         }
       } catch {}
+    } else {
+      // No saved location, ask for current location
+      setLoading(true);
+      setError('');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          setCoords({ lat: latitude, lon: longitude });
+          fetchWeatherForCoords(latitude, longitude);
+        },
+        () => {
+          setError('Location permission denied');
+          setLoading(false);
+        }
+      );
     }
     // Load saved locations
     const locs = localStorage.getItem(SAVED_LOCATIONS_KEY);
@@ -163,31 +180,6 @@ const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
     setQuakeLoading(false);
   }
-
-  // Fetch weather and earthquakes when location is determined
-  const fetchWeather = async () => {
-    if (coords) {
-      setShow(true); // Only open popup on user action
-      fetchWeatherForCoords(coords.lat, coords.lon, place);
-      return;
-    }
-    setLoading(true);
-    setError('');
-    setShow(true);
-    try {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setCoords({ lat: latitude, lon: longitude });
-        fetchWeatherForCoords(latitude, longitude);
-      }, () => {
-        setError('Location permission denied');
-        setLoading(false);
-      });
-    } catch (e) {
-      setError('Failed to fetch weather');
-      setLoading(false);
-    }
-  };
 
   // Map Open-Meteo weathercode to icon/desc
   function getWeatherIconAndDesc(code: string | number) {
@@ -510,11 +502,11 @@ const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         setSearchResults(savedLocations.slice(0, 5)); // Show max 5 on focus
                       }
                     }}
-                    placeholder="Search location..."
+                    placeholder={t('weather.search_location')}
                     style={{ flex: 1, padding: '4px 8px', borderRadius: 6, border: '1px solid #b3e0ff', fontSize: 13 }}
                     autoComplete="off"
                   />
-                  <button type="submit" style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#51ff8b', color: '#232946', fontWeight: 600, cursor: 'pointer', fontSize: 13 }}>Search</button>
+                  <button type="submit" style={{ padding: '4px 10px', borderRadius: 6, border: 'none', background: '#51ff8b', color: '#232946', fontWeight: 600, cursor: 'pointer', fontSize: 13 }}>{t('weather.search')}</button>
                 </form>
                 {searching && <div style={{ fontSize: 13, color: '#888', marginBottom: 6 }}>Searching...</div>}
                 {searchResults.length > 0 && (
