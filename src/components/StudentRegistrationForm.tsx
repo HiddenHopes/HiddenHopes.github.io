@@ -79,26 +79,50 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
 
-  const isValid =
-    validateName(form.name) &&
-    validateEmail(form.email) &&
-    validateMobile(form.mobile) &&
-    form.course &&
-    form.university &&
-    form.year &&
-    form.semester &&
-    validateBatch(form.batch) &&
-    form.dept;
+  // Validation logic for each field
+  const validateFields = () => {
+    const errors: { [key: string]: string } = {};
+    if (!validateName(form.name)) errors.name = t('form.name_validation');
+    if (!validateEmail(form.email)) errors.email = t('form.email_validation');
+    if (!validateMobile(form.mobile)) errors.mobile = t('form.phone_validation');
+    if (!form.course) errors.course = t('form.course_required');
+    if (!form.university) errors.university = t('form.university_required');
+    if (!form.year) errors.year = t('form.year_required');
+    if (!form.semester) errors.semester = t('form.semester_required');
+    if (!validateBatch(form.batch)) errors.batch = t('form.batch_validation');
+    if (!form.dept) errors.dept = t('form.department_required');
+    return errors;
+  };
+
+  // Update field errors on change, but only show for touched fields
+  React.useEffect(() => {
+    const errors = validateFields();
+    const filtered: { [key: string]: string } = {};
+    Object.keys(errors).forEach(key => {
+      if (touched[key]) filtered[key] = errors[key];
+    });
+    setFieldErrors(filtered);
+  }, [form, touched, t]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm(f => ({ ...f, [name]: value }));
+    setTouched(t => ({ ...t, [name]: true }));
     setError('');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const errors = validateFields();
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setError(t('form.required_fields_missing'));
+      setSuccess(false);
+      return;
+    }
     setSubmitting(true);
     setError('');
     try {
@@ -108,7 +132,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
           { ...form, registration_date: new Date().toISOString() },
         ]);
       if (error) {
-        setError('Registration failed. ' + (error.message || 'Please try again.'));
+        setError(t('form.registration_failed') + ' ' + (error.message || t('form.please_try_again')));
         setSuccess(false);
       } else {
         setSuccess(true);
@@ -116,7 +140,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         if (onSuccess) onSuccess();
       }
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      setError(t('form.registration_failed') + ' ' + t('form.please_try_again'));
       setSuccess(false);
     } finally {
       setSubmitting(false);
@@ -142,88 +166,151 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         name="name"
         value={form.name}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, name: true }))}
         placeholder={t('form.full_name')}
         required
         pattern="[A-Za-z .-]+"
-        title={t('tooltips.name_validation')}
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        title={t('form.name_validation')}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.name ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       />
+      {fieldErrors.name && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.name}</div>}
       <input
         name="email"
         value={form.email}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, email: true }))}
         placeholder={t('form.email')}
         required
         type="email"
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.email ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       />
+      {fieldErrors.email && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.email}</div>}
       <input
         name="mobile"
         value={form.mobile}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, mobile: true }))}
         placeholder={t('form.mobile')}
         required
         inputMode="numeric"
         pattern="\d{10,15}"
-        title={t('tooltips.phone_validation')}
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        title={t('form.phone_validation')}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.mobile ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       />
+      {fieldErrors.mobile && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.mobile}</div>}
       <select
         name="course"
         value={form.course}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, course: true }))}
         required
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.course ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       >
         {COURSE_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
       </select>
+      {fieldErrors.course && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.course}</div>}
       <select
         name="university"
         value={form.university}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, university: true }))}
         required
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.university ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       >
         {UNIVERSITY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
       </select>
+      {fieldErrors.university && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.university}</div>}
       <select
         name="year"
         value={form.year}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, year: true }))}
         required
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.year ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       >
         {YEAR_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
       </select>
+      {fieldErrors.year && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.year}</div>}
       <select
         name="semester"
         value={form.semester}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, semester: true }))}
         required
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.semester ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       >
         {SEMESTER_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
       </select>
+      {fieldErrors.semester && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.semester}</div>}
       <input
         name="batch"
         value={form.batch}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, batch: true }))}
         placeholder={t('form.batch')}
         required
         inputMode="numeric"
         pattern="\d{1,3}"
-        title={t('tooltips.batch_validation')}
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        title={t('form.batch_validation')}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.batch ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       />
+      {fieldErrors.batch && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.batch}</div>}
       <select
         name="dept"
         value={form.dept}
         onChange={handleChange}
+        onBlur={() => setTouched(t => ({ ...t, dept: true }))}
         required
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16 }}
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          border: fieldErrors.dept ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+          fontSize: 16,
+        }}
       >
         {DEPT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
       </select>
+      {fieldErrors.dept && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.dept}</div>}
       <textarea
         name="comments"
         value={form.comments}
@@ -236,9 +323,9 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
       {error && <div style={{ color: 'red', textAlign: 'center', fontWeight: 500 }}>{error}</div>}
       <button
         type="submit"
-        disabled={!isValid || submitting}
+        disabled={submitting}
         style={{
-          background: isValid ? '#51ff8b' : '#b3e0ff',
+          background: '#51ff8b',
           color: '#232946',
           fontWeight: 700,
           fontSize: 18,
@@ -246,7 +333,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
           borderRadius: 8,
           padding: '12px 0',
           marginTop: 8,
-          cursor: isValid && !submitting ? 'pointer' : 'not-allowed',
+          cursor: !submitting ? 'pointer' : 'not-allowed',
           boxShadow: '0 2px 8px #51ff8b44',
           transition: 'background 0.2s',
         }}

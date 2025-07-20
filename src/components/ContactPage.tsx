@@ -21,6 +21,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ isNight, onClose }) => {
       top: 0,
       left: 0,
       display: 'flex',
+      boxSizing: 'border-box',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',

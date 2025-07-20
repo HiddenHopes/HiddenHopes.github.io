@@ -18,6 +18,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ isNight, onClose }) => {
         : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)',
       color: isNight ? '#fff' : '#232946',
       position: 'absolute',
+      boxSizing: 'border-box',
       top: 0,
       left: 0,
       display: 'flex',

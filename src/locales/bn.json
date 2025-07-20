@@ -73,6 +73,18 @@
     "no_students_course": "এই কোর্সে কোনো শিক্ষার্থী নিবন্ধিত নেই।"
   },
   "form": {
+    "required_fields_missing": "অনুগ্রহ করে সব প্রয়োজনীয় ঘর সঠিকভাবে পূরণ করুন।",
+    "registration_failed": "রেজিস্ট্রেশন ব্যর্থ হয়েছে।",
+    "please_try_again": "অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "name_validation": "নাম শুধুমাত্র অক্ষর, স্পেস, ডট বা হাইফেন থাকতে পারে।",
+    "email_validation": "সঠিক ইমেইল ঠিকানা দিন।",
+    "phone_validation": "মোবাইল নম্বর ১০-১৫ ডিজিট হতে হবে।",
+    "batch_validation": "ব্যাচ নম্বর ১ থেকে ৯৯৯ এর মধ্যে হতে হবে।",
+    "course_required": "একটি কোর্স নির্বাচন করুন।",
+    "university_required": "একটি বিশ্ববিদ্যালয় নির্বাচন করুন।",
+    "year_required": "একটি বছর নির্বাচন করুন।",
+    "semester_required": "একটি সেমিস্টার নির্বাচন করুন।",
+    "department_required": "একটি বিভাগ নির্বাচন করুন।",
     "register": "কোর্সে নিবন্ধন করুন",
     "student_registration": "শিক্ষার্থী নিবন্ধন",
     "name": "নাম",

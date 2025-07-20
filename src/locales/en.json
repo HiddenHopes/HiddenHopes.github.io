@@ -93,7 +93,19 @@
     "select_university": "Select University",
     "select_year": "Select Year",
     "select_semester": "Select Semester",
-    "select_department": "Select Department"
+    "select_department": "Select Department",
+    "required_fields_missing": "Please fill all required fields correctly.",
+    "registration_failed": "Registration failed.",
+    "please_try_again": "Please try again.",
+    "name_validation": "Name must contain only letters, spaces, dots, or hyphens.",
+    "email_validation": "Please enter a valid email address.",
+    "phone_validation": "Mobile number must be 10-15 digits.",
+    "batch_validation": "Batch must be a number between 1 and 999.",
+    "course_required": "Please select a course.",
+    "university_required": "Please select a university.",
+    "year_required": "Please select a year.",
+    "semester_required": "Please select a semester.",
+    "department_required": "Please select a department."
   },
   "common": {
     "close": "Close"
