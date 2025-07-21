@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import BackButton from './BackButton';
 import StudentListPage from './StudentListPage';
 
 interface CoursesPageProps {
@@ -32,6 +33,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
       boxSizing: 'border-box',
       zIndex: 1000
     }}>
+      <BackButton onClick={onClose} isNight={isNight} />
       <h1 style={{ fontSize: 32, marginBottom: 16, marginTop: 8, textAlign: 'center' }}>{t('courses.title')}</h1>
       <p style={{ maxWidth: 600, fontSize: 18, marginBottom: 32, textAlign: 'center' }}>
         {t('courses.description')}
@@ -82,26 +84,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           </ul>
         </div>
       </div>
-      <button
-        onClick={onClose}
-        style={{
-          padding: '10px 28px',
-          fontSize: 18,
-          borderRadius: 8,
-          border: 'none',
-          background: isNight ? '#232946' : '#51ff8b',
-          color: isNight ? '#ffe259' : '#232946',
-          fontWeight: 600,
-          cursor: 'pointer',
-          boxShadow: isNight ? '0 2px 8px #23294688' : '0 2px 8px #b3e0ff88',
-          marginTop: 16,
-          marginBottom: 16,
-          width: '90%',
-          maxWidth: 320
-        }}
-      >
-        {t('common.close')}
-      </button>
+
       <button
         onClick={() => setShowStudentList(true)}
         style={{
