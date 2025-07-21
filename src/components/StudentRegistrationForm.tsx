@@ -148,19 +148,33 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{
+    <div style={{
+      width: '100vw',
+      maxWidth: '100vw',
+      height: '100vh',
+      overflowY: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      scrollbarWidth: 'none',
+      msOverflowStyle: 'none',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      zIndex: 1000,
       background: 'rgba(255,255,255,0.95)',
-      borderRadius: 16,
-      boxShadow: '0 2px 16px #51ff8b33',
-      padding: 32,
-      maxWidth: 420,
-      width: '100%',
-      margin: '32px auto',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 18,
-      boxSizing: 'border-box',
     }}>
+      <form onSubmit={handleSubmit} style={{
+        background: 'rgba(255,255,255,0.95)',
+        borderRadius: 16,
+        boxShadow: '0 2px 16px #51ff8b33',
+        padding: 32,
+        maxWidth: 420,
+        width: '100%',
+        margin: '32px auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 18,
+        boxSizing: 'border-box',
+      }}>
       <h2 style={{ textAlign: 'center', color: '#1976d2', marginBottom: 8 }}>{t('form.student_registration')}</h2>
       <input
         name="name"
@@ -342,6 +356,25 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
       </button>
       <style>{`
         @media (max-width: 600px) {
+          .scrollable-form-container {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            height: 100vh !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 1000 !important;
+            background: rgba(255,255,255,0.95) !important;
+          }
+          .scrollable-form-container::-webkit-scrollbar {
+            display: none !important;
+          }
+          .scrollable-form-container {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+          }
           form {
             padding: 12px !important;
             max-width: 98vw !important;
@@ -357,6 +390,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         }
       `}</style>
     </form>
+    </div>
   );
 };
 
