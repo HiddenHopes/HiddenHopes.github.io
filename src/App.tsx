@@ -54,41 +54,41 @@ function App() {
   return (
     <Router>
       {/* Language Toggle - always visible */}
-      <div style={{ position: 'fixed', top: 15, right: 70, zIndex: 5000 }}>
+      <div style={{ position: 'fixed', top: 14, right: 70, zIndex: 5000 }}>
         <div
           onClick={() => {
             i18n.changeLanguage(i18n.language === 'en' ? 'bn' : 'en');
             localStorage.setItem('lang', i18n.language === 'en' ? 'bn' : 'en');
           }}
           style={{
-            width: 80,
-            height: 36,
+            width: 60,
+            height: 30,
             borderRadius: 18,
-            background: '#51ff8b',
+            background: '#517fff36',
             position: 'relative',
             cursor: 'pointer',
             boxShadow: '0 2px 8px #51ff8b44',
             transition: 'all 0.3s ease',
-            border: '2px solid #51ff8b',
+            border: '1px solid #7fbb1f07',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 6px'
+            padding: '0 8px'
           }}
           // aria-label={t('header.toggle_en') + '/' + t('header.toggle_bn')}
         >
           {/* Language labels */}
           <span style={{
-            fontSize: 10,
+            fontSize: 12,
             fontWeight: 700,
-            color: i18n.language === 'en' ? '#1976d2' : '#fff',
+            color: i18n.language === 'en' ? '#8ce084ff' : '#fff',
             transition: 'color 0.3s ease',
             zIndex: 2
           }}>EN</span>
           <span style={{
-            fontSize: 10,
+            fontSize: 12,
             fontWeight: 700,
-            color: i18n.language === 'bn' ? '#1976d2' : '#fff',
+            color: i18n.language === 'bn' ? '#8ce084ff' : '#fff',
             transition: 'color 0.3s ease',
             zIndex: 2
           }}>বাং</span>
@@ -96,12 +96,12 @@ function App() {
           {/* Toggle slider */}
           <div style={{
             position: 'absolute',
-            top: 2,
-            left: i18n.language === 'en' ? 2 : 'calc(100% - 32px)',
-            width: 30,
+            top: 0,
+            left: i18n.language === 'en' ? 0 : 'calc(100% - 40px)',
+            width: 40,
             height: 30,
-            borderRadius: 15,
-            background: '#fff',
+            borderRadius: 14,
+            background: '#1f912e4f',
             boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
             transition: 'left 0.3s ease',
             display: 'flex',
