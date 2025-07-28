@@ -63,7 +63,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
     const handleClick = (e: MouseEvent) => {
       // Only close if click is outside the nav area
       const nav = document.getElementById('circular-header-nav');
-      if (nav && !nav.contains(e.target as Node)) {
+      if (nav && !nav.contains(e.target as Node)) { 
         setExpanded(false);
       }
     };
@@ -71,11 +71,38 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
     return () => document.removeEventListener('mousedown', handleClick);
   }, [expanded]);
 
-  // Button positions: fan out to the right in an arc (umbrella style)
+  // Responsive button positions: fan out to the right in an arc (umbrella style)
   const buttonCount = BUTTONS.length;
-  const arcDegrees = 90; // umbrella arc
-  const radius = 180;
-  const startAngle = -3; // slight upward tilt
+  const [navLayout, setNavLayout] = React.useState(() => {
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches;
+    return {
+      arcDegrees: isMobile ? 105 : 90,
+      radius: isMobile ? 100 : 180,
+      startAngle: isMobile ? -5 : -3,
+      delta: isMobile? -10:0,
+    };
+  });
+
+  React.useEffect(() => {
+    const updateLayout = () => {
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
+      setNavLayout({
+        arcDegrees: isMobile ? 105 : 90,
+        radius: isMobile ? 100 : 180,
+        startAngle: isMobile ? -5 : -3,
+        delta: isMobile? -10:0,
+      });
+    };
+    window.addEventListener('resize', updateLayout);
+    // Also update on orientation change
+    window.addEventListener('orientationchange', updateLayout);
+    // Initial check
+    updateLayout();
+    return () => {
+      window.removeEventListener('resize', updateLayout);
+      window.removeEventListener('orientationchange', updateLayout);
+    };
+  }, []);
 
   // Weather icon for nav button
   const weatherIcon = <FaCloudSun style={{ color: '#f7c948', filter: 'drop-shadow(0 0 2px #f7c948)' }} />;
@@ -120,12 +147,12 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          
           cursor: 'pointer',
           transition: 'box-shadow 0.4s',
           position: 'relative',
           pointerEvents: 'auto',
         }}
+        className="circular-nav-mother"
         onClick={() => setExpanded(v => !v)}
         title={t('tooltips.show_menu')}
       >
@@ -138,10 +165,10 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
             transform: expanded ? 'rotate(90deg)' : 'none',
             textShadow: '0 0 8px #51ff8b88',
           }}
+          className="circular-nav-mother-icon"
         >
           ☰
         </span>
-        
       </div>
       {/* Fan-out Buttons */}
       {expanded && (
@@ -151,21 +178,20 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
             left: 65,
             top: 55,
             height: 0,
-            width: radius + 60,
+            width: navLayout.radius + 60,
             display: 'flex',
             alignItems: 'center',
             pointerEvents: 'none',
             animation: 'fadeInNav 0.3s'
-
           }}
         >
           {BUTTONS.map((btn, i) => {
-            const angle = startAngle + (arcDegrees / (buttonCount - 1)) * i;
+            const angle = navLayout.startAngle + (navLayout.arcDegrees / (buttonCount - 1)) * i;
             const rad = (angle * Math.PI) / 149;
-            const buttonSpacing = 20;
+            const buttonSpacing = 15;
             // Calculate the final position relative to the mother button center
-            const x = Math.cos(rad) * radius;
-            const y = Math.sin(rad) * radius + i * buttonSpacing;
+            const x = Math.cos(rad) * navLayout.radius;
+            const y = Math.sin(rad) * navLayout.radius + i * buttonSpacing;
             let icon = btn.icon;
             if (btn.key === 'weather') icon = weatherIcon;
             const handleNavClick = (e: React.MouseEvent) => {
@@ -177,12 +203,10 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
               <React.Fragment key={btn.key}>
                 {/* Connector wire for each button */}
                 <svg
-                  width={Math.abs(x) + 60}
-                  height={Math.abs(y) + 60}
                   style={{
                     position: 'absolute',
-                    left: x,
-                    top: y,
+                    left: x+ navLayout.delta,
+                    top: y + navLayout.delta ,
                     pointerEvents: 'none',
                     zIndex: 1,
                     overflow: 'visible',
@@ -203,6 +227,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
                 <button
                   onClick={handleNavClick}
                   title={t(`nav.${btn.key}`)}
+                  className="circular-nav-child"
                   style={{
                     position: 'absolute',
                     left: x,
@@ -320,6 +345,20 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           0%   { transform: scale(0); }
           80%  { transform: scale(1.1); }
           100% { transform: scale(1); }
+        }
+        @media (max-width: 600px) {
+          .circular-nav-mother {
+            width: 44px !important;
+            height: 44px !important;
+          }
+          .circular-nav-mother-icon {
+            font-size: 26px !important;
+          }
+          .circular-nav-child {
+            width: 38px !important;
+            height: 38px !important;
+            font-size: 16px !important;
+          }
         }
       `}
     </style>
