@@ -140,7 +140,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           height: 64,
           borderRadius: '50%',
           background: 'rgba(30,34,40,0.7)',
-          border: '3px solid #51ff8b',
+          border: '3px solid #51ff8b2a',
           boxShadow: expanded
             ? '0 0 32px 8px #51ff8b88, 0 4px 24px #b3e0ff44'
             : '0 2px 8px #b3e0ff44',
@@ -313,8 +313,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           top: 10,
           right: 10,
           zIndex: 300,
-          width: 46,
-          height: 46,
+          width: 36,
+          height: 36,
           background: isNight
             ? 'linear-gradient(135deg, #232946 0%, #1b2735 100%)'
             : 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)',

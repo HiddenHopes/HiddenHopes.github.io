@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { ReactComponent as AirplaneIcon } from '../assets/airplane.svg';
 interface AirplaneBannerProps {
   onClick?: () => void;
   href?: string;
@@ -12,7 +12,7 @@ const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
   return (
     <div style={{
       position: 'fixed',
-      top: 60,
+      top: 80,
       right: 0,
       width: '100vw',
       zIndex: 1200,
@@ -23,18 +23,10 @@ const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
         width: '100vw',
         height: 80,
         overflow: 'visible',
-        animation: 'plane-fly 20s linear infinite', // slowed down from 8s to 20s
+        animation: 'plane-fly 20s linear infinite', // slowed down from 8s to 15s
       }}>
         {/* Airplane SVG */}
-        <svg width="80" height="40" viewBox="0 0 80 40" style={{ position: 'absolute', right: 0, top: 20 }}>
-          <g>
-            <rect x="10" y="18" width="40" height="8" rx="4" fill="#1976d2" />
-            <polygon points="50,22 75,20 50,26" fill="#1976d2" />
-            <rect x="8" y="20" width="8" height="4" rx="2" fill="#51ff8b" />
-            <circle cx="15" cy="28" r="2" fill="#232946" />
-            <circle cx="45" cy="28" r="2" fill="#232946" />
-          </g>
-        </svg>
+        <AirplaneIcon style={{ position: 'absolute', right: 305, top: 5 }} />
         {/* Flag/banner */}
         <a
           href={href}
@@ -42,21 +34,21 @@ const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
           style={{
             position: 'absolute',
             right: 70,
-            top: 10,
-            height: 36,
-            minWidth: 180,
+            top: 30,
+            height: 30,
+            minWidth: 100,
             background: 'linear-gradient(90deg, #ffe259 0%, #51ff8b 100%)',
             color: '#232946',
             fontWeight: 700,
-            fontSize: 20,
-            borderRadius: '0 18px 18px 0',
+            fontSize: 18,
+            borderRadius: '30px 18px 18px 30px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 36px',
+            padding: '0 20px',
             textDecoration: 'none',
             boxShadow: '0 2px 12px #51ff8b44',
-            border: '2.5px solid #51ff8b',
+            border: '2px solid #3ea3601e',
             pointerEvents: 'auto',
             transition: 'background 0.3s',
             whiteSpace: 'nowrap',
@@ -71,8 +63,9 @@ const AirplaneBanner: React.FC<AirplaneBannerProps> = ({ onClick, href }) => {
       <style>{`
         @keyframes plane-fly {
           0% { transform: translateX(100vw); }
-          80% { transform: translateX(-300px); }
-          100% { transform: translateX(-300px); }
+          10% { transform: translateX(30px); }
+          90% { transform: translateX(-30px); }
+          100% { transform: translateX(-2000px); }
         }
       `}</style>
     </div>
