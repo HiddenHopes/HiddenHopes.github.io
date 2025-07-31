@@ -45,7 +45,7 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
       const { data, error } = await supabase
         .from('registrations')
         .select('id, name, course, university, email, registration_date')
-        .order('registration_date', { ascending: false });
+        .order('registration_date', { ascending: true });
       if (error) setError('Failed to fetch students.');
       else setStudents(data || []);
       setLoading(false);

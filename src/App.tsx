@@ -167,27 +167,7 @@ function App() {
                     justifyContent: 'center',
                   }}>
                     <div style={{ position: 'relative', zIndex: 2001 }}>
-                      <StudentRegistrationForm onSuccess={() => setShowRegistrationModal(false)} />
-                      <button
-                        onClick={() => setShowRegistrationModal(false)}
-                        style={{
-                          position: 'absolute',
-                          top: 8,
-                          right: 8,
-                          background: '#232946',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: 16,
-                          width: 32,
-                          height: 32,
-                          fontSize: 20,
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 8px #0004',
-                          zIndex: 2002
-                        }}
-                        aria-label="Close registration form"
-                      >×</button>
+                      <StudentRegistrationForm onSuccess={() => setShowRegistrationModal(false)} onClose={() => setShowRegistrationModal(false)} />
                     </div>
                   </div>
                 )}

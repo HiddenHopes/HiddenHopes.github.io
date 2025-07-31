@@ -30,9 +30,10 @@ function validateBatch(batch: string) {
 
 interface StudentRegistrationFormProps {
   onSuccess?: () => void;
+  onClose?: () => void;
 }
 
-const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess }) => {
+const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess, onClose }) => {
   const { t } = useTranslation();
   
   const COURSE_OPTIONS = [
@@ -148,20 +149,45 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
   };
 
   return (
-    <div style={{
-      width: '100vw',
-      maxWidth: '100vw',
-      height: '100vh',
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      scrollbarWidth: 'none',
-      msOverflowStyle: 'none',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      zIndex: 1000,
-      background: 'rgba(255,255,255,0.95)',
-    }}>
+    <div
+      className="scrollable-form-container"
+      style={{
+        width: '100vw',
+        maxWidth: '100vw',
+        height: '100vh',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 1000,
+        background: 'rgba(255,255,255,0.95)',
+      }}
+    >
+      {onClose && (
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            background: '#232946',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 16,
+            width: 32,
+            height: 32,
+            fontSize: 20,
+            fontWeight: 700,
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px #0004',
+            zIndex: 2002
+          }}
+          aria-label="Close registration form"
+        >×</button>
+      )}
       <form onSubmit={handleSubmit} style={{
         background: 'rgba(255,255,255,0.95)',
         borderRadius: 16,
@@ -389,7 +415,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
           }
         }
       `}</style>
-    </form>
+      </form>
     </div>
   );
 };
