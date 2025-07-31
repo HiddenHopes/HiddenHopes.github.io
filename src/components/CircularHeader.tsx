@@ -10,11 +10,16 @@ interface CircularHeaderProps {
   onAboutClick?: () => void;
   onContactClick?: () => void;
   onCoursesClick?: () => void;
+  expanded?: boolean;
+  setExpanded?: (v: boolean) => void;
 }
 
-const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick }) => {
+const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick, expanded: expandedProp, setExpanded: setExpandedProp }) => {
   const { t } = useTranslation();
-  
+  const [internalExpanded, internalSetExpanded] = React.useState(false);
+  const expanded = expandedProp !== undefined ? expandedProp : internalExpanded;
+  const setExpanded = setExpandedProp !== undefined ? setExpandedProp : internalSetExpanded;
+
   const BUTTONS = [
     {
       key: 'home',
@@ -53,7 +58,6 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
       onClickProp: 'onContactClick',
     },
   ];
-  const [expanded, setExpanded] = React.useState(false);
   const [showCalendar, setShowCalendar] = React.useState(false);
   const [showWeather, setShowWeather] = React.useState(false);
 
@@ -153,7 +157,7 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
           pointerEvents: 'auto',
         }}
         className="circular-nav-mother"
-        onClick={() => setExpanded(v => !v)}
+        onClick={() => setExpanded(!expanded)}
         title={t('tooltips.show_menu')}
       >
         <span

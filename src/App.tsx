@@ -27,6 +27,7 @@ function App() {
   const [showContact, setShowContact] = useState(false)
   const [showCourses, setShowCourses] = useState(false)
   const [showRegistrationModal, setShowRegistrationModal] = useState(false)
+  const [expanded, setExpanded] = useState(false);
   const { i18n, t } = useTranslation();
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
@@ -129,7 +130,7 @@ function App() {
             : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
         }}
       >
-        {!(showAbout || showContact || showCourses) && <AirplaneBanner href="#" onClick={() => setShowRegistrationModal(true)} />}
+        {!(showAbout || showContact || showCourses || expanded) && <AirplaneBanner href="#" onClick={() => setShowRegistrationModal(true)} />}
         <Routes>
           <Route
             path="/"
@@ -141,6 +142,8 @@ function App() {
                   onAboutClick={handleShowAbout}
                   onContactClick={handleShowContact}
                   onCoursesClick={handleShowCourses}
+                  expanded={expanded}
+                  setExpanded={setExpanded}
                 />
                 {/* Show overlay pages if active */}
                 {showAbout && (
