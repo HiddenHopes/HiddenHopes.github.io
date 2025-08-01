@@ -21,7 +21,6 @@ import { loadUiStatusArrayFromLocalStorage, saveUiStatusArrayToLocalStorage } fr
 const MainBody = React.lazy(() => import('./components/MainBody'));
 
 function App() {
-  const [isNight, setIsNight] = useState(true)
   const [showGameMenu, setShowGameMenu] = useState(false)
   const [showTicTacToe, setShowTicTacToe] = useState(false)
   const [showDrawing, setShowDrawing] = useState(false)
@@ -34,7 +33,11 @@ function App() {
   const { i18n, t } = useTranslation();
   const [uiStatusArray, setUiStatusArray] = useAtom(uiStatusArrayAtom);
 
-  const handleThemeToggle = () => setIsNight((prev) => !prev)
+  const handleThemeToggle = () => {
+    const newArray = [...uiStatusArray];
+    newArray[0] = !uiStatusArray[0];
+    setUiStatusArray(newArray);
+  }
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
   const handleShowAbout = () => {
     setShowAbout(true)
@@ -140,7 +143,7 @@ function App() {
           height: '100vh',
           position: 'relative',
           overflow: 'hidden',
-          background: isNight
+          background: uiStatusArray[0]
             ? 'radial-gradient(ellipse at 50% 80%,rgb(24, 55, 133) 0%, #090a0f 100%)'
             : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
         }}
@@ -152,7 +155,7 @@ function App() {
             element={
               <>
                 <CircularHeader
-                  isNight={isNight}
+                  isNight={uiStatusArray[0]}
                   onThemeToggle={handleThemeToggle}
                   onAboutClick={handleShowAbout}
                   onContactClick={handleShowContact}
@@ -162,13 +165,13 @@ function App() {
                 />
                 {/* Show overlay pages if active */}
                 {showAbout && (
-                  <AboutPage isNight={isNight} onClose={() => setShowAbout(false)} />
+                  <AboutPage isNight={uiStatusArray[0]} onClose={() => setShowAbout(false)} />
                 )}
                 {showContact && (
-                  <ContactPage isNight={isNight} onClose={() => setShowContact(false)} />
+                  <ContactPage isNight={uiStatusArray[0]} onClose={() => setShowContact(false)} />
                 )}
                 {showCourses && (
-                  <CoursesPage isNight={isNight} onClose={() => setShowCourses(false)} />
+                  <CoursesPage isNight={uiStatusArray[0]} onClose={() => setShowCourses(false)} />
                 )}
                 {/* Registration Modal */}
                 {showRegistrationModal && (
@@ -193,7 +196,7 @@ function App() {
                 <Suspense fallback={null}>
                   <div style={{ display: showAbout || showContact || showCourses ? 'none' : 'block' }}>
                     <GameComponent
-                      isNight={isNight}
+                      isNight={uiStatusArray[0]}
                       showGameMenu={showGameMenu}
                       onGameMenuToggle={handleGameMenuToggle}
                       onTicTacToeClick={() => {
@@ -216,7 +219,7 @@ function App() {
                       }}
                     />
                     <MainBody
-                      isNight={isNight}
+                      isNight={uiStatusArray[0]}
                       showTicTacToe={showTicTacToe}
                       setShowTicTacToe={setShowTicTacToe}
                       showDrawing={showDrawing}
@@ -226,7 +229,7 @@ function App() {
                     />
                   </div>
                 </Suspense>
-                <Footer isNight={isNight} />
+                <Footer isNight={uiStatusArray[0]} />
               </>
             }
           />
