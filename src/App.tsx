@@ -2,6 +2,7 @@
 import React, { useState, Suspense, MouseEvent } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAtom } from 'jotai';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import GameComponent from './components/GameComponent'
@@ -14,6 +15,8 @@ import AirplaneBanner from './components/AirplaneBanner'
 import StudentRegistrationForm from './components/StudentRegistrationForm';
 import StudentListPage from './components/StudentListPage';
 import './i18n';
+import { uiStatusArrayAtom } from './store/uiAtoms';
+import { loadUiStatusArrayFromLocalStorage, saveUiStatusArrayToLocalStorage } from './store/utils';
 
 const MainBody = React.lazy(() => import('./components/MainBody'));
 
@@ -29,6 +32,8 @@ function App() {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false)
   const [expanded, setExpanded] = useState(false);
   const { i18n, t } = useTranslation();
+  const [uiStatusArray, setUiStatusArray] = useAtom(uiStatusArrayAtom);
+
   const handleThemeToggle = () => setIsNight((prev) => !prev)
   const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
   const handleShowAbout = () => {
@@ -46,6 +51,16 @@ function App() {
     setShowAbout(false)
     setShowContact(false)
   }
+
+  // Load from localStorage on mount
+  React.useEffect(() => {
+    setUiStatusArray(loadUiStatusArrayFromLocalStorage());
+  }, [setUiStatusArray]);
+
+  // Save to localStorage whenever the array changes
+  React.useEffect(() => {
+    saveUiStatusArrayToLocalStorage(uiStatusArray);
+  }, [uiStatusArray]);
 
   React.useEffect(() => {
     // Preload MainBody as soon as possible to avoid spinner blink after first mount
