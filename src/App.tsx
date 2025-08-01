@@ -21,14 +21,16 @@ import { loadUiStatusArrayFromLocalStorage, saveUiStatusArrayToLocalStorage } fr
 const MainBody = React.lazy(() => import('./components/MainBody'));
 
 function App() {
-  const [showGameMenu, setShowGameMenu] = useState(false)
-  const [showTicTacToe, setShowTicTacToe] = useState(false)
-  const [showDrawing, setShowDrawing] = useState(false)
-  const [showFootball, setShowFootball] = useState(false)
-  const [showAbout, setShowAbout] = useState(false)
-  const [showContact, setShowContact] = useState(false)
-  const [showCourses, setShowCourses] = useState(false)
-  const [showRegistrationModal, setShowRegistrationModal] = useState(false)
+  // Indices for UI status array
+  // 0: Night mode
+  // 1: showGameMenu
+  // 2: showTicTacToe
+  // 3: showDrawing
+  // 4: showFootball
+  // 5: showAbout
+  // 6: showContact
+  // 7: showCourses
+  // 8: showRegistrationModal
   const [expanded, setExpanded] = useState(false);
   const { i18n, t } = useTranslation();
   const [uiStatusArray, setUiStatusArray] = useAtom(uiStatusArrayAtom);
@@ -38,21 +40,31 @@ function App() {
     newArray[0] = !uiStatusArray[0];
     setUiStatusArray(newArray);
   }
-  const handleGameMenuToggle = () => setShowGameMenu((prev) => !prev)
+  const handleGameMenuToggle = () => {
+    const newArray = [...uiStatusArray];
+    newArray[1] = !uiStatusArray[1];
+    setUiStatusArray(newArray);
+  }
   const handleShowAbout = () => {
-    setShowAbout(true)
-    setShowContact(false)
-    setShowCourses(false)
+    const newArray = [...uiStatusArray];
+    newArray[5] = true;
+    newArray[6] = false;
+    newArray[7] = false;
+    setUiStatusArray(newArray);
   }
   const handleShowContact = () => {
-    setShowContact(true)
-    setShowAbout(false)
-    setShowCourses(false)
+    const newArray = [...uiStatusArray];
+    newArray[6] = true;
+    newArray[5] = false;
+    newArray[7] = false;
+    setUiStatusArray(newArray);
   }
   const handleShowCourses = () => {
-    setShowCourses(true)
-    setShowAbout(false)
-    setShowContact(false)
+    const newArray = [...uiStatusArray];
+    newArray[7] = true;
+    newArray[5] = false;
+    newArray[6] = false;
+    setUiStatusArray(newArray);
   }
 
   // Load from localStorage on mount
@@ -148,7 +160,11 @@ function App() {
             : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
         }}
       >
-        {!(showAbout || showContact || showCourses || expanded) && <AirplaneBanner href="#" onClick={() => setShowRegistrationModal(true)} />}
+        {!(uiStatusArray[5] || uiStatusArray[6] || uiStatusArray[7] || expanded) && <AirplaneBanner href="#" onClick={() => {
+          const newArray = [...uiStatusArray];
+          newArray[8] = true;
+          setUiStatusArray(newArray);
+        }} />}
         <Routes>
           <Route
             path="/"
@@ -164,17 +180,29 @@ function App() {
                   setExpanded={setExpanded}
                 />
                 {/* Show overlay pages if active */}
-                {showAbout && (
-                  <AboutPage isNight={uiStatusArray[0]} onClose={() => setShowAbout(false)} />
+                {uiStatusArray[5] && (
+                  <AboutPage isNight={uiStatusArray[0]} onClose={() => {
+                    const newArray = [...uiStatusArray];
+                    newArray[5] = false;
+                    setUiStatusArray(newArray);
+                  }} />
                 )}
-                {showContact && (
-                  <ContactPage isNight={uiStatusArray[0]} onClose={() => setShowContact(false)} />
+                {uiStatusArray[6] && (
+                  <ContactPage isNight={uiStatusArray[0]} onClose={() => {
+                    const newArray = [...uiStatusArray];
+                    newArray[6] = false;
+                    setUiStatusArray(newArray);
+                  }} />
                 )}
-                {showCourses && (
-                  <CoursesPage isNight={uiStatusArray[0]} onClose={() => setShowCourses(false)} />
+                {uiStatusArray[7] && (
+                  <CoursesPage isNight={uiStatusArray[0]} onClose={() => {
+                    const newArray = [...uiStatusArray];
+                    newArray[7] = false;
+                    setUiStatusArray(newArray);
+                  }} />
                 )}
                 {/* Registration Modal */}
-                {showRegistrationModal && (
+                {uiStatusArray[8] && (
                   <div style={{
                     position: 'fixed',
                     top: 0,
@@ -188,44 +216,70 @@ function App() {
                     justifyContent: 'center',
                   }}>
                     <div style={{ position: 'relative', zIndex: 2001 }}>
-                      <StudentRegistrationForm onSuccess={() => setShowRegistrationModal(false)} onClose={() => setShowRegistrationModal(false)} />
+                      <StudentRegistrationForm onSuccess={() => {
+                        const newArray = [...uiStatusArray];
+                        newArray[8] = false;
+                        setUiStatusArray(newArray);
+                      }} onClose={() => {
+                        const newArray = [...uiStatusArray];
+                        newArray[8] = false;
+                        setUiStatusArray(newArray);
+                      }} />
                     </div>
                   </div>
                 )}
                 {/* MainBody is always mounted, but hidden when overlays are open */}
                 <Suspense fallback={null}>
-                  <div style={{ display: showAbout || showContact || showCourses ? 'none' : 'block' }}>
+                  <div style={{ display: uiStatusArray[5] || uiStatusArray[6] || uiStatusArray[7] ? 'none' : 'block' }}>
                     <GameComponent
                       isNight={uiStatusArray[0]}
-                      showGameMenu={showGameMenu}
+                      showGameMenu={uiStatusArray[1]}
                       onGameMenuToggle={handleGameMenuToggle}
                       onTicTacToeClick={() => {
-                        setShowTicTacToe(!showTicTacToe)
-                        setShowGameMenu(false)
-                        setShowDrawing(false)
-                        setShowFootball(false)
+                        const newArray = [...uiStatusArray];
+                        newArray[2] = !uiStatusArray[2];
+                        newArray[1] = false;
+                        newArray[3] = false;
+                        newArray[4] = false;
+                        setUiStatusArray(newArray);
                       }}
                       onDrawingClick={() => {
-                        setShowDrawing(true)
-                        setShowGameMenu(false)
-                        setShowTicTacToe(false)
-                        setShowFootball(false)
+                        const newArray = [...uiStatusArray];
+                        newArray[3] = true;
+                        newArray[1] = false;
+                        newArray[2] = false;
+                        newArray[4] = false;
+                        setUiStatusArray(newArray);
                       }}
                       onFootballClick={() => {
-                        setShowFootball(true)
-                        setShowGameMenu(false)
-                        setShowTicTacToe(false)
-                        setShowDrawing(false)
+                        const newArray = [...uiStatusArray];
+                        newArray[4] = true;
+                        newArray[1] = false;
+                        newArray[2] = false;
+                        newArray[3] = false;
+                        setUiStatusArray(newArray);
                       }}
                     />
                     <MainBody
                       isNight={uiStatusArray[0]}
-                      showTicTacToe={showTicTacToe}
-                      setShowTicTacToe={setShowTicTacToe}
-                      showDrawing={showDrawing}
-                      setShowDrawing={setShowDrawing}
-                      showFootball={showFootball}
-                      setShowFootball={setShowFootball}
+                      showTicTacToe={uiStatusArray[2]}
+                      setShowTicTacToe={(val) => {
+                        const newArray = [...uiStatusArray];
+                        newArray[2] = val;
+                        setUiStatusArray(newArray);
+                      }}
+                      showDrawing={uiStatusArray[3]}
+                      setShowDrawing={(val) => {
+                        const newArray = [...uiStatusArray];
+                        newArray[3] = val;
+                        setUiStatusArray(newArray);
+                      }}
+                      showFootball={uiStatusArray[4]}
+                      setShowFootball={(val) => {
+                        const newArray = [...uiStatusArray];
+                        newArray[4] = val;
+                        setUiStatusArray(newArray);
+                      }}
                     />
                   </div>
                 </Suspense>
