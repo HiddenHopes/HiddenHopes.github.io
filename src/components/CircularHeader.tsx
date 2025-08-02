@@ -1,4 +1,8 @@
 import React from 'react';
+import { useAtom } from 'jotai';
+import { uiStatusArrayAtom } from '../store/uiAtoms';
+import { useSetUiStatus } from '../store/utils';
+import { Status } from '../store/statusEnum';
 import { useTranslation } from 'react-i18next';
 import { FaMoon, FaSun, FaRegCalendarAlt, FaCloudSun } from 'react-icons/fa';
 import WeatherUpdate from './WeatherUpdate';
@@ -10,15 +14,14 @@ interface CircularHeaderProps {
   onAboutClick?: () => void;
   onContactClick?: () => void;
   onCoursesClick?: () => void;
-  expanded?: boolean;
-  setExpanded?: (v: boolean) => void;
 }
 
-const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick, expanded: expandedProp, setExpanded: setExpandedProp }) => {
+const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle, onAboutClick, onContactClick, onCoursesClick }) => {
   const { t } = useTranslation();
-  const [internalExpanded, internalSetExpanded] = React.useState(false);
-  const expanded = expandedProp !== undefined ? expandedProp : internalExpanded;
-  const setExpanded = setExpandedProp !== undefined ? setExpandedProp : internalSetExpanded;
+  const [uiStatusArray] = useAtom(uiStatusArrayAtom);
+  const expanded = uiStatusArray[Status.NavExpanded];
+  const setUiStatus = useSetUiStatus();
+  const setExpanded = (val: boolean) => setUiStatus(Status.NavExpanded, val);
 
   const BUTTONS = [
     {
@@ -65,9 +68,8 @@ const CircularHeader: React.FC<CircularHeaderProps> = ({ isNight, onThemeToggle,
   React.useEffect(() => {
     if (!expanded) return;
     const handleClick = (e: MouseEvent) => {
-      // Only close if click is outside the nav area
       const nav = document.getElementById('circular-header-nav');
-      if (nav && !nav.contains(e.target as Node)) { 
+      if (nav && !nav.contains(e.target as Node)) {
         setExpanded(false);
       }
     };
