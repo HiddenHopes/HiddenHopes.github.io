@@ -16,7 +16,7 @@ import StudentRegistrationForm from './components/StudentRegistrationForm';
 import StudentListPage from './components/StudentListPage';
 import './i18n';
 import { uiStatusArrayAtom } from './store/uiAtoms';
-import { loadUiStatusArrayFromLocalStorage, saveUiStatusArrayToLocalStorage } from './store/utils';
+import { saveUiStatusArrayToLocalStorage } from './store/utils';
 import { Status } from './store/statusEnum';
 
 const MainBody = React.lazy(() => import('./components/MainBody'));
@@ -24,6 +24,7 @@ const MainBody = React.lazy(() => import('./components/MainBody'));
 function App() {
   const { i18n, t } = useTranslation();
   const [uiStatusArray, setUiStatusArray] = useAtom(uiStatusArrayAtom);
+  const [isInitialized, setIsInitialized] = React.useState(false);
 
   const handleThemeToggle = () => {
     const newArray = [...uiStatusArray];
@@ -57,15 +58,37 @@ function App() {
     setUiStatusArray(newArray);
   }
 
-  // Load from localStorage on mount
-  React.useEffect(() => {
-    setUiStatusArray(loadUiStatusArrayFromLocalStorage());
-  }, [setUiStatusArray]);
+  // Default UI state array (night, 12, 13 true)
+  const defaultUiStatusArray = React.useMemo(() => {
+    const arr = Array(20).fill(false);
+    arr[1] = true;
+    arr[12] = true;
+    arr[13] = true;
+    return arr;
+  }, []);
 
-  // Save to localStorage whenever the array changes
+  // Load from localStorage on mount, else use default
   React.useEffect(() => {
+    const val = localStorage.getItem('uiStatusArray');
+    let arr;
+    try {
+      arr = val ? JSON.parse(val) : null;
+    } catch {
+      arr = null;
+    }
+    if (Array.isArray(arr) && arr.length === 20 && arr.every(v => typeof v === 'boolean')) {
+      setUiStatusArray(arr);
+    } else {
+      setUiStatusArray(defaultUiStatusArray);
+    }
+    setIsInitialized(true);
+  }, [setUiStatusArray, defaultUiStatusArray]);
+
+  // Save to localStorage whenever the array changes (but not on initial load)
+  React.useEffect(() => {
+    if (!isInitialized) return;
     saveUiStatusArrayToLocalStorage(uiStatusArray);
-  }, [uiStatusArray]);
+  }, [uiStatusArray, isInitialized]);
 
   React.useEffect(() => {
     // Preload MainBody as soon as possible to avoid spinner blink after first mount

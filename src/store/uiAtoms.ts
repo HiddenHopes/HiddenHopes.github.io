@@ -2,10 +2,13 @@ import { atom } from 'jotai';
 
 // Atom to hold an array of 20 boolean values, all default to false
 // Only indices 1, 12, and 13 are true by default
-const defaultUiStatusArray = Array(20).fill(false);
-defaultUiStatusArray[1] = true;
-defaultUiStatusArray[12] = true;
-defaultUiStatusArray[13] = true;
-export const uiStatusArrayAtom = atom<boolean[]>(defaultUiStatusArray);
+function getDefaultUiStatusArray() {
+  const arr = Array(20).fill(false);
+  arr[1] = true;
+  arr[12] = true;
+  arr[13] = true;
+  return arr;
+}
+export const uiStatusArrayAtom = atom<boolean[]>(getDefaultUiStatusArray());
 
 
