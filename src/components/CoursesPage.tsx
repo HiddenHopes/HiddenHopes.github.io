@@ -15,8 +15,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
   return (
     <div style={{
       width: '100vw',
-      minHeight: '100dvh',
-      maxHeight: '100dvh',
+      height: '100vh',
       background: isNight
         ? 'radial-gradient(ellipse at 50% 80%,rgb(24, 55, 133) 0%, #090a0f 100%)'
         : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)',
@@ -28,13 +27,22 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      padding: '24px 8px 32px 8px',
-      overflowY: 'auto',
       boxSizing: 'border-box',
-      zIndex: 1000
+      zIndex: 1000,
+      overflow: 'hidden'
     }}>
       <BackButton onClick={onClose} isNight={isNight} />
-      <h1 style={{ fontSize: 32, marginBottom: 16, marginTop: 8, textAlign: 'center' }}>{t('courses.title')}</h1>
+      <div style={{
+        width: '100%',
+        height: '100%',
+        overflowY: 'auto',
+        padding: '24px 8px 32px 8px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: '60px'
+      }}>
+        <h1 style={{ fontSize: 32, marginBottom: 16, marginTop: 8, textAlign: 'center' }}>{t('courses.title')}</h1>
       <p style={{ maxWidth: 600, fontSize: 18, marginBottom: 32, textAlign: 'center' }}>
         {t('courses.description')}
       </p>
@@ -163,6 +171,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           }
         }
       `}</style>
+      </div>
     </div>
   );
 };

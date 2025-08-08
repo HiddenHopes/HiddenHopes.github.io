@@ -482,6 +482,7 @@ const WeatherUpdate: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 position: 'absolute',
                 top: 54,
                 right: 0,
+                left: 0,
                 minWidth: 260,
                 background: '#fff',
                 color: '#232946',

@@ -1,3 +1,4 @@
+import { Status } from './statusEnum';
 import { uiStatusArrayAtom } from './uiAtoms';
 import { useSetAtom } from 'jotai';
 
@@ -8,7 +9,7 @@ export function saveUiStatusArrayToLocalStorage(arr: boolean[]) {
   if (Array.isArray(arr)) {
     const arr20 = Array(20).fill(false);
     for (let i = 0; i < 20; i++) {
-      if (typeof arr[i] === 'boolean') arr20[i] = arr[i];
+      if (typeof arr[i] === 'boolean' && i !== Status.GameMenu && i !== Status.NavExpanded ) arr20[i] = arr[i];
     }
     localStorage.setItem(UI_STATUS_KEY, JSON.stringify(arr20));
   } else {
