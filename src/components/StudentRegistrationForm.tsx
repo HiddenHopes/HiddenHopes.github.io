@@ -35,6 +35,22 @@ interface StudentRegistrationFormProps {
 
 const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess, onClose }) => {
   const { t } = useTranslation();
+
+  // Configurable field enable/disable
+  const fieldConfig = {
+    name: true,
+    email: true,
+    mobile: true,
+    course: true,
+    university: true, 
+    year: false,
+    semester: false,
+    batch: false,
+    dept: false,
+    comments: true,
+  };
+
+  // To disable a field, set its value to false above.
   
   const COURSE_OPTIONS = [
     { value: '', label: t('form.select_course') },
@@ -86,15 +102,15 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
   // Validation logic for each field
   const validateFields = () => {
     const errors: { [key: string]: string } = {};
-    if (!validateName(form.name)) errors.name = t('form.name_validation');
-    if (!validateEmail(form.email)) errors.email = t('form.email_validation');
-    if (!validateMobile(form.mobile)) errors.mobile = t('form.phone_validation');
-    if (!form.course) errors.course = t('form.course_required');
-    if (!form.university) errors.university = t('form.university_required');
-    if (!form.year) errors.year = t('form.year_required');
-    if (!form.semester) errors.semester = t('form.semester_required');
-    if (!validateBatch(form.batch)) errors.batch = t('form.batch_validation');
-    if (!form.dept) errors.dept = t('form.department_required');
+    if (fieldConfig.name && !validateName(form.name)) errors.name = t('form.name_validation');
+    if (fieldConfig.email && !validateEmail(form.email)) errors.email = t('form.email_validation');
+    if (fieldConfig.mobile && !validateMobile(form.mobile)) errors.mobile = t('form.phone_validation');
+    if (fieldConfig.course && !form.course) errors.course = t('form.course_required');
+    if (fieldConfig.university && !form.university) errors.university = t('form.university_required');
+    if (fieldConfig.year && !form.year) errors.year = t('form.year_required');
+    if (fieldConfig.semester && !form.semester) errors.semester = t('form.semester_required');
+    if (fieldConfig.batch && !validateBatch(form.batch)) errors.batch = t('form.batch_validation');
+    if (fieldConfig.dept && !form.dept) errors.dept = t('form.department_required');
     return errors;
   };
 
@@ -202,163 +218,183 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         boxSizing: 'border-box',
       }}>
       <h2 style={{ textAlign: 'center', color: '#1976d2', marginBottom: 8 }}>{t('form.student_registration')}</h2>
-      <input
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, name: true }))}
-        placeholder={t('form.full_name')}
-        required
-        pattern="[A-Za-z .-]+"
-        title={t('form.name_validation')}
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.name ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      />
-      {fieldErrors.name && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.name}</div>}
-      <input
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, email: true }))}
-        placeholder={t('form.email')}
-        required
-        type="email"
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.email ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      />
-      {fieldErrors.email && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.email}</div>}
-      <input
-        name="mobile"
-        value={form.mobile}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, mobile: true }))}
-        placeholder={t('form.mobile')}
-        required
-        inputMode="numeric"
-        pattern="\d{10,15}"
-        title={t('form.phone_validation')}
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.mobile ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      />
-      {fieldErrors.mobile && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.mobile}</div>}
-      <select
-        name="course"
-        value={form.course}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, course: true }))}
-        required
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.course ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      >
-        {COURSE_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-      </select>
-      {fieldErrors.course && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.course}</div>}
-      <select
-        name="university"
-        value={form.university}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, university: true }))}
-        required
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.university ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      >
-        {UNIVERSITY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-      </select>
-      {fieldErrors.university && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.university}</div>}
-      <select
-        name="year"
-        value={form.year}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, year: true }))}
-        required
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.year ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      >
-        {YEAR_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-      </select>
-      {fieldErrors.year && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.year}</div>}
-      <select
-        name="semester"
-        value={form.semester}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, semester: true }))}
-        required
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.semester ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      >
-        {SEMESTER_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-      </select>
-      {fieldErrors.semester && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.semester}</div>}
-      <input
-        name="batch"
-        value={form.batch}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, batch: true }))}
-        placeholder={t('form.batch')}
-        required
-        inputMode="numeric"
-        pattern="\d{1,3}"
-        title={t('form.batch_validation')}
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.batch ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      />
-      {fieldErrors.batch && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.batch}</div>}
-      <select
-        name="dept"
-        value={form.dept}
-        onChange={handleChange}
-        onBlur={() => setTouched(t => ({ ...t, dept: true }))}
-        required
-        style={{
-          padding: 10,
-          borderRadius: 8,
-          border: fieldErrors.dept ? '2px solid #d7263d' : '1.5px solid #51ff8b',
-          fontSize: 16,
-        }}
-      >
-        {DEPT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-      </select>
-      {fieldErrors.dept && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.dept}</div>}
-      <textarea
-        name="comments"
-        value={form.comments}
-        onChange={handleChange}
-        placeholder={t('form.comments')}
-        rows={3}
-        style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16, resize: 'vertical' }}
-      />
+      {fieldConfig.name && <>
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, name: true }))}
+          placeholder={t('form.full_name')}
+          required
+          pattern="[A-Za-z .-]+"
+          title={t('form.name_validation')}
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.name ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        />
+        {fieldErrors.name && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.name}</div>}
+      </>}
+      {fieldConfig.email && <>
+        <input
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, email: true }))}
+          placeholder={t('form.email')}
+          required
+          type="email"
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.email ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        />
+        {fieldErrors.email && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.email}</div>}
+      </>}
+      {fieldConfig.mobile && <>
+        <input
+          name="mobile"
+          value={form.mobile}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, mobile: true }))}
+          placeholder={t('form.mobile')}
+          required
+          inputMode="numeric"
+          pattern="\d{10,15}"
+          title={t('form.phone_validation')}
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.mobile ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        />
+        {fieldErrors.mobile && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.mobile}</div>}
+      </>}
+      {fieldConfig.course && <>
+        <select
+          name="course"
+          value={form.course}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, course: true }))}
+          required
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.course ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        >
+          {COURSE_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        </select>
+        {fieldErrors.course && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.course}</div>}
+      </>}
+      {fieldConfig.university && <>
+        <select
+          name="university"
+          value={form.university}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, university: true }))}
+          required
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.university ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        >
+          {UNIVERSITY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        </select>
+        {fieldErrors.university && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.university}</div>}
+      </>}
+      {fieldConfig.year && <>
+        <select
+          name="year"
+          value={form.year}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, year: true }))}
+          required
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.year ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        >
+          {YEAR_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        </select>
+        {fieldErrors.year && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.year}</div>}
+      </>}
+      {fieldConfig.semester && <>
+        <select
+          name="semester"
+          value={form.semester}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, semester: true }))}
+          required
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.semester ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        >
+          {SEMESTER_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        </select>
+        {fieldErrors.semester && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.semester}</div>}
+      </>}
+      {fieldConfig.batch && <>
+        <input
+          name="batch"
+          value={form.batch}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, batch: true }))}
+          placeholder={t('form.batch')}
+          required
+          inputMode="numeric"
+          pattern="\d{1,3}"
+          title={t('form.batch_validation')}
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.batch ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        />
+        {fieldErrors.batch && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.batch}</div>}
+      </>}
+      {fieldConfig.dept && <>
+        <select
+          name="dept"
+          value={form.dept}
+          onChange={handleChange}
+          onBlur={() => setTouched(t => ({ ...t, dept: true }))}
+          required
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            border: fieldErrors.dept ? '2px solid #d7263d' : '1.5px solid #51ff8b',
+            fontSize: 16,
+          }}
+        >
+          {DEPT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        </select>
+        {fieldErrors.dept && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.dept}</div>}
+      </>}
+      {fieldConfig.comments && <>
+        <textarea
+          name="comments"
+          value={form.comments}
+          onChange={handleChange}
+          placeholder={t('form.comments')}
+          rows={3}
+          style={{ padding: 10, borderRadius: 8, border: '1.5px solid #51ff8b', fontSize: 16, resize: 'vertical' }}
+        />
+      </>}
       {success && <div style={{ color: 'green', textAlign: 'center', fontWeight: 500 }}>{t('form.success')}</div>}
       {error && <div style={{ color: 'red', textAlign: 'center', fontWeight: 500 }}>{error}</div>}
       <button
