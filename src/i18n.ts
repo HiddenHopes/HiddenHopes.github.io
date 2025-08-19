@@ -12,7 +12,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem('lang') || 'bn',
+    lng: localStorage.getItem('lang') || 'en',
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
   });

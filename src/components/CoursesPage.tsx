@@ -36,7 +36,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
         width: '100%',
         height: '100%',
         overflowY: 'auto',
-        padding: '24px 8px 32px 8px',
+        padding: '24px 8px 64px 8px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

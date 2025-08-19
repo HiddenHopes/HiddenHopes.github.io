@@ -14,11 +14,13 @@
   },
   "about": {
     "title": "About School of Happiness",
-    "description": "Welcome to the School of Happiness! This project is a playful, interactive web app designed to bring joy, learning, and creativity together. Explore games, weather updates, and more—all in a beautiful, immersive environment."
+    "description": "Welcome to the School of Happiness! We aim to encourage the students in learning with the actual purpose of Education and keep them believing that Learning boosts Happiness. We are mainly focused on Learn by Doing. We emphasize each topic is to be learned practically if possible."
   },
   "contact": {
     "title": "Contact Us",
-    "description": "We'd love to hear from you! For questions, feedback, or collaboration, please email us at"
+    "description": "We'd love to hear from you! For questions, feedback, or collaboration, please email us at",
+    "address": "Baliapukur Chotobottola, Rajshahi.",
+    "phone": "01670982758"
   },
   "courses": {
     "title": "Our Courses",

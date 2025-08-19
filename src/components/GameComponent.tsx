@@ -90,13 +90,13 @@ const GameComponent: React.FC<GameComponentProps> = ({
         >
           🖊️ {t('games.drawing')}
         </div>
-        <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
+        {/* <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
           onClick={() => alert(t('games.cricket_coming_soon'))}
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}
           onMouseOut={e => (e.currentTarget.style.background = 'transparent')}
         >
           🏏 {t('games.cricket')}
-        </div>
+        </div> */}
         <div style={{ padding: '0.7rem 1.2rem', cursor: 'pointer', fontWeight: 500, transition: 'background 0.2s' }}
           onClick={onFootballClick}
           onMouseOver={e => (e.currentTarget.style.background = isNight ? '#1b2735' : '#e3f6ff')}

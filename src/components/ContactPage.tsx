@@ -33,8 +33,12 @@ const ContactPage: React.FC<ContactPageProps> = ({ isNight, onClose }) => {
       <BackButton onClick={onClose} isNight={isNight} />
       <h1 style={{ fontSize: 32, marginBottom: 16 }}>{t('contact.title')}</h1>
       <p style={{ maxWidth: 500, fontSize: 18, marginBottom: 32, textAlign: 'center' }}>
-        {t('contact.description')} <a href="mailto:info@schoolofhappiness.com" style={{ color: isNight ? '#ffe259' : '#1976d2', textDecoration: 'underline' }}>info@schoolofhappiness.com</a>.
+        {t('contact.description')} <a href="mailto:info@schoolofhappiness.com" style={{ color: isNight ? '#ffe259' : '#1976d2', textDecoration: 'underline' }}>shafi2013@gmail.com</a>.
       </p>
+      <div style={{ fontSize: 20, marginBottom: 16, textAlign: 'center', lineHeight: 1.7 }}>
+        <div>🏠 {t('contact.address')}</div>
+        <div>✆ {t('contact.phone')}</div>
+      </div>
     </div>
   );
 };
