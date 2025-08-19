@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import StudentRegistrationForm from './StudentRegistrationForm';
 import { useTranslation } from 'react-i18next';
 import BackButton from './BackButton';
 import StudentListPage from './StudentListPage';
@@ -10,6 +11,7 @@ interface CoursesPageProps {
 
 const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
   const [showStudentList, setShowStudentList] = useState(false);
+  const [showRegistration, setShowRegistration] = useState<string | null>(null);
   const { t } = useTranslation();
 
   // Configurable enable/disable for each course
@@ -92,8 +94,8 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
         width: '100%',
         maxWidth: 1300,
       }}>
-        {/* Fullstack Developer Course */}
-        <div style={{
+  {/* Fullstack Developer Course */}
+  <div style={{
           background: isNight ? '#232946' : '#fff',
           borderRadius: 16,
           boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44',
@@ -109,6 +111,25 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           {!courseConfig.fullstack && disabledOverlay}
           <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.fullstack')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
+          <button
+            style={{
+              marginTop: 16,
+              background: isNight ? '#1976d2' : '#51ff8b',
+              color: isNight ? '#ffe259' : '#232946',
+              fontWeight: 700,
+              fontSize: 15,
+              border: 'none',
+              borderRadius: 8,
+              padding: '7px 18px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px #1976d244',
+              transition: 'background 0.2s',
+            }}
+            onClick={() => setShowRegistration('fullstack')}
+            disabled={!courseConfig.fullstack}
+          >
+            {t('form.register_now', { course: t('courses.fullstack') })}
+          </button>
             <li><b>{t('coursesPage.java')}</b>: {t('coursesPage.javaDescription')}</li>
             <li><b>{t('coursesPage.springBoot')}</b>: {t('coursesPage.springBootDescription')}</li>
             <li><b>{t('coursesPage.reactJS')}</b>: {t('coursesPage.reactJSDescription')}</li>
@@ -119,8 +140,8 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             <li><b>{t('coursesPage.aws')}</b>: {t('coursesPage.awsDescription')}</li>
           </ul>
         </div>
-        {/* 3D Web Development Course */}
-        <div style={{
+  {/* 3D Web Development Course */}
+  <div style={{
           background: isNight ? '#232946' : '#fff',
           borderRadius: 16,
           boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44',
@@ -136,6 +157,25 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           {!courseConfig.web3d && disabledOverlay}
           <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.3d')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
+          <button
+            style={{
+              marginTop: 16,
+              background: isNight ? '#1976d2' : '#51ff8b',
+              color: isNight ? '#ffe259' : '#232946',
+              fontWeight: 700,
+              fontSize: 15,
+              border: 'none',
+              borderRadius: 8,
+              padding: '7px 18px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px #1976d244',
+              transition: 'background 0.2s',
+            }}
+            onClick={() => setShowRegistration('3d-development')}
+            disabled={!courseConfig.web3d}
+          >
+            {t('form.register_now', { course: t('courses.3d') })}
+          </button>
             <li><b>{t('coursesPage.webGLThreeJS')}</b>: {t('coursesPage.webGLThreeJSDescription')}</li>
             <li><b>{t('coursesPage.reactThreeFiber')}</b>: {t('coursesPage.reactThreeFiberDescription')}</li>
             <li><b>{t('coursesPage.gltfGlb')}</b>: {t('coursesPage.gltfGlbDescription')}</li>
@@ -143,8 +183,8 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             <li><b>{t('coursesPage.uiUx')}</b>: {t('coursesPage.uiUxDescription')}</li>
           </ul>
         </div>
-        {/* Problem Solving & Contest Programming */}
-        <div style={{
+  {/* Problem Solving & Contest Programming */}
+  <div style={{
           background: isNight ? '#232946' : '#fff',
           borderRadius: 16,
           boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44',
@@ -160,6 +200,25 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           {!courseConfig.problem && disabledOverlay}
           <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.problem')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
+          <button
+            style={{
+              marginTop: 16,
+              background: isNight ? '#1976d2' : '#51ff8b',
+              color: isNight ? '#ffe259' : '#232946',
+              fontWeight: 700,
+              fontSize: 15,
+              border: 'none',
+              borderRadius: 8,
+              padding: '7px 18px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px #1976d244',
+              transition: 'background 0.2s',
+            }}
+            onClick={() => setShowRegistration('problem-solving')}
+            disabled={!courseConfig.problem}
+          >
+            {t('form.register_now', { course: t('courses.problem') })}
+          </button>
             <li><b>{t('coursesPage.algorithms')}</b>: {t('coursesPage.algorithmsDescription')}</li>
             <li><b>{t('coursesPage.dataStructures')}</b>: {t('coursesPage.dataStructuresDescription')}</li>
             <li><b>{t('coursesPage.competitiveCoding')}</b>: {t('coursesPage.competitiveCodingDescription')}</li>
@@ -168,6 +227,29 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           </ul>
         </div>
       </div>
+      {/* Registration Modal (moved to root) */}
+      {showRegistration && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.5)',
+          zIndex: 3000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: 500 }}>
+            <StudentRegistrationForm
+              onClose={() => setShowRegistration(null)}
+              onSuccess={() => setShowRegistration(null)}
+              defaultCourse={showRegistration}
+            />
+          </div>
+        </div>
+      )}
 
       <button
         onClick={() => setShowStudentList(true)}

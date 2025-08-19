@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../supabase/supabaseClient';
 
@@ -31,9 +33,10 @@ function validateBatch(batch: string) {
 interface StudentRegistrationFormProps {
   onSuccess?: () => void;
   onClose?: () => void;
+  defaultCourse?: string;
 }
 
-const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess, onClose }) => {
+const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess, onClose, defaultCourse }) => {
   const { t } = useTranslation();
 
   // Configurable field enable/disable
@@ -92,7 +95,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
     // Add more as needed
   ];
 
-  const [form, setForm] = useState(initialState);
+  const [form, setForm] = useState({ ...initialState, course: defaultCourse || '' });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -138,6 +141,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
     if (Object.keys(errors).length > 0) {
       setError(t('form.required_fields_missing'));
       setSuccess(false);
+      toast.error(t('form.toast_error'));
       return;
     }
     setSubmitting(true);
@@ -151,14 +155,22 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
       if (error) {
         setError(t('form.registration_failed') + ' ' + (error.message || t('form.please_try_again')));
         setSuccess(false);
+        toast.error(t('form.toast_error'));
       } else {
         setSuccess(true);
-        setForm(initialState);
-        if (onSuccess) onSuccess();
+        toast.success(t('form.success'));
+        // Delay closing the form so the toast is visible
+        if (onSuccess) {
+          setTimeout(() => {
+            onSuccess();
+            setForm(initialState);
+          }, 1500);
+        }
       }
     } catch (err) {
       setError(t('form.registration_failed') + ' ' + t('form.please_try_again'));
       setSuccess(false);
+      toast.error(t('form.toast_error'));
     } finally {
       setSubmitting(false);
     }
@@ -182,6 +194,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         background: 'rgba(255,255,255,0.95)',
       }}
     >
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       {onClose && (
         <button
           onClick={onClose}
@@ -211,7 +224,7 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
         padding: 32,
         maxWidth: 420,
         width: '100%',
-        margin: '32px auto',
+        margin: '50px auto',
         display: 'flex',
         flexDirection: 'column',
         gap: 18,
