@@ -12,6 +12,43 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
   const [showStudentList, setShowStudentList] = useState(false);
   const { t } = useTranslation();
 
+  // Configurable enable/disable for each course
+  const courseConfig = {
+    fullstack: true, // set to false to disable
+    web3d: false,     // set to false to disable
+    problem: false,   // set to false to disable
+  };
+
+  // Disabled style overlay
+  const disabledCardStyle = {
+    opacity: 0.45,
+    filter: 'grayscale(0.7)',
+    pointerEvents: 'none' as any,
+    position: 'relative' as any,
+  };
+  const disabledOverlay = (
+    <div style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      background: 'rgba(200,200,200,0.35)',
+      borderRadius: 16,
+      zIndex: 2,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: '#888',
+      fontWeight: 700,
+      fontSize: 22,
+      pointerEvents: 'none',
+      userSelect: 'none',
+    }}>
+      {/* Disabled */}
+    </div>
+  );
+
   return (
     <div style={{
       width: '100vw',
@@ -56,7 +93,20 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
         maxWidth: 1300,
       }}>
         {/* Fullstack Developer Course */}
-        <div style={{ background: isNight ? '#232946' : '#fff', borderRadius: 16, boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44', padding: 24, minWidth: 260, maxWidth: 400, flex: 1, margin: '0 auto', boxSizing: 'border-box' }}>
+        <div style={{
+          background: isNight ? '#232946' : '#fff',
+          borderRadius: 16,
+          boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44',
+          padding: 24,
+          minWidth: 260,
+          maxWidth: 400,
+          flex: 1,
+          margin: '0 auto',
+          boxSizing: 'border-box',
+          position: 'relative' as any,
+          ...(courseConfig.fullstack ? {} : disabledCardStyle)
+        }}>
+          {!courseConfig.fullstack && disabledOverlay}
           <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.fullstack')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
             <li><b>{t('coursesPage.java')}</b>: {t('coursesPage.javaDescription')}</li>
@@ -70,7 +120,20 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           </ul>
         </div>
         {/* 3D Web Development Course */}
-        <div style={{ background: isNight ? '#232946' : '#fff', borderRadius: 16, boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44', padding: 24, minWidth: 260, maxWidth: 400, flex: 1, margin: '0 auto', boxSizing: 'border-box' }}>
+        <div style={{
+          background: isNight ? '#232946' : '#fff',
+          borderRadius: 16,
+          boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44',
+          padding: 24,
+          minWidth: 260,
+          maxWidth: 400,
+          flex: 1,
+          margin: '0 auto',
+          boxSizing: 'border-box',
+          position: 'relative' as any,
+          ...(courseConfig.web3d ? {} : disabledCardStyle)
+        }}>
+          {!courseConfig.web3d && disabledOverlay}
           <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.3d')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
             <li><b>{t('coursesPage.webGLThreeJS')}</b>: {t('coursesPage.webGLThreeJSDescription')}</li>
@@ -81,7 +144,20 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           </ul>
         </div>
         {/* Problem Solving & Contest Programming */}
-        <div style={{ background: isNight ? '#232946' : '#fff', borderRadius: 16, boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44', padding: 24, minWidth: 260, maxWidth: 400, flex: 1, margin: '0 auto', boxSizing: 'border-box' }}>
+        <div style={{
+          background: isNight ? '#232946' : '#fff',
+          borderRadius: 16,
+          boxShadow: isNight ? '0 2px 12px #23294688' : '0 2px 12px #b3e0ff44',
+          padding: 24,
+          minWidth: 260,
+          maxWidth: 400,
+          flex: 1,
+          margin: '0 auto',
+          boxSizing: 'border-box',
+          position: 'relative' as any,
+          ...(courseConfig.problem ? {} : disabledCardStyle)
+        }}>
+          {!courseConfig.problem && disabledOverlay}
           <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.problem')}</h2>
           <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
             <li><b>{t('coursesPage.algorithms')}</b>: {t('coursesPage.algorithmsDescription')}</li>
