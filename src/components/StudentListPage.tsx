@@ -67,6 +67,10 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
       padding: 24,
       minHeight: 320,
       color: isNight ? '#ffe259' : '#232946',
+      overflow: 'visible', // ensure no scroll on outer
+      height: '80vh', // set a fixed height for the panel
+      display: 'flex',
+      flexDirection: 'column',
     }}>
       <h2 style={{ textAlign: 'center', color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 18 }}>{t('students.registered_students')}</h2>
       {/* Tabs for courses */}
@@ -120,7 +124,7 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
         <div style={{ textAlign: 'center', color: '#232946' }}>{t('students.no_students_course')}</div>
       )}
       {!loading && enabledFields.length > 0 && filteredStudents.length > 0 && (
-        <>
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
           <style>{`
             @media (max-width: 700px) {
               table {
@@ -240,7 +244,7 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) =>
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

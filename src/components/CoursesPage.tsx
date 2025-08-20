@@ -293,8 +293,8 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             minWidth: 320,
             maxWidth: 600,
             width: '90%',
-            maxHeight: '80vh',
-            overflowY: 'auto',
+            // maxHeight: '80vh',
+            // overflowY: 'auto',
             position: 'relative',
           }}>
             <button
@@ -303,18 +303,19 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
                 position: 'absolute',
                 top: 16,
                 right: 16,
-                background: '#ff5252',
+                background: '#ff5252ff',
                 color: '#fff',
                 border: 'none',
-                borderRadius: 8,
-                padding: '6px 16px',
+                borderRadius: 50,
+                padding: '6px 11px',
                 fontWeight: 700,
                 cursor: 'pointer',
                 fontSize: 16,
                 boxShadow: '0 2px 8px #ff525244',
               }}
             >
-              {t('common.close')}
+              {/* {t('common.close')} */}
+              x
             </button>
             <StudentListPage />
           </div>
