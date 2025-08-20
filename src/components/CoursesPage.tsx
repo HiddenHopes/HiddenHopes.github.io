@@ -246,6 +246,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
               onClose={() => setShowRegistration(null)}
               onSuccess={() => setShowRegistration(null)}
               defaultCourse={showRegistration}
+              courseConfig={courseConfig}
             />
           </div>
         </div>
@@ -317,7 +318,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
               {/* {t('common.close')} */}
               x
             </button>
-            <StudentListPage />
+            <StudentListPage courseConfig={courseConfig} />
           </div>
         </div>
       )}

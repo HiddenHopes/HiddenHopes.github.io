@@ -13,16 +13,21 @@ interface Student {
 
 interface StudentListPageProps {
   isNight?: boolean;
+  courseConfig?: {
+    fullstack?: boolean;
+    web3d?: boolean;
+    problem?: boolean;
+  };
 }
 
-const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false }) => {
+const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false, courseConfig }) => {
   const { t } = useTranslation();
   
   const COURSE_TABS = [
-    { key: 'fullstack', label: t('courses.fullstack') },
-    { key: '3d-development', label: t('courses.3d') },
-    { key: 'problem-solving', label: t('courses.problem') },
-  ];
+    { key: 'fullstack', label: t('courses.fullstack'), enabled: !courseConfig || courseConfig.fullstack !== false },
+    { key: '3d-development', label: t('courses.3d'), enabled: !courseConfig || courseConfig.web3d !== false },
+    { key: 'problem-solving', label: t('courses.problem'), enabled: !courseConfig || courseConfig.problem !== false },
+  ].filter(tab => tab.enabled);
   
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);

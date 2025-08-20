@@ -34,9 +34,14 @@ interface StudentRegistrationFormProps {
   onSuccess?: () => void;
   onClose?: () => void;
   defaultCourse?: string;
+  courseConfig?: {
+    fullstack?: boolean;
+    web3d?: boolean;
+    problem?: boolean;
+  };
 }
 
-const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess, onClose, defaultCourse }) => {
+const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuccess, onClose, defaultCourse, courseConfig }) => {
   const { t } = useTranslation();
 
   // Configurable field enable/disable
@@ -56,10 +61,10 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
   // To disable a field, set its value to false above.
   
   const COURSE_OPTIONS = [
-    { value: '', label: t('form.select_course') },
-    { value: 'fullstack', label: t('courses.fullstack') },
-    { value: 'problem-solving', label: t('courses.problem') },
-    { value: '3d-development', label: t('courses.3d') },
+    { value: '', label: t('form.select_course'), disabled: false },
+    { value: 'fullstack', label: t('courses.fullstack'), disabled: courseConfig && courseConfig.fullstack === false },
+    { value: 'problem-solving', label: t('courses.problem'), disabled: courseConfig && courseConfig.problem === false },
+    { value: '3d-development', label: t('courses.3d'), disabled: courseConfig && courseConfig.web3d === false },
   ];
 
   const UNIVERSITY_OPTIONS = [
@@ -302,7 +307,9 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
             fontSize: 16,
           }}
         >
-          {COURSE_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+          {COURSE_OPTIONS.filter(opt => !opt.disabled).map(opt => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
         </select>
         {fieldErrors.course && <div style={{ color: '#d7263d', fontSize: 13, marginTop: 2 }}>{fieldErrors.course}</div>}
       </>}
