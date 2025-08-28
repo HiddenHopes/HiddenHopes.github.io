@@ -1,0 +1,531 @@
+{
+  "fullstack": [
+    {
+      "title": "Java|জাভা",
+      "description": "OOP, Collections, Streams, Exception Handling, Multithreading|অবজেক্ট-ওরিয়েন্টেড প্রোগ্রামিং, কালেকশন, স্ট্রিম, এক্সেপশন হ্যান্ডলিং, মাল্টিথ্রেডিং",
+      "subtopics": [
+        {
+          "title": "Object-Oriented Programming|অবজেক্ট-ওরিয়েন্টেড প্রোগ্রামিং",
+          "items": [
+            "Classes & Objects|ক্লাস এবং অবজেক্ট",
+            "Inheritance|ইনহেরিট্যান্স",
+            "Polymorphism|পলিমরফিজম",
+            "Encapsulation|এনক্যাপসুলেশন"
+          ]
+        },
+        {
+          "title": "Collections Framework|কালেকশন ফ্রেমওয়ার্ক",
+          "items": [
+            "List|লিস্ট",
+            "Set|সেট",
+            "Map|ম্যাপ",
+            "Queue|কিউ"
+          ]
+        },
+        {
+          "title": "Streams API|স্ট্রিম এপিআই",
+          "items": [
+            "Lambda Expressions|ল্যাম্বডা এক্সপ্রেশন",
+            "Filter & Map|ফিল্টার এবং ম্যাপ",
+            "Collectors|কালেক্টর"
+          ]
+        },
+        {
+          "title": "Exception Handling|এক্সেপশন হ্যান্ডলিং",
+          "items": [
+            "Try-Catch|ট্রাই-ক্যাচ",
+            "Custom Exceptions|কাস্টম এক্সেপশন",
+            "Finally Block|ফাইনালি ব্লক"
+          ]
+        },
+        {
+          "title": "Multithreading|মাল্টিথ্রেডিং",
+          "items": [
+            "Thread Creation|থ্রেড তৈরি",
+            "Synchronization|সিঙ্ক্রোনাইজেশন",
+            "ExecutorService|এক্সিকিউটর সার্ভিস"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Spring Boot|স্প্রিং বুট",
+      "description": "REST APIs, Security, JPA, Testing|রেস্ট এপিআই, সিকিউরিটি, জেপিএ, টেস্টিং",
+      "subtopics": [
+        {
+          "title": "REST APIs|রেস্ট এপিআই",
+          "items": [
+            "Controllers|কন্ট্রোলার",
+            "Request Mapping|রিকোয়েস্ট ম্যাপিং",
+            "Response Entities|রেসপন্স এনটিটি"
+          ]
+        },
+        {
+          "title": "Security|সিকিউরিটি",
+          "items": [
+            "Authentication|অথেনটিকেশন",
+            "Authorization|অথরাইজেশন",
+            "JWT|জেডাব্লিউটি"
+          ]
+        },
+        {
+          "title": "JPA|জেপিএ",
+          "items": [
+            "Entities|এনটিটি",
+            "Repositories|রিপোজিটরি",
+            "Relationships|রিলেশনশিপ"
+          ]
+        },
+        {
+          "title": "Testing|টেস্টিং",
+          "items": [
+            "Unit Tests|ইউনিট টেস্ট",
+            "Integration Tests|ইন্টিগ্রেশন টেস্ট",
+            "MockMvc|মক এমভিসি"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "React JS|রিয়্যাক্ট জেএস",
+      "description": "Components, Hooks, State Management, Routing|কম্পোনেন্ট, হুক, স্টেট ম্যানেজমেন্ট, রাউটিং",
+      "subtopics": [
+        {
+          "title": "Components|কম্পোনেন্ট",
+          "items": [
+            "Functional Components|ফাংশনাল কম্পোনেন্ট",
+            "Class Components|ক্লাস কম্পোনেন্ট",
+            "Props|প্রপস"
+          ]
+        },
+        {
+          "title": "Hooks|হুক",
+          "items": [
+            "useState|ইউজস্টেট",
+            "useEffect|ইউজইফেক্ট",
+            "useContext|ইউজকনটেক্সট",
+            "Custom Hooks|কাস্টম হুক"
+          ]
+        },
+        {
+          "title": "State Management|স্টেট ম্যানেজমেন্ট",
+          "items": [
+            "Local State|লোকাল স্টেট",
+            "Context API|কনটেক্সট এপিআই",
+            "Redux|রিডাক্স"
+          ]
+        },
+        {
+          "title": "Routing|রাউটিং",
+          "items": [
+            "React Router|রিয়্যাক্ট রাউটার",
+            "Navigation|নেভিগেশন",
+            "Route Parameters|রাউট প্যারামিটার"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "HTML & CSS|এইচটিএমএল এবং সিএসএস",
+      "description": "Modern layouts, Flexbox, Grid, Responsive Design|আধুনিক লেআউট, ফ্লেক্সবক্স, গ্রিড, রেসপনসিভ ডিজাইন",
+      "subtopics": [
+        {
+          "title": "Modern Layouts|আধুনিক লেআউট",
+          "items": [
+            "Semantic HTML|সিমান্টিক এইচটিএমএল",
+            "CSS Grid|সিএসএস গ্রিড",
+            "Flexbox|ফ্লেক্সবক্স"
+          ]
+        },
+        {
+          "title": "Responsive Design|রেসপনসিভ ডিজাইন",
+          "items": [
+            "Media Queries|মিডিয়া কোয়েরি",
+            "Mobile First|মোবাইল ফার্স্ট",
+            "Breakpoints|ব্রেকপয়েন্ট"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "JavaScript|জাভাস্ক্রিপ্ট",
+      "description": "ES6+, Async, DOM, Fetch/AJAX|ইএস৬+, অ্যাসিঙ্ক, ডোম, ফেচ/এজাক্স",
+      "subtopics": [
+        {
+          "title": "ES6+ Features|ইএস৬+ ফিচার",
+          "items": [
+            "Arrow Functions|অ্যারো ফাংশন",
+            "Destructuring|ডিস্ট্রাকচারিং",
+            "Template Literals|টেমপ্লেট লিটারেল"
+          ]
+        },
+        {
+          "title": "Async Programming|অ্যাসিঙ্ক প্রোগ্রামিং",
+          "items": [
+            "Promises|প্রমিস",
+            "Async/Await|অ্যাসিঙ্ক/অ্যাওয়েট",
+            "Callbacks|কলব্যাক"
+          ]
+        },
+        {
+          "title": "DOM Manipulation|ডোম ম্যানিপুলেশন",
+          "items": [
+            "Element Selection|এলিমেন্ট সিলেকশন",
+            "Event Handling|ইভেন্ট হ্যান্ডলিং",
+            "Dynamic Content|ডায়নামিক কনটেন্ট"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "SQL|এসকিউএল",
+      "description": "Joins, Aggregations, Indexing, Transactions|জয়েন, এগ্রিগেশন, ইনডেক্সিং, ট্রানজেকশন",
+      "subtopics": [
+        {
+          "title": "Joins|জয়েন",
+          "items": [
+            "Inner Join|ইনার জয়েন",
+            "Left Join|লেফট জয়েন",
+            "Right Join|রাইট জয়েন",
+            "Full Join|ফুল জয়েন"
+          ]
+        },
+        {
+          "title": "Aggregations|এগ্রিগেশন",
+          "items": [
+            "GROUP BY|গ্রুপ বাই",
+            "HAVING|হ্যাভিং",
+            "COUNT|কাউন্ট",
+            "SUM|সাম",
+            "AVG|এভিজি"
+          ]
+        },
+        {
+          "title": "Advanced Topics|অ্যাডভান্সড টপিক",
+          "items": [
+            "Indexing|ইনডেক্সিং",
+            "Transactions|ট্রানজেকশন",
+            "Stored Procedures|স্টোরড প্রসিডিউর"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Git|গিট",
+      "description": "Branching, Merging, Collaboration|ব্রাঞ্চিং, মার্জিং, কোলাবরেশন",
+      "subtopics": [
+        {
+          "title": "Branching|ব্রাঞ্চিং",
+          "items": [
+            "Create Branch|ব্রাঞ্চ তৈরি",
+            "Switch Branch|ব্রাঞ্চ পরিবর্তন",
+            "Merge Branch|ব্রাঞ্চ মার্জ"
+          ]
+        },
+        {
+          "title": "Collaboration|কোলাবরেশন",
+          "items": [
+            "Pull Requests|পুল রিকোয়েস্ট",
+            "Code Review|কোড রিভিউ",
+            "Conflict Resolution|কনফ্লিক্ট সমাধান"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "AWS|এডাব্লিউএস",
+      "description": "EC2, S3, RDS, Deployment basics|ইসি২, এস৩, আরডিএস, ডিপ্লয়মেন্ট বেসিক",
+      "subtopics": [
+        {
+          "title": "Core Services|মূল সেবা",
+          "items": [
+            "EC2|ইসি২",
+            "S3|এস৩",
+            "RDS|আরডিএস",
+            "Lambda|ল্যাম্বডা"
+          ]
+        },
+        {
+          "title": "Deployment|ডিপ্লয়মেন্ট",
+          "items": [
+            "Elastic Beanstalk|ইলাস্টিক বিনস্টক",
+            "CloudFormation|ক্লাউডফর্মেশন",
+            "CI/CD|সিআই/সিডি"
+          ]
+        }
+      ]
+    }
+  ],
+  "web3d": [
+    {
+      "title": "WebGL & Three.js|ওয়েবজিএল এবং থ্রি.জেএস",
+      "description": "3D graphics, models, animation|৩ডি গ্রাফিক্স, মডেল, অ্যানিমেশন",
+      "subtopics": [
+        {
+          "title": "3D Graphics Basics|৩ডি গ্রাফিক্স বেসিক",
+          "items": [
+            "Scene|সিন",
+            "Camera|ক্যামেরা",
+            "Renderer|রেন্ডারার",
+            "Geometry|জ্যামিতি"
+          ]
+        },
+        {
+          "title": "Models & Animation|মডেল এবং অ্যানিমেশন",
+          "items": [
+            "GLTF Loading|জিএলটিএফ লোডিং",
+            "Animations|অ্যানিমেশন",
+            "Morphing|মরফিং"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "React Three Fiber|রিয়্যাক্ট থ্রি ফাইবার",
+      "description": "3D in React, scene management|রিয়্যাক্টে ৩ডি, সিন ম্যানেজমেন্ট",
+      "subtopics": [
+        {
+          "title": "3D in React|রিয়্যাক্টে ৩ডি",
+          "items": [
+            "Canvas Component|ক্যানভাস কম্পোনেন্ট",
+            "JSX 3D Elements|জেএসএক্স ৩ডি এলিমেন্ট",
+            "Hooks|হুক"
+          ]
+        },
+        {
+          "title": "Scene Management|সিন ম্যানেজমেন্ট",
+          "items": [
+            "Lighting|লাইটিং",
+            "Materials|ম্যাটেরিয়াল",
+            "Textures|টেক্সচার"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "GLTF/GLB|জিএলটিএফ/জিএলবি",
+      "description": "3D model formats, loading assets|৩ডি মডেল ফরম্যাট, অ্যাসেট লোডিং",
+      "subtopics": [
+        {
+          "title": "3D Model Formats|৩ডি মডেল ফরম্যাট",
+          "items": [
+            "GLTF vs GLB|জিএলটিএফ বনাম জিএলবি",
+            "Compression|কম্প্রেশন",
+            "Optimization|অপটিমাইজেশন"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Shaders|শেডার",
+      "description": "Basics, custom effects|বেসিক, কাস্টম ইফেক্ট",
+      "subtopics": [
+        {
+          "title": "Shader Basics|শেডার বেসিক",
+          "items": [
+            "Vertex Shaders|ভার্টেক্স শেডার",
+            "Fragment Shaders|ফ্র্যাগমেন্ট শেডার",
+            "GLSL|জিএলএসএল"
+          ]
+        },
+        {
+          "title": "Custom Effects|কাস্টম ইফেক্ট",
+          "items": [
+            "Lighting Effects|লাইটিং ইফেক্ট",
+            "Post-processing|পোস্ট-প্রসেসিং",
+            "Particle Systems|পার্টিকেল সিস্টেম"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "3D UI/UX|৩ডি ইউআই/ইউএক্স",
+      "description": "Interaction, camera, controls|ইন্টারঅ্যাকশন, ক্যামেরা, কন্ট্রোল",
+      "subtopics": [
+        {
+          "title": "Interaction|ইন্টারঅ্যাকশন",
+          "items": [
+            "Mouse Controls|মাউস কন্ট্রোল",
+            "Touch Gestures|টাচ জেসচার",
+            "Raycasting|রেকাস্টিং"
+          ]
+        },
+        {
+          "title": "Camera Controls|ক্যামেরা কন্ট্রোল",
+          "items": [
+            "Orbit Controls|অরবিট কন্ট্রোল",
+            "First Person|ফার্স্ট পার্সন",
+            "Cinematic|সিনেমেটিক"
+          ]
+        }
+      ]
+    }
+  ],
+  "problem": [
+    {
+      "title": "Algorithms|অ্যালগরিদম",
+      "description": "Sorting, Searching, Graphs, DP, Greedy|সর্টিং, সার্চিং, গ্রাফ, ডিপি, গ্রিডি",
+      "subtopics": [
+        {
+          "title": "Sorting|সর্টিং",
+          "items": [
+            "Quick Sort|কুইক সর্ট",
+            "Merge Sort|মার্জ সর্ট",
+            "Heap Sort|হিপ সর্ট",
+            "Bubble Sort|বাবল সর্ট"
+          ]
+        },
+        {
+          "title": "Searching|সার্চিং",
+          "items": [
+            "Binary Search|বাইনারি সার্চ",
+            "Linear Search|লিনিয়ার সার্চ",
+            "DFS|ডিএফএস",
+            "BFS|বিএফএস"
+          ]
+        },
+        {
+          "title": "Graph Algorithms|গ্রাফ অ্যালগরিদম",
+          "items": [
+            "Dijkstra|ডিজকস্ট্রা",
+            "Floyd-Warshall|ফ্লয়েড-ওয়ারশাল",
+            "Kruskal|ক্রুসকাল",
+            "Prim|প্রিম"
+          ]
+        },
+        {
+          "title": "Dynamic Programming|ডায়নামিক প্রোগ্রামিং",
+          "items": [
+            "Memoization|মেমোইজেশন",
+            "Bottom-up|বটম-আপ",
+            "Knapsack|ন্যাপস্যাক",
+            "LIS|এলআইএস"
+          ]
+        },
+        {
+          "title": "Greedy Algorithms|গ্রিডি অ্যালগরিদম",
+          "items": [
+            "Activity Selection|অ্যাক্টিভিটি সিলেকশন",
+            "Huffman Coding|হাফম্যান কোডিং",
+            "Fractional Knapsack|ফ্র্যাকশনাল ন্যাপস্যাক"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Data Structures|ডেটা স্ট্রাকচার",
+      "description": "Arrays, Trees, Hashing, Stacks, Queues|অ্যারে, ট্রি, হ্যাশিং, স্ট্যাক, কিউ",
+      "subtopics": [
+        {
+          "title": "Linear Structures|লিনিয়ার স্ট্রাকচার",
+          "items": [
+            "Arrays|অ্যারে",
+            "Linked Lists|লিংকড লিস্ট",
+            "Stacks|স্ট্যাক",
+            "Queues|কিউ"
+          ]
+        },
+        {
+          "title": "Trees|ট্রি",
+          "items": [
+            "Binary Tree|বাইনারি ট্রি",
+            "BST|বিএসটি",
+            "AVL Tree|এভিএল ট্রি",
+            "Segment Tree|সেগমেন্ট ট্রি"
+          ]
+        },
+        {
+          "title": "Hashing|হ্যাশিং",
+          "items": [
+            "Hash Tables|হ্যাশ টেবিল",
+            "Hash Functions|হ্যাশ ফাংশন",
+            "Collision Handling|কলিশন হ্যান্ডলিং"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Competitive Coding|প্রতিযোগিতামূলক কোডিং",
+      "description": "Codeforces, LeetCode, AtCoder, ICPC|কোডফোর্সেস, লিটকোড, অ্যাটকোডার, আইসিপিসি",
+      "subtopics": [
+        {
+          "title": "Platforms|প্ল্যাটফর্ম",
+          "items": [
+            "Codeforces|কোডফোর্সেস",
+            "LeetCode|লিটকোড",
+            "AtCoder|অ্যাটকোডার",
+            "CodeChef|কোডশেফ"
+          ]
+        },
+        {
+          "title": "Contest Types|প্রতিযোগিতার ধরন",
+          "items": [
+            "ICPC|আইসিপিসি",
+            "Online Rounds|অনলাইন রাউন্ড",
+            "Hackathons|হ্যাকাথন"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Math & Logic|গণিত এবং লজিক",
+      "description": "Number theory, Combinatorics, Bit manipulation|সংখ্যা তত্ত্ব, কম্বিনেটরিক্স, বিট ম্যানিপুলেশন",
+      "subtopics": [
+        {
+          "title": "Number Theory|সংখ্যা তত্ত্ব",
+          "items": [
+            "Prime Numbers|মৌলিক সংখ্যা",
+            "GCD/LCM|গসাগু/লসাগু",
+            "Modular Arithmetic|মডুলার অ্যারিথমেটিক"
+          ]
+        },
+        {
+          "title": "Combinatorics|কম্বিনেটরিক্স",
+          "items": [
+            "Permutations|পারমিউটেশন",
+            "Combinations|কম্বিনেশন",
+            "Pigeonhole Principle|পিজিয়নহোল নীতি"
+          ]
+        },
+        {
+          "title": "Bit Manipulation|বিট ম্যানিপুলেশন",
+          "items": [
+            "Bitwise Operations|বিটওয়াইজ অপারেশন",
+            "Bit Masking|বিট মাস্কিং",
+            "XOR Properties|এক্সওআর বৈশিষ্ট্য"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Speed & Accuracy|গতি এবং নির্ভুলতা",
+      "description": "Fast coding, debugging, test cases|দ্রুত কোডিং, ডিবাগিং, টেস্ট কেস",
+      "subtopics": [
+        {
+          "title": "Fast Coding|দ্রুত কোডিং",
+          "items": [
+            "Code Templates|কোড টেমপ্লেট",
+            "Shortcuts|শর্টকাট",
+            "IDE Optimization|আইডিই অপটিমাইজেশন"
+          ]
+        },
+        {
+          "title": "Debugging|ডিবাগিং",
+          "items": [
+            "Print Debugging|প্রিন্ট ডিবাগিং",
+            "Edge Cases|এজ কেস",
+            "Stress Testing|স্ট্রেস টেস্টিং"
+          ]
+        },
+        {
+          "title": "Test Cases|টেস্ট কেস",
+          "items": [
+            "Corner Cases|কর্নার কেস",
+            "Large Inputs|বড় ইনপুট",
+            "Boundary Values|বাউন্ডারি ভ্যালু"
+          ]
+        }
+      ]
+    }
+  ]
+}

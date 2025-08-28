@@ -3,6 +3,7 @@ import StudentRegistrationForm from './StudentRegistrationForm';
 import { useTranslation } from 'react-i18next';
 import BackButton from './BackButton';
 import StudentListPage from './StudentListPage';
+import CourseExpandableTree from './CourseExpandableTree';
 
 interface CoursesPageProps {
   isNight: boolean;
@@ -109,11 +110,10 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           ...(courseConfig.fullstack ? {} : disabledCardStyle)
         }}>
           {!courseConfig.fullstack && disabledOverlay}
-          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.fullstack')}</h2>
-          <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
+          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 16 }}>{t('courses.fullstack')}</h2>
           <button
             style={{
-              marginTop: 16,
+              marginBottom: 16,
               background: isNight ? '#1976d2' : '#51ff8b',
               color: isNight ? '#ffe259' : '#232946',
               fontWeight: 700,
@@ -130,15 +130,9 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           >
             {t('form.register_now', { course: t('courses.fullstack') })}
           </button>
-            <li><b>{t('coursesPage.java')}</b>: {t('coursesPage.javaDescription')}</li>
-            <li><b>{t('coursesPage.springBoot')}</b>: {t('coursesPage.springBootDescription')}</li>
-            <li><b>{t('coursesPage.reactJS')}</b>: {t('coursesPage.reactJSDescription')}</li>
-            <li><b>{t('coursesPage.htmlCss')}</b>: {t('coursesPage.htmlCssDescription')}</li>
-            <li><b>{t('coursesPage.javaScript')}</b>: {t('coursesPage.javaScriptDescription')}</li>
-            <li><b>{t('coursesPage.sql')}</b>: {t('coursesPage.sqlDescription')}</li>
-            <li><b>{t('coursesPage.git')}</b>: {t('coursesPage.gitDescription')}</li>
-            <li><b>{t('coursesPage.aws')}</b>: {t('coursesPage.awsDescription')}</li>
-          </ul>
+          <div style={{ fontSize: 16, marginLeft: 8 }}>
+            <CourseExpandableTree courseKey="fullstack" isNight={isNight} />
+          </div>
         </div>
   {/* 3D Web Development Course */}
   <div style={{
@@ -155,11 +149,10 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           ...(courseConfig.web3d ? {} : disabledCardStyle)
         }}>
           {!courseConfig.web3d && disabledOverlay}
-          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.3d')}</h2>
-          <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
+          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 16 }}>{t('courses.3d')}</h2>
           <button
             style={{
-              marginTop: 16,
+              marginBottom: 16,
               background: isNight ? '#1976d2' : '#51ff8b',
               color: isNight ? '#ffe259' : '#232946',
               fontWeight: 700,
@@ -176,12 +169,9 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           >
             {t('form.register_now', { course: t('courses.3d') })}
           </button>
-            <li><b>{t('coursesPage.webGLThreeJS')}</b>: {t('coursesPage.webGLThreeJSDescription')}</li>
-            <li><b>{t('coursesPage.reactThreeFiber')}</b>: {t('coursesPage.reactThreeFiberDescription')}</li>
-            <li><b>{t('coursesPage.gltfGlb')}</b>: {t('coursesPage.gltfGlbDescription')}</li>
-            <li><b>{t('coursesPage.shaders')}</b>: {t('coursesPage.shadersDescription')}</li>
-            <li><b>{t('coursesPage.uiUx')}</b>: {t('coursesPage.uiUxDescription')}</li>
-          </ul>
+          <div style={{ fontSize: 16, marginLeft: 8 }}>
+            <CourseExpandableTree courseKey="web3d" isNight={isNight} />
+          </div>
         </div>
   {/* Problem Solving & Contest Programming */}
   <div style={{
@@ -198,11 +188,10 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           ...(courseConfig.problem ? {} : disabledCardStyle)
         }}>
           {!courseConfig.problem && disabledOverlay}
-          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 10 }}>{t('courses.problem')}</h2>
-          <ul style={{ fontSize: 16, color: isNight ? '#ffe259' : '#232946', marginLeft: 18 }}>
+          <h2 style={{ color: isNight ? '#51ff8b' : '#1976d2', marginBottom: 16 }}>{t('courses.problem')}</h2>
           <button
             style={{
-              marginTop: 16,
+              marginBottom: 16,
               background: isNight ? '#1976d2' : '#51ff8b',
               color: isNight ? '#ffe259' : '#232946',
               fontWeight: 700,
@@ -219,12 +208,9 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
           >
             {t('form.register_now', { course: t('courses.problem') })}
           </button>
-            <li><b>{t('coursesPage.algorithms')}</b>: {t('coursesPage.algorithmsDescription')}</li>
-            <li><b>{t('coursesPage.dataStructures')}</b>: {t('coursesPage.dataStructuresDescription')}</li>
-            <li><b>{t('coursesPage.competitiveCoding')}</b>: {t('coursesPage.competitiveCodingDescription')}</li>
-            <li><b>{t('coursesPage.mathLogic')}</b>: {t('coursesPage.mathLogicDescription')}</li>
-            <li><b>{t('coursesPage.speedAccuracy')}</b>: {t('coursesPage.speedAccuracyDescription')}</li>
-          </ul>
+          <div style={{ fontSize: 16, marginLeft: 8 }}>
+            <CourseExpandableTree courseKey="problem" isNight={isNight} />
+          </div>
         </div>
       </div>
       {/* Registration Modal (moved to root) */}
@@ -294,8 +280,8 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             minWidth: 320,
             maxWidth: 600,
             width: '90%',
-            // maxHeight: '80vh',
-            // overflowY: 'auto',
+            maxHeight: '80vh',
+            overflowY: 'auto',
             position: 'relative',
           }}>
             <button
@@ -304,6 +290,7 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
                 position: 'absolute',
                 top: 16,
                 right: 16,
+                zIndex: 10,
                 background: '#ff5252ff',
                 color: '#fff',
                 border: 'none',
