@@ -99,7 +99,7 @@ const StudentListPage: React.FC<StudentListPageProps> = ({ isNight = false, cour
             onClick={() => setActiveCourse(tab.key)}
             style={{
               flex: 1,
-              padding: '12px 0',
+              padding: '12px 12px',
               fontSize: 16,
               fontWeight: 700,
               border: 'none',

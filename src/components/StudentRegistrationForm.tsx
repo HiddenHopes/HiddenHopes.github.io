@@ -71,9 +71,10 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
     { value: '', label: t('form.select_university') },
     { value: 'RU', label: 'Rajshahi University (RU)' },
     { value: 'VU', label: 'Varendra University (VU)' },
-    { value: 'NSU', label: 'North South University (NSU)' },
-    { value: 'DU', label: 'Dhaka University (DU)' },
-    { value: 'CU', label: 'Chittagong University (CU)' },
+    { value: 'RUET', label: 'Rajshahi University of Engineering & Technology' },
+    { value: 'NBIU', label: 'North Bengal International University' },
+    { value: 'RC', label: 'Rajshahi College' },
+    { value: 'OTH', label: 'Others' },
     // Add more as needed
   ];
 
