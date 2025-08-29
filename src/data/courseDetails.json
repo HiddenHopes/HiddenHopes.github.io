@@ -1,256 +1,543 @@
 {
   "fullstack": [
     {
-      "title": "Java|জাভা",
-      "description": "OOP, Collections, Streams, Exception Handling, Multithreading|অবজেক্ট-ওরিয়েন্টেড প্রোগ্রামিং, কালেকশন, স্ট্রিম, এক্সেপশন হ্যান্ডলিং, মাল্টিথ্রেডিং",
+      "title": "Core Computer Science Fundamentals|মূল কম্পিউটার সায়েন্স মৌলিক বিষয়",
+      "description": "Essential CS concepts for full-stack development|ফুল-স্ট্যাক ডেভেলপমেন্টের জন্য প্রয়োজনীয় সিএস ধারণা",
       "subtopics": [
         {
-          "title": "Object-Oriented Programming|অবজেক্ট-ওরিয়েন্টেড প্রোগ্রামিং",
+          "title": "Data Structures|ডেটা স্ট্রাকচার",
+          "items": [
+            "Arrays|অ্যারে",
+            "Linked Lists|লিংকড লিস্ট",
+            "Stacks & Queues|স্ট্যাক এবং কিউ",
+            "Trees & Binary Trees|ট্রি এবং বাইনারি ট্রি",
+            "Hash Tables|হ্যাশ টেবিল"
+          ]
+        },
+        {
+          "title": "Algorithms|অ্যালগরিদম",
+          "items": [
+            "Sorting Algorithms|সর্টিং অ্যালগরিদম",
+            "Searching Algorithms|সার্চিং অ্যালগরিদম",
+            "Time & Space Complexity|সময় এবং স্থান জটিলতা",
+            "Big O Notation|বিগ ও নোটেশন"
+          ]
+        },
+        {
+          "title": "Object-Oriented Programming (OOP)|অবজেক্ট-ওরিয়েন্টেড প্রোগ্রামিং",
           "items": [
             "Classes & Objects|ক্লাস এবং অবজেক্ট",
             "Inheritance|ইনহেরিট্যান্স",
             "Polymorphism|পলিমরফিজম",
-            "Encapsulation|এনক্যাপসুলেশন"
+            "Encapsulation|এনক্যাপসুলেশন",
+            "Abstraction|অ্যাবস্ট্রাকশন"
           ]
         },
         {
-          "title": "Collections Framework|কালেকশন ফ্রেমওয়ার্ক",
+          "title": "Design Patterns|ডিজাইন প্যাটার্ন",
           "items": [
-            "List|লিস্ট",
-            "Set|সেট",
-            "Map|ম্যাপ",
-            "Queue|কিউ"
+            "Singleton Pattern|সিঙ্গেলটন প্যাটার্ন",
+            "Factory Pattern|ফ্যাক্টরি প্যাটার্ন",
+            "Observer Pattern|অবজারভার প্যাটার্ন",
+            "MVC Pattern|এমভিসি প্যাটার্ন"
           ]
         },
         {
-          "title": "Streams API|স্ট্রিম এপিআই",
+          "title": "Operating Systems Basics|অপারেটিং সিস্টেম বেসিক",
           "items": [
-            "Lambda Expressions|ল্যাম্বডা এক্সপ্রেশন",
-            "Filter & Map|ফিল্টার এবং ম্যাপ",
-            "Collectors|কালেক্টর"
+            "Process & Threads|প্রসেস এবং থ্রেড",
+            "Memory Management|মেমোরি ম্যানেজমেন্ট",
+            "File Systems|ফাইল সিস্টেম"
           ]
         },
         {
-          "title": "Exception Handling|এক্সেপশন হ্যান্ডলিং",
+          "title": "Networking Basics|নেটওয়ার্কিং বেসিক",
           "items": [
-            "Try-Catch|ট্রাই-ক্যাচ",
-            "Custom Exceptions|কাস্টম এক্সেপশন",
-            "Finally Block|ফাইনালি ব্লক"
+            "HTTP/HTTPS|এইচটিটিপি/এইচটিটিপিএস",
+            "TCP/IP|টিসিপি/আইপি",
+            "DNS|ডিএনএস",
+            "REST API Concepts|রেস্ট এপিআই ধারণা"
           ]
         },
         {
-          "title": "Multithreading|মাল্টিথ্রেডিং",
+          "title": "Database Fundamentals|ডেটাবেস মৌলিক বিষয়",
           "items": [
-            "Thread Creation|থ্রেড তৈরি",
-            "Synchronization|সিঙ্ক্রোনাইজেশন",
-            "ExecutorService|এক্সিকিউটর সার্ভিস"
+            "ACID Properties|এসিআইডি বৈশিষ্ট্য",
+            "Normalization|নর্মালাইজেশন",
+            "Indexing Concepts|ইনডেক্সিং ধারণা",
+            "Transactions|ট্রানজেকশন"
           ]
         }
       ]
     },
     {
-      "title": "Spring Boot|স্প্রিং বুট",
-      "description": "REST APIs, Security, JPA, Testing|রেস্ট এপিআই, সিকিউরিটি, জেপিএ, টেস্টিং",
+      "title": "Database|ডেটাবেস",
+      "description": "Database technologies and management|ডেটাবেস প্রযুক্তি এবং ব্যবস্থাপনা",
       "subtopics": [
         {
-          "title": "REST APIs|রেস্ট এপিআই",
+          "title": "SQL|এসকিউএল",
           "items": [
-            "Controllers|কন্ট্রোলার",
-            "Request Mapping|রিকোয়েস্ট ম্যাপিং",
-            "Response Entities|রেসপন্স এনটিটি"
+            "Basic Queries|মৌলিক কোয়েরি",
+            "Joins|জয়েন",
+            "Aggregations|এগ্রিগেশন",
+            "Subqueries|সাবকোয়েরি",
+            "Stored Procedures|স্টোরড প্রসিডিউর",
+            "Triggers|ট্রিগার",
+            "Views|ভিউ"
           ]
         },
         {
-          "title": "Security|সিকিউরিটি",
+          "title": "NoSQL|নোএসকিউএল",
           "items": [
-            "Authentication|অথেনটিকেশন",
-            "Authorization|অথরাইজেশন",
-            "JWT|জেডাব্লিউটি"
+            "MongoDB|মঙ্গোডিবি",
+            "Document Databases|ডকুমেন্ট ডেটাবেস",
+            "Key-Value Stores|কি-ভ্যালু স্টোর",
+            "Graph Databases|গ্রাফ ডেটাবেস",
+            "Redis|রেডিস"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Backend|ব্যাকএন্ড",
+      "description": "Server-side development and technologies|সার্ভার-সাইড ডেভেলপমেন্ট এবং প্রযুক্তি",
+      "subtopics": [
+        {
+          "title": "Java Core Fundamentals|জাভা কোর মৌলিক বিষয়",
+          "items": [
+            "Syntax & Variables|সিনট্যাক্স এবং ভেরিয়েবল",
+            "Control Structures|কন্ট্রোল স্ট্রাকচার",
+            "Methods & Functions|মেথড এবং ফাংশন",
+            "Arrays & Collections|অ্যারে এবং কালেকশন",
+            "Exception Handling|এক্সেপশন হ্যান্ডলিং"
           ]
         },
         {
-          "title": "JPA|জেপিএ",
+          "title": "Advanced Java Concepts|উন্নত জাভা ধারণা",
           "items": [
-            "Entities|এনটিটি",
-            "Repositories|রিপোজিটরি",
-            "Relationships|রিলেশনশিপ"
+            "Multithreading|মাল্টিথ্রেডিং",
+            "Generics|জেনেরিক্স",
+            "Lambda Expressions|ল্যাম্বডা এক্সপ্রেশন",
+            "Streams API|স্ট্রিম এপিআই",
+            "Reflection|রিফ্লেকশন"
+          ]
+        },
+        {
+          "title": "Core Backend Technologies|মূল ব্যাকএন্ড প্রযুক্তি",
+          "items": [
+            "Servlets|সার্ভলেট",
+            "JSP|জেএসপি",
+            "JDBC|জেডিবিসি",
+            "JPA|জেপিএ"
+          ]
+        },
+        {
+          "title": "Spring Framework|স্প্রিং ফ্রেমওয়ার্ক",
+          "items": [
+            "Spring Core|স্প্রিং কোর",
+            "Spring Boot|স্প্রিং বুট",
+            "Spring MVC|স্প্রিং এমভিসি",
+            "Spring Security|স্প্রিং সিকিউরিটি",
+            "Spring Data|স্প্রিং ডেটা"
+          ]
+        },
+        {
+          "title": "ORM and Data Access|ওআরএম এবং ডেটা অ্যাক্সেস",
+          "items": [
+            "Hibernate|হাইবারনেট",
+            "JPA Annotations|জেপিএ অ্যানোটেশন",
+            "Entity Relationships|এনটিটি রিলেশনশিপ",
+            "Query Methods|কোয়েরি মেথড"
+          ]
+        },
+        {
+          "title": "Caching|ক্যাশিং",
+          "items": [
+            "Redis|রেডিস",
+            "In-Memory Caching|ইন-মেমোরি ক্যাশিং",
+            "Cache Strategies|ক্যাশ কৌশল"
+          ]
+        },
+        {
+          "title": "Microservices|মাইক্রোসার্ভিস",
+          "items": [
+            "Service Architecture|সার্ভিস আর্কিটেকচার",
+            "API Gateway|এপিআই গেটওয়ে",
+            "Service Discovery|সার্ভিস ডিসকভারি",
+            "Circuit Breaker|সার্কিট ব্রেকার"
+          ]
+        },
+        {
+          "title": "Build Tools|বিল্ড টুলস",
+          "items": [
+            "Maven|ম্যাভেন",
+            "Gradle|গ্র্যাডেল",
+            "Dependency Management|ডিপেন্ডেন্সি ম্যানেজমেন্ট"
+          ]
+        },
+        {
+          "title": "Web Services and APIs|ওয়েব সার্ভিস এবং এপিআই",
+          "items": [
+            "REST APIs|রেস্ট এপিআই",
+            "SOAP|সোপ",
+            "GraphQL|গ্রাফকিউএল",
+            "API Versioning|এপিআই ভার্সনিং"
+          ]
+        },
+        {
+          "title": "Postman, Swagger|পোস্টম্যান, সোয়াগার",
+          "items": [
+            "API Testing|এপিআই টেস্টিং",
+            "API Documentation|এপিআই ডকুমেন্টেশন",
+            "Mock Services|মক সার্ভিস"
+          ]
+        },
+        {
+          "title": "Debugging|ডিবাগিং",
+          "items": [
+            "IDE Debugging|আইডিই ডিবাগিং",
+            "Remote Debugging|রিমোট ডিবাগিং",
+            "Profiling|প্রোফাইলিং"
+          ]
+        },
+        {
+          "title": "Logging|লগিং",
+          "items": [
+            "SLF4J|এসএলএফফোরজে",
+            "Logback|লগব্যাক",
+            "Log4j|লগফোরজে",
+            "Log Levels|লগ লেভেল"
           ]
         },
         {
           "title": "Testing|টেস্টিং",
           "items": [
-            "Unit Tests|ইউনিট টেস্ট",
-            "Integration Tests|ইন্টিগ্রেশন টেস্ট",
-            "MockMvc|মক এমভিসি"
+            "Unit Testing|ইউনিট টেস্টিং",
+            "Integration Testing|ইন্টিগ্রেশন টেস্টিং",
+            "JUnit|জেইউনিট",
+            "Mockito|মকিতো",
+            "Test-Driven Development|টেস্ট-ড্রিভেন ডেভেলপমেন্ট"
+          ]
+        },
+        {
+          "title": "Environment|এনভায়রনমেন্ট",
+          "items": [
+            "Configuration Management|কনফিগারেশন ম্যানেজমেন্ট",
+            "Environment Variables|এনভায়রনমেন্ট ভেরিয়েবল",
+            "Profiles|প্রোফাইল"
           ]
         }
       ]
     },
     {
-      "title": "React JS|রিয়্যাক্ট জেএস",
-      "description": "Components, Hooks, State Management, Routing|কম্পোনেন্ট, হুক, স্টেট ম্যানেজমেন্ট, রাউটিং",
+      "title": "Frontend|ফ্রন্টএন্ড",
+      "description": "Client-side development and user interfaces|ক্লায়েন্ট-সাইড ডেভেলপমেন্ট এবং ইউজার ইন্টারফেস",
       "subtopics": [
         {
-          "title": "Components|কম্পোনেন্ট",
+          "title": "Web Fundamentals|ওয়েব মৌলিক বিষয়",
           "items": [
-            "Functional Components|ফাংশনাল কম্পোনেন্ট",
-            "Class Components|ক্লাস কম্পোনেন্ট",
-            "Props|প্রপস"
+            "HTML5 Semantics|এইচটিএমএল৫ সিমান্টিক্স",
+            "CSS3 Features|সিএসএস৩ ফিচার",
+            "Responsive Design|রেসপনসিভ ডিজাইন",
+            "Flexbox & Grid|ফ্লেক্সবক্স এবং গ্রিড",
+            "CSS Preprocessors|সিএসএস প্রিপ্রসেসর"
           ]
         },
         {
-          "title": "Hooks|হুক",
+          "title": "JavaScript|জাভাস্ক্রিপ্ট",
           "items": [
-            "useState|ইউজস্টেট",
-            "useEffect|ইউজইফেক্ট",
-            "useContext|ইউজকনটেক্সট",
-            "Custom Hooks|কাস্টম হুক"
-          ]
-        },
-        {
-          "title": "State Management|স্টেট ম্যানেজমেন্ট",
-          "items": [
-            "Local State|লোকাল স্টেট",
-            "Context API|কনটেক্সট এপিআই",
-            "Redux|রিডাক্স"
-          ]
-        },
-        {
-          "title": "Routing|রাউটিং",
-          "items": [
-            "React Router|রিয়্যাক্ট রাউটার",
-            "Navigation|নেভিগেশন",
-            "Route Parameters|রাউট প্যারামিটার"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "HTML & CSS|এইচটিএমএল এবং সিএসএস",
-      "description": "Modern layouts, Flexbox, Grid, Responsive Design|আধুনিক লেআউট, ফ্লেক্সবক্স, গ্রিড, রেসপনসিভ ডিজাইন",
-      "subtopics": [
-        {
-          "title": "Modern Layouts|আধুনিক লেআউট",
-          "items": [
-            "Semantic HTML|সিমান্টিক এইচটিএমএল",
-            "CSS Grid|সিএসএস গ্রিড",
-            "Flexbox|ফ্লেক্সবক্স"
-          ]
-        },
-        {
-          "title": "Responsive Design|রেসপনসিভ ডিজাইন",
-          "items": [
-            "Media Queries|মিডিয়া কোয়েরি",
-            "Mobile First|মোবাইল ফার্স্ট",
-            "Breakpoints|ব্রেকপয়েন্ট"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "JavaScript|জাভাস্ক্রিপ্ট",
-      "description": "ES6+, Async, DOM, Fetch/AJAX|ইএস৬+, অ্যাসিঙ্ক, ডোম, ফেচ/এজাক্স",
-      "subtopics": [
-        {
-          "title": "ES6+ Features|ইএস৬+ ফিচার",
-          "items": [
-            "Arrow Functions|অ্যারো ফাংশন",
-            "Destructuring|ডিস্ট্রাকচারিং",
-            "Template Literals|টেমপ্লেট লিটারেল"
-          ]
-        },
-        {
-          "title": "Async Programming|অ্যাসিঙ্ক প্রোগ্রামিং",
-          "items": [
-            "Promises|প্রমিস",
-            "Async/Await|অ্যাসিঙ্ক/অ্যাওয়েট",
-            "Callbacks|কলব্যাক"
-          ]
-        },
-        {
-          "title": "DOM Manipulation|ডোম ম্যানিপুলেশন",
-          "items": [
-            "Element Selection|এলিমেন্ট সিলেকশন",
+            "ES6+ Features|ইএস৬+ ফিচার",
+            "DOM Manipulation|ডোম ম্যানিপুলেশন",
             "Event Handling|ইভেন্ট হ্যান্ডলিং",
-            "Dynamic Content|ডায়নামিক কনটেন্ট"
+            "Async Programming|অ্যাসিঙ্ক প্রোগ্রামিং",
+            "Promises & Async/Await|প্রমিস এবং অ্যাসিঙ্ক/অ্যাওয়েট",
+            "Modules|মডিউল"
+          ]
+        },
+        {
+          "title": "ReactJS|রিয়্যাক্ট জেএস",
+          "items": [
+            "Components|কম্পোনেন্ট",
+            "Props & State|প্রপস এবং স্টেট",
+            "Hooks|হুক",
+            "Context API|কনটেক্সট এপিআই",
+            "React Router|রিয়্যাক্ট রাউটার",
+            "Lifecycle Methods|লাইফসাইকেল মেথড"
+          ]
+        },
+        {
+          "title": "TypeScript|টাইপস্ক্রিপ্ট",
+          "items": [
+            "Type Annotations|টাইপ অ্যানোটেশন",
+            "Interfaces|ইন্টারফেস",
+            "Generics|জেনেরিক্স",
+            "Decorators|ডেকোরেটর"
+          ]
+        },
+        {
+          "title": "Redux|রিডাক্স",
+          "items": [
+            "Actions & Reducers|অ্যাকশন এবং রিডিউসার",
+            "Store Management|স্টোর ম্যানেজমেন্ট",
+            "Middleware|মিডলওয়্যার",
+            "Redux Toolkit|রিডাক্স টুলকিট"
+          ]
+        },
+        {
+          "title": "Caching|ক্যাশিং",
+          "items": [
+            "Browser Caching|ব্রাউজার ক্যাশিং",
+            "Service Workers|সার্ভিস ওয়ার্কার",
+            "Local Storage|লোকাল স্টোরেজ"
+          ]
+        },
+        {
+          "title": "Build Tools|বিল্ড টুলস",
+          "items": [
+            "Webpack|ওয়েবপ্যাক",
+            "Vite|ভাইট",
+            "Babel|ব্যাবেল",
+            "NPM/Yarn|এনপিএম/ইয়ার্ন"
+          ]
+        },
+        {
+          "title": "Logging|লগিং",
+          "items": [
+            "Console Logging|কনসোল লগিং",
+            "Error Tracking|এরর ট্র্যাকিং",
+            "Analytics|অ্যানালিটিক্স"
+          ]
+        },
+        {
+          "title": "Debugging|ডিবাগিং",
+          "items": [
+            "Browser DevTools|ব্রাউজার ডেভটুলস",
+            "React DevTools|রিয়্যাক্ট ডেভটুলস",
+            "Performance Profiling|পারফরমেন্স প্রোফাইলিং"
+          ]
+        },
+        {
+          "title": "Environment|এনভায়রনমেন্ট",
+          "items": [
+            "Environment Variables|এনভায়রনমেন্ট ভেরিয়েবল",
+            "Build Configurations|বিল্ড কনফিগারেশন",
+            "Development vs Production|ডেভেলপমেন্ট বনাম প্রোডাকশন"
           ]
         }
       ]
     },
     {
-      "title": "SQL|এসকিউএল",
-      "description": "Joins, Aggregations, Indexing, Transactions|জয়েন, এগ্রিগেশন, ইনডেক্সিং, ট্রানজেকশন",
+      "title": "VCS and Repository|ভিসিএস এবং রিপোজিটরি",
+      "description": "Version control and code repository management|ভার্সন কন্ট্রোল এবং কোড রিপোজিটরি ব্যবস্থাপনা",
       "subtopics": [
         {
-          "title": "Joins|জয়েন",
+          "title": "Git|গিট",
           "items": [
-            "Inner Join|ইনার জয়েন",
-            "Left Join|লেফট জয়েন",
-            "Right Join|রাইট জয়েন",
-            "Full Join|ফুল জয়েন"
+            "Git Basics|গিট বেসিক",
+            "Branching & Merging|ব্রাঞ্চিং এবং মার্জিং",
+            "Commit Management|কমিট ম্যানেজমেন্ট",
+            "Conflict Resolution|কনফ্লিক্ট সমাধান",
+            "Git Flow|গিট ফ্লো"
           ]
         },
         {
-          "title": "Aggregations|এগ্রিগেশন",
+          "title": "GitHub|গিটহাব",
           "items": [
-            "GROUP BY|গ্রুপ বাই",
-            "HAVING|হ্যাভিং",
-            "COUNT|কাউন্ট",
-            "SUM|সাম",
-            "AVG|এভিজি"
-          ]
-        },
-        {
-          "title": "Advanced Topics|অ্যাডভান্সড টপিক",
-          "items": [
-            "Indexing|ইনডেক্সিং",
-            "Transactions|ট্রানজেকশন",
-            "Stored Procedures|স্টোরড প্রসিডিউর"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Git|গিট",
-      "description": "Branching, Merging, Collaboration|ব্রাঞ্চিং, মার্জিং, কোলাবরেশন",
-      "subtopics": [
-        {
-          "title": "Branching|ব্রাঞ্চিং",
-          "items": [
-            "Create Branch|ব্রাঞ্চ তৈরি",
-            "Switch Branch|ব্রাঞ্চ পরিবর্তন",
-            "Merge Branch|ব্রাঞ্চ মার্জ"
-          ]
-        },
-        {
-          "title": "Collaboration|কোলাবরেশন",
-          "items": [
+            "Repository Management|রিপোজিটরি ম্যানেজমেন্ট",
             "Pull Requests|পুল রিকোয়েস্ট",
-            "Code Review|কোড রিভিউ",
-            "Conflict Resolution|কনফ্লিক্ট সমাধান"
+            "Issues & Projects|ইস্যু এবং প্রজেক্ট",
+            "GitHub Actions|গিটহাব অ্যাকশন",
+            "Collaboration|কোলাবরেশন"
           ]
         }
       ]
     },
     {
-      "title": "AWS|এডাব্লিউএস",
-      "description": "EC2, S3, RDS, Deployment basics|ইসি২, এস৩, আরডিএস, ডিপ্লয়মেন্ট বেসিক",
+      "title": "DevOps and Deployment|ডেভঅপস এবং ডিপ্লয়মেন্ট",
+      "description": "Deployment, infrastructure, and operations|ডিপ্লয়মেন্ট, ইনফ্রাস্ট্রাকচার এবং অপারেশন",
       "subtopics": [
         {
-          "title": "Core Services|মূল সেবা",
+          "title": "Containerization|কন্টেইনারাইজেশন",
           "items": [
-            "EC2|ইসি২",
-            "S3|এস৩",
-            "RDS|আরডিএস",
-            "Lambda|ল্যাম্বডা"
+            "Docker Basics|ডকার বেসিক",
+            "Dockerfile|ডকারফাইল",
+            "Docker Compose|ডকার কম্পোজ",
+            "Kubernetes Basics|কুবারনেটিস বেসিক",
+            "Container Orchestration|কন্টেইনার অর্কেস্ট্রেশন"
           ]
         },
         {
-          "title": "Deployment|ডিপ্লয়মেন্ট",
+          "title": "Cloud Platforms|ক্লাউড প্ল্যাটফর্ম",
           "items": [
-            "Elastic Beanstalk|ইলাস্টিক বিনস্টক",
-            "CloudFormation|ক্লাউডফর্মেশন",
-            "CI/CD|সিআই/সিডি"
+            "AWS Services|এডাব্লিউএস সার্ভিস",
+            "EC2 & S3|ইসি২ এবং এস৩",
+            "RDS|আরডিএস",
+            "Lambda|ল্যাম্বডা",
+            "Heroku Deployment|হেরোকু ডিপ্লয়মেন্ট"
+          ]
+        },
+        {
+          "title": "CI/CD|সিআই/সিডি",
+          "items": [
+            "Jenkins Pipeline|জেনকিন্স পাইপলাইন",
+            "GitHub Actions|গিটহাব অ্যাকশন",
+            "Automated Testing|অটোমেটেড টেস্টিং",
+            "Deployment Strategies|ডিপ্লয়মেন্ট কৌশল"
+          ]
+        },
+        {
+          "title": "Linux & Shell Scripting|লিনাক্স এবং শেল স্ক্রিপ্টিং",
+          "items": [
+            "Basic Linux Commands|মৌলিক লিনাক্স কমান্ড",
+            "File System|ফাইল সিস্টেম",
+            "Process Management|প্রসেস ম্যানেজমেন্ট",
+            "Shell Scripting|শেল স্ক্রিপ্টিং",
+            "Environment Variables|এনভায়রনমেন্ট ভেরিয়েবল"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Development Tools and IDEs|ডেভেলপমেন্ট টুলস এবং আইডিই",
+      "description": "Development environment and productivity tools|ডেভেলপমেন্ট এনভায়রনমেন্ট এবং উৎপাদনশীলতার টুলস",
+      "subtopics": [
+        {
+          "title": "IntelliJ IDEA|ইন্টেলিজে আইডিয়া",
+          "items": [
+            "IDE Features|আইডিই ফিচার",
+            "Debugging Tools|ডিবাগিং টুলস",
+            "Code Navigation|কোড নেভিগেশন",
+            "Refactoring|রিফ্যাক্টরিং",
+            "Plugins|প্লাগইন"
+          ]
+        },
+        {
+          "title": "Eclipse|ইক্লিপ্স",
+          "items": [
+            "Workspace Management|ওয়ার্কস্পেস ম্যানেজমেন্ট",
+            "Project Configuration|প্রজেক্ট কনফিগারেশন",
+            "Debugging|ডিবাগিং"
+          ]
+        },
+        {
+          "title": "Visual Studio Code|ভিজুয়াল স্টুডিও কোড",
+          "items": [
+            "Extensions|এক্সটেনশন",
+            "Integrated Terminal|ইন্টিগ্রেটেড টার্মিনাল",
+            "Git Integration|গিট ইন্টিগ্রেশন",
+            "Debugging|ডিবাগিং"
+          ]
+        },
+        {
+          "title": "Postman (API Testing)|পোস্টম্যান (এপিআই টেস্টিং)",
+          "items": [
+            "API Collections|এপিআই কালেকশন",
+            "Environment Variables|এনভায়রনমেন্ট ভেরিয়েবল",
+            "Test Scripts|টেস্ট স্ক্রিপ্ট",
+            "Mock Servers|মক সার্ভার"
+          ]
+        },
+        {
+          "title": "Database Management Tools|ডেটাবেস ম্যানেজমেন্ট টুলস",
+          "items": [
+            "MySQL Workbench|মাইএসকিউএল ওয়ার্কবেঞ্চ",
+            "pgAdmin|পিজিঅ্যাডমিন",
+            "DBeaver|ডিবিভার",
+            "MongoDB Compass|মঙ্গোডিবি কম্পাস",
+            "Execution Plans|এক্সিকিউশন প্ল্যান",
+            "Index Management|ইনডেক্স ম্যানেজমেন্ট",
+            "Performance Tuning|পারফরমেন্স টিউনিং"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Soft Skills and Best Practices|সফট স্কিল এবং সর্বোত্তম অনুশীলন",
+      "description": "Professional skills and development best practices|পেশাদার দক্ষতা এবং ডেভেলপমেন্ট সর্বোত্তম অনুশীলন",
+      "subtopics": [
+        {
+          "title": "Agile / Scrum|অ্যাজাইল / স্ক্রাম",
+          "items": [
+            "Scrum Framework|স্ক্রাম ফ্রেমওয়ার্ক",
+            "Sprint Planning|স্প্রিন্ট পরিকল্পনা",
+            "Daily Standups|দৈনিক স্ট্যান্ডআপ",
+            "Retrospectives|রেট্রোস্পেক্টিভ"
+          ]
+        },
+        {
+          "title": "System Design Fundamentals|সিস্টেম ডিজাইন মৌলিক বিষয়",
+          "items": [
+            "Scalability|স্কেলেবিলিটি",
+            "Load Balancing|লোড ব্যালেন্সিং",
+            "Database Design|ডেটাবেস ডিজাইন",
+            "Caching Strategies|ক্যাশিং কৌশল"
+          ]
+        },
+        {
+          "title": "UML Diagrams|ইউএমএল ডায়াগ্রাম",
+          "items": [
+            "Class Diagrams|ক্লাস ডায়াগ্রাম",
+            "Sequence Diagrams|সিকোয়েন্স ডায়াগ্রাম",
+            "Use Case Diagrams|ইউজ কেস ডায়াগ্রাম"
+          ]
+        },
+        {
+          "title": "SOLID Principles|সলিড নীতি",
+          "items": [
+            "Single Responsibility|একক দায়বদ্ধতা",
+            "Open/Closed Principle|খোলা/বন্ধ নীতি",
+            "Liskov Substitution|লিসকভ সাবস্টিটিউশন",
+            "Interface Segregation|ইন্টারফেস বিভাজন",
+            "Dependency Inversion|ডিপেন্ডেন্সি ইনভার্সন"
+          ]
+        },
+        {
+          "title": "Clean Code Practices|ক্লিন কোড অনুশীলন",
+          "items": [
+            "Code Readability|কোড পঠনযোগ্যতা",
+            "Naming Conventions|নামকরণ কনভেনশন",
+            "Function Design|ফাংশন ডিজাইন",
+            "Comment Guidelines|কমেন্ট গাইডলাইন"
+          ]
+        },
+        {
+          "title": "Refactoring|রিফ্যাক্টরিং",
+          "items": [
+            "Code Smells|কোড স্মেল",
+            "Refactoring Techniques|রিফ্যাক্টরিং কৌশল",
+            "Legacy Code|লিগেসি কোড",
+            "Technical Debt|টেকনিক্যাল ডেট"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Career Development|ক্যারিয়ার ডেভেলপমেন্ট",
+      "description": "Professional career preparation and job readiness|পেশাদার ক্যারিয়ার প্রস্তুতি এবং চাকরির জন্য প্রস্তুতি",
+      "subtopics": [
+        {
+          "title": "CV Writing|সিভি লেখা",
+          "items": [
+            "Professional CV Format|পেশাদার সিভি ফরম্যাট",
+            "Technical Skills Section|টেকনিক্যাল স্কিল বিভাগ",
+            "Project Descriptions|প্রজেক্ট বর্ণনা",
+            "Work Experience|কাজের অভিজ্ঞতা",
+            "Education & Certifications|শিক্ষা এবং সার্টিফিকেশন",
+            "Portfolio Links|পোর্টফোলিও লিংক",
+            "Keywords Optimization|কীওয়ার্ড অপটিমাইজেশন"
+          ]
+        },
+        {
+          "title": "Interview Preparation|ইন্টারভিউ প্রস্তুতি",
+          "items": [
+            "Technical Interview|টেকনিক্যাল ইন্টারভিউ",
+            "Coding Challenges|কোডিং চ্যালেঞ্জ",
+            "System Design Questions|সিস্টেম ডিজাইন প্রশ্ন",
+            "Behavioral Questions|আচরণগত প্রশ্ন",
+            "STAR Method|স্টার পদ্ধতি",
+            "Mock Interviews|মক ইন্টারভিউ",
+            "Salary Negotiation|বেতন আলোচনা",
+            "Company Research|কোম্পানি গবেষণা"
           ]
         }
       ]
