@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "School of Happiness",
+    "title": "School Of Happiness",
     "toggle_en": "EN",
     "toggle_bn": "BN"
   },
@@ -13,8 +13,8 @@
     "calendar": "Date & Time"
   },
   "about": {
-    "title": "About School of Happiness",
-    "description": "Welcome to the School of Happiness! We aim to encourage the students in learning with the actual purpose of Education and keep them believing that Learning boosts Happiness. We are mainly focused on Learn by Doing. We emphasize each topic is to be learned practically if possible."
+    "title": "About School Of Happiness",
+    "description": "Welcome to the School Of Happiness! We aim to encourage the students in learning with the actual purpose of Education and keep them believing that Learning boosts Happiness. We are mainly focused on Learn by Doing. We emphasize each topic is to be learned practically if possible."
   },
   "contact": {
     "title": "Contact Us",
@@ -169,7 +169,7 @@
     "your_turn": "Your Turn"
   },
   "footer": {
-    "school_name": "School of Happiness",
+    "school_name": "School Of Happiness",
     "rights_reserved": "All rights reserved."
   },
   "tooltips": {

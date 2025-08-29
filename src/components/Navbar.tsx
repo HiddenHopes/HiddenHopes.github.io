@@ -26,7 +26,19 @@ const Navbar: React.FC<NavbarProps> = ({ isNight, onAboutClick, onContactClick, 
         transition: 'color 0.3s'
       }}
     >
-      <span style={{ marginRight: '2rem', fontWeight: 700 }}>{t('header.title')}</span>
+      {/* Logo and Title */}
+      <div style={{ display: 'flex', alignItems: 'center', marginRight: '2rem' }}>
+        <img 
+          src="logo.png" 
+          alt="School Of Happiness Logo" 
+          style={{ 
+            height: '32px', 
+            width: 'auto', 
+            marginRight: '10px' 
+          }} 
+        />
+        <span style={{ fontWeight: 700 }}>{t('header.title')}</span>
+      </div>
       <a
         href="/"
         className={`nav-link ${isNight ? 'night' : 'day'}`}
