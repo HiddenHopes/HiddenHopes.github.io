@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => {
     <div>
       &copy; {new Date().getFullYear()} <b>{t('footer.school_name')}</b>. {t('footer.rights_reserved')}
     </div>
-    <div style={{ marginTop: 4 }}>
+    {/* <div style={{ marginTop: 4 }}>
       <a
         href="https://hiddenhopes.github.io/"
         style={{
@@ -61,11 +61,11 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => {
       >
         GitHub
       </a>
-    </div>
+    </div> */}
     <div style={{ marginTop: 4 }}>
       Contact:{' '}
       <a
-        href="mailto:info@schoolofhappiness.com"
+        href="mailto:schoolofhappiness2024@gmail.com"
         style={{
           color: isNight ? '#ffe259' : '#1976d2',
           fontWeight: 600,
@@ -73,7 +73,7 @@ const Footer: React.FC<FooterProps> = ({ isNight }) => {
           transition: 'color 0.3s'
         }}
       >
-        info@schoolofhappiness.com
+        schoolofhappiness2024@gmail.com
       </a>
     </div>
   </footer>
