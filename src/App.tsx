@@ -13,6 +13,7 @@ import CircularHeader from './components/CircularHeader'
 import Spinner from './components/Spinner'
 import AirplaneBanner from './components/AirplaneBanner'
 import StudentRegistrationForm from './components/StudentRegistrationForm';
+import LandingPromo from './components/LandingPromo';
 import StudentListPage from './components/StudentListPage';
 import './i18n';
 import { uiStatusArrayAtom } from './store/uiAtoms';
@@ -25,6 +26,7 @@ function App() {
   const { i18n, t } = useTranslation();
   const [uiStatusArray, setUiStatusArray] = useAtom(uiStatusArrayAtom);
   const [isInitialized, setIsInitialized] = React.useState(false);
+  const [showLandingPromo, setShowLandingPromo] = React.useState(false);
 
   const handleThemeToggle = () => {
     const newArray = [...uiStatusArray];
@@ -93,6 +95,11 @@ function App() {
   React.useEffect(() => {
     // Preload MainBody as soon as possible to avoid spinner blink after first mount
     import('./components/MainBody');
+  }, []);
+
+  React.useEffect(() => {
+    const promoSeen = sessionStorage.getItem('landingPromoSeen');
+    setShowLandingPromo(promoSeen !== '1');
   }, []);
 
   return (
@@ -204,6 +211,51 @@ function App() {
                     newArray[Status.Contact] = false;
                     setUiStatusArray(newArray);
                   }} />
+                )}
+                {showLandingPromo && !uiStatusArray[Status.About] && !uiStatusArray[Status.Contact] && !uiStatusArray[Status.Courses] && !uiStatusArray[Status.RegistrationModal] && (
+                  <LandingPromo
+                    isNight={uiStatusArray[Status.Night]}
+                    onRegisterCourse={() => {
+                      setShowLandingPromo(false);
+                      sessionStorage.setItem('landingPromoSeen', '1');
+                      const newArray = [...uiStatusArray];
+                      newArray[Status.RegistrationModal] = true;
+                      setUiStatusArray(newArray);
+                    }}
+                    onClose={() => {
+                      setShowLandingPromo(false);
+                      sessionStorage.setItem('landingPromoSeen', '1');
+                    }}
+                  />
+                )}
+                {!showLandingPromo && !uiStatusArray[Status.About] && !uiStatusArray[Status.Contact] && !uiStatusArray[Status.Courses] && !uiStatusArray[Status.RegistrationModal] && (
+                  <button
+                    onClick={() => setShowLandingPromo(true)}
+                    style={{
+                      position: 'fixed',
+                      left: '50%',
+                      bottom: 120,
+                      transform: 'translateX(-50%)',
+                      zIndex: 2550,
+                      border: 'none',
+                      borderRadius: 999,
+                      padding: '12px 16px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      color: '#fff',
+                      background: uiStatusArray[Status.Night]
+                        ? 'linear-gradient(90deg, rgba(81,255,139,0.92), rgba(25,118,210,0.92))'
+                        : 'linear-gradient(90deg, rgba(25,118,210,0.95), rgba(81,255,139,0.95))',
+                      boxShadow: '0 12px 30px rgba(0,0,0,0.28)',
+                      backdropFilter: 'blur(8px)',
+                    }}
+                    aria-label="Open course promotion"
+                  >
+                    <span style={{ fontSize: 18, lineHeight: 1 }}>🚀</span>
+                    <span style={{ fontSize: 14, fontWeight: 800, whiteSpace: 'nowrap' }}>Course Offer</span>
+                  </button>
                 )}
                 {uiStatusArray[Status.Courses] && (
                   <CoursesPage isNight={uiStatusArray[Status.Night]} onClose={() => {

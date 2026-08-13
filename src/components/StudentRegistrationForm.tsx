@@ -63,8 +63,8 @@ const StudentRegistrationForm: React.FC<StudentRegistrationFormProps> = ({ onSuc
   const COURSE_OPTIONS = [
     { value: '', label: t('form.select_course'), disabled: false },
     { value: 'fullstack', label: t('courses.fullstack'), disabled: courseConfig && courseConfig.fullstack === false },
-    { value: 'problem-solving', label: t('courses.problem'), disabled: courseConfig && courseConfig.problem === false },
-    { value: '3d-development', label: t('courses.3d'), disabled: courseConfig && courseConfig.web3d === false },
+    // { value: 'problem-solving', label: t('courses.problem'), disabled: courseConfig && courseConfig.problem === false },
+    // { value: '3d-development', label: t('courses.3d'), disabled: courseConfig && courseConfig.web3d === false },
   ];
 
   const UNIVERSITY_OPTIONS = [
