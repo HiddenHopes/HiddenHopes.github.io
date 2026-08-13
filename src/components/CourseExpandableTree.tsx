@@ -5,6 +5,7 @@ import courseDetailsData from '../data/courseDetails.json';
 interface CourseTreeProps {
   courseKey: string;
   isNight: boolean;
+  expandAllByDefault?: boolean;
 }
 
 interface TopicItem {
@@ -18,7 +19,7 @@ interface Topic {
   subtopics: TopicItem[];
 }
 
-const CourseExpandableTree: React.FC<CourseTreeProps> = ({ courseKey, isNight }) => {
+const CourseExpandableTree: React.FC<CourseTreeProps> = ({ courseKey, isNight, expandAllByDefault = false }) => {
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({});
   const { i18n } = useTranslation();
 
@@ -37,7 +38,23 @@ const CourseExpandableTree: React.FC<CourseTreeProps> = ({ courseKey, isNight })
   };
 
   const courseData = courseDetailsData[courseKey as keyof typeof courseDetailsData];
-  
+
+  React.useEffect(() => {
+    if (!expandAllByDefault || !courseData) return;
+
+    const nextExpanded: { [key: string]: boolean } = {};
+
+    courseData.forEach((topic, index) => {
+      const topicKey = `${courseKey}-${index}`;
+      nextExpanded[topicKey] = true;
+      topic.subtopics?.forEach((subtopic, subIndex) => {
+        nextExpanded[`${topicKey}-${subIndex}`] = true;
+      });
+    });
+
+    setExpandedItems(nextExpanded);
+  }, [expandAllByDefault, courseKey, courseData]);
+
   if (!courseData) {
     return null;
   }

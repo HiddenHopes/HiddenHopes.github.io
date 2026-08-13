@@ -3,10 +3,11 @@ import React from 'react';
 interface LandingPromoProps {
   isNight: boolean;
   onRegisterCourse: () => void;
+  onViewCourseOutline: () => void;
   onClose: () => void;
 }
 
-const LandingPromo: React.FC<LandingPromoProps> = ({ isNight, onRegisterCourse, onClose }) => {
+const LandingPromo: React.FC<LandingPromoProps> = ({ isNight, onRegisterCourse, onViewCourseOutline, onClose }) => {
   const [showMore, setShowMore] = React.useState(false);
 
   return (
@@ -203,6 +204,22 @@ const LandingPromo: React.FC<LandingPromoProps> = ({ isNight, onRegisterCourse, 
         </div>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 18 }}>
+          <button
+            onClick={onViewCourseOutline}
+            style={{
+              border: 'none',
+              borderRadius: 999,
+              padding: '13px 20px',
+              cursor: 'pointer',
+              background: isNight ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.62)',
+              color: isNight ? '#fff' : '#232946',
+              fontWeight: 800,
+              fontSize: 15,
+              boxShadow: '0 10px 24px rgba(0,0,0,0.12)',
+            }}
+          >
+            View course outline
+          </button>
           <button
             onClick={onRegisterCourse}
             style={{

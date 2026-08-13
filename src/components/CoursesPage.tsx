@@ -8,9 +8,10 @@ import CourseExpandableTree from './CourseExpandableTree';
 interface CoursesPageProps {
   isNight: boolean;
   onClose: () => void;
+  focusCourseKey?: string | null;
 }
 
-const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
+const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose, focusCourseKey }) => {
   const [showStudentList, setShowStudentList] = useState(false);
   const [showRegistration, setShowRegistration] = useState<string | null>(null);
   const { t } = useTranslation();
@@ -131,7 +132,11 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             {t('form.register_now', { course: t('courses.fullstack') })}
           </button>
           <div style={{ fontSize: 16, marginLeft: 8 }}>
-            <CourseExpandableTree courseKey="fullstack" isNight={isNight} />
+            <CourseExpandableTree
+              courseKey="fullstack"
+              isNight={isNight}
+              expandAllByDefault={focusCourseKey === 'fullstack'}
+            />
           </div>
         </div>
   {/* 3D Web Development Course */}
@@ -170,7 +175,11 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             {t('form.register_now', { course: t('courses.3d') })}
           </button>
           <div style={{ fontSize: 16, marginLeft: 8 }}>
-            <CourseExpandableTree courseKey="web3d" isNight={isNight} />
+            <CourseExpandableTree
+              courseKey="web3d"
+              isNight={isNight}
+              expandAllByDefault={focusCourseKey === 'web3d'}
+            />
           </div>
         </div>
   {/* Problem Solving & Contest Programming */}
@@ -209,7 +218,11 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ isNight, onClose }) => {
             {t('form.register_now', { course: t('courses.problem') })}
           </button>
           <div style={{ fontSize: 16, marginLeft: 8 }}>
-            <CourseExpandableTree courseKey="problem" isNight={isNight} />
+            <CourseExpandableTree
+              courseKey="problem"
+              isNight={isNight}
+              expandAllByDefault={focusCourseKey === 'problem'}
+            />
           </div>
         </div>
       </div>

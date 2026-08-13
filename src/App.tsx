@@ -27,6 +27,7 @@ function App() {
   const [uiStatusArray, setUiStatusArray] = useAtom(uiStatusArrayAtom);
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [showLandingPromo, setShowLandingPromo] = React.useState(false);
+  const [focusCourseKey, setFocusCourseKey] = React.useState<string | null>(null);
 
   const handleThemeToggle = () => {
     const newArray = [...uiStatusArray];
@@ -222,6 +223,16 @@ function App() {
                       newArray[Status.RegistrationModal] = true;
                       setUiStatusArray(newArray);
                     }}
+                    onViewCourseOutline={() => {
+                      setShowLandingPromo(false);
+                      sessionStorage.setItem('landingPromoSeen', '1');
+                      setFocusCourseKey('fullstack');
+                      const newArray = [...uiStatusArray];
+                      newArray[Status.Courses] = true;
+                      newArray[Status.About] = false;
+                      newArray[Status.Contact] = false;
+                      setUiStatusArray(newArray);
+                    }}
                     onClose={() => {
                       setShowLandingPromo(false);
                       sessionStorage.setItem('landingPromoSeen', '1');
@@ -258,7 +269,8 @@ function App() {
                   </button>
                 )}
                 {uiStatusArray[Status.Courses] && (
-                  <CoursesPage isNight={uiStatusArray[Status.Night]} onClose={() => {
+                  <CoursesPage isNight={uiStatusArray[Status.Night]} focusCourseKey={focusCourseKey} onClose={() => {
+                    setFocusCourseKey(null);
                     const newArray = [...uiStatusArray];
                     newArray[Status.Courses] = false;
                     setUiStatusArray(newArray);
