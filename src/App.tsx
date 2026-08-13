@@ -15,6 +15,7 @@ import AirplaneBanner from './components/AirplaneBanner'
 import StudentRegistrationForm from './components/StudentRegistrationForm';
 import LandingPromo from './components/LandingPromo';
 import StudentListPage from './components/StudentListPage';
+import NoticeOverlay from './components/NoticeOverlay';
 import './i18n';
 import { uiStatusArrayAtom } from './store/uiAtoms';
 import { saveUiStatusArrayToLocalStorage } from './store/utils';
@@ -183,6 +184,7 @@ function App() {
             : 'linear-gradient(to bottom, #e3f6ff 0%, #b3e0ff 100%)'
         }}
       >
+        <NoticeOverlay isNight={uiStatusArray[Status.Night]} />
         {!(uiStatusArray[Status.Contact] || uiStatusArray[Status.Courses] || uiStatusArray[Status.RegistrationModal] || uiStatusArray[Status.NavExpanded]) && <AirplaneBanner href="#" onClick={() => {
           const newArray = [...uiStatusArray];
           newArray[Status.RegistrationModal] = true;

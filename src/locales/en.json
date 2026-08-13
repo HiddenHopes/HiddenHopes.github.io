@@ -114,6 +114,14 @@
   "common": {
     "close": "Close"
   },
+  "notice": {
+    "badge": "Message from Instructor",
+    "title": "Instructor Message",
+    "subtitle": "😊 Requesting you to read this",
+    "guidanceTitle": "After reading",
+    "guidance": "Use the cross button on the top-right to close this message when you are done.",
+    "close": "Close message"
+  },
   "game": {
     "penalty_shootout": "Penalty Shootout",
     "left": "Left",
