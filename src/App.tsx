@@ -28,6 +28,7 @@ function App() {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [showLandingPromo, setShowLandingPromo] = React.useState(false);
   const [focusCourseKey, setFocusCourseKey] = React.useState<string | null>(null);
+  const [returnToLandingPromoOnCourseClose, setReturnToLandingPromoOnCourseClose] = React.useState(false);
 
   const handleThemeToggle = () => {
     const newArray = [...uiStatusArray];
@@ -54,6 +55,7 @@ function App() {
     setUiStatusArray(newArray);
   }
   const handleShowCourses = () => {
+    setReturnToLandingPromoOnCourseClose(false);
     const newArray = [...uiStatusArray];
     newArray[Status.Courses] = true;
     newArray[Status.About] = false;
@@ -226,6 +228,7 @@ function App() {
                     onViewCourseOutline={() => {
                       setShowLandingPromo(false);
                       sessionStorage.setItem('landingPromoSeen', '1');
+                      setReturnToLandingPromoOnCourseClose(true);
                       setFocusCourseKey('fullstack');
                       const newArray = [...uiStatusArray];
                       newArray[Status.Courses] = true;
@@ -271,6 +274,10 @@ function App() {
                 {uiStatusArray[Status.Courses] && (
                   <CoursesPage isNight={uiStatusArray[Status.Night]} focusCourseKey={focusCourseKey} onClose={() => {
                     setFocusCourseKey(null);
+                    if (returnToLandingPromoOnCourseClose) {
+                      setReturnToLandingPromoOnCourseClose(false);
+                      setShowLandingPromo(true);
+                    }
                     const newArray = [...uiStatusArray];
                     newArray[Status.Courses] = false;
                     setUiStatusArray(newArray);
